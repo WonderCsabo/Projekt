@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tank", "Tank\Tank.vcxproj", "{12C46195-4524-4583-B4EF-0BA028D98824}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12C46195-4524-4583-B4EF-0BA028D98824}.Debug|Win32.ActiveCfg = Debug|Win32
+		{12C46195-4524-4583-B4EF-0BA028D98824}.Debug|Win32.Build.0 = Debug|Win32
+		{12C46195-4524-4583-B4EF-0BA028D98824}.Release|Win32.ActiveCfg = Release|Win32
+		{12C46195-4524-4583-B4EF-0BA028D98824}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
