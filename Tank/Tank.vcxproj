@@ -82,28 +82,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AbstractView.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Client.cpp" />
-    <ClCompile Include="DebugWindow.cpp" />
-    <ClCompile Include="EditBox.cpp" />
-    <ClCompile Include="guielement.cpp" />
-    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="Graphics\AbstractView.cpp" />
+    <ClCompile Include="Graphics\View.cpp" />
+    <ClCompile Include="GUI\Button.cpp" />
+    <ClCompile Include="GUI\EditBox.cpp" />
+    <ClCompile Include="GUI\guielement.cpp" />
+    <ClCompile Include="GUI\Label.cpp" />
+    <ClCompile Include="Logic\AbstractEntity.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="View.cpp" />
+    <ClCompile Include="Net\Client.cpp" />
+    <ClCompile Include="Net\ClientManager.cpp" />
+    <ClCompile Include="Net\Server.cpp" />
+    <ClCompile Include="Util\DebugWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractView.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Client.h" />
-    <ClInclude Include="DebugWindow.h" />
-    <ClInclude Include="EditBox.h" />
-    <ClInclude Include="GuiContainer.hpp" />
-    <ClInclude Include="guielement.h" />
-    <ClInclude Include="Label.h" />
-    <ClInclude Include="MessageObject.hpp" />
-    <ClInclude Include="StartGui.hpp" />
-    <ClInclude Include="View.h" />
+    <ClInclude Include="Graphics\AbstractView.h" />
+    <ClInclude Include="Graphics\View.h" />
+    <ClInclude Include="GUI\Button.h" />
+    <ClInclude Include="GUI\coord.hpp" />
+    <ClInclude Include="GUI\EditBox.h" />
+    <ClInclude Include="GUI\GuiContainer.hpp" />
+    <ClInclude Include="GUI\guielement.h" />
+    <ClInclude Include="GUI\Label.h" />
+    <ClInclude Include="GUI\StartGui.hpp" />
+    <ClInclude Include="Logic\AbstractEntity.h" />
+    <ClInclude Include="Net\Client.h" />
+    <ClInclude Include="Net\ClientManager.h" />
+    <ClInclude Include="Net\MessageObject.hpp" />
+    <ClInclude Include="Net\Server.h" />
+    <ClInclude Include="Util\DebugWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
