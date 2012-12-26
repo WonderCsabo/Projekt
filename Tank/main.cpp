@@ -116,6 +116,7 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 				if (event.type == sf::Event::Closed)
 				{
 					run = false;
+					thread.terminate();
 					client->shutDown();
 					window->close();
 				}
