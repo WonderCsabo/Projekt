@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include <exception>
 #include <functional>
-#include <Windows.h>
 #include <vector>
 #include <cstdlib>
 #include <ctime>
@@ -12,6 +11,7 @@
 #include "GUI/StartGui.hpp"
 #include "Util/DebugWindow.h"
 #include "Util/GetInput.hpp"
+#include "Util/Os.h"
 
 Client* startgui()
 {
@@ -27,7 +27,11 @@ void addRandomBarrels(AbstractView* v)
 	}
 }
 
+#if defined WINDOWS
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine, int iCmdShow)
+#else
+int main()
+#endif
 {
 	Client* client = startgui();
 	if (client==NULL)

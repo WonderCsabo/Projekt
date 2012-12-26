@@ -114,6 +114,7 @@
     <ClInclude Include="Net\Server.h" />
     <ClInclude Include="Util\DebugWindow.h" />
     <ClInclude Include="Util\GetInput.hpp" />
+    <ClInclude Include="Util\Os.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
