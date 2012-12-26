@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <exception>
 #include <functional>
-#include <vector>
+#include <Windows.h>
 #include "Graphics/View.h"
 #include "Net/Client.h"
 #include "GUI/StartGui.hpp"
@@ -30,7 +30,6 @@ void recieveFromClient(AbstractView* view, Client* client, bool& run)
 
 void recieveFromClient(AbstractView* view, Client* client, bool& run)
 {
-
 	while (run) {
 		MessageObject m = client->recieve();
 		if (m.type == MessageObject::CMD && m.message == "shut"){
@@ -102,11 +101,12 @@ Client* startgui()
 	return gui->getClient();
 }
 
-void __stdcall WinMain(int a, short d, char * c, char* b)
+//void __stdcall WinMain(int a, short d, char * c, char* b)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine, int iCmdShow)
 {
 	Client* client = startgui();
 	if (client==NULL)
-		return;
+		return 0;
 	//Client* client = new Client(54322, "192.168.1.67", "client0");
 
 	sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(700,700), "Tank Battle!", sf::Style::Close);
@@ -132,8 +132,6 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 			sf::Event event;
 			while (window->pollEvent(event))
 			{
-				sf::sleep(sf::milliseconds(10));
-
 				if (event.type == sf::Event::Closed)
 				{
 					run = false;
@@ -146,8 +144,6 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 				wrt(client, window, consoleText, console, event, writeToConsole);
 				
 			}
-			//view->addDebugInfo("Debug info1");
-			//view->addDebugInfo("Debug info2");
 			view->drawEverything();
 			window->draw(consoleText);
 			window->display();
@@ -164,5 +160,5 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 		delete client;
 	}
 
-    return ;
+    return 0;
 }

@@ -67,6 +67,8 @@ private:
 				{
 					if (clicked->id=="start") {
 						client = new Client(strtoint(ePort->getText()), eIPAddress->getText(), eNickname->getText());
+						if (!client->isConnected())
+							client = NULL;
 						isOK = true;
 					}
 					/*else if (clicked->id == "send")

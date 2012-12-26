@@ -10,11 +10,22 @@
 Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : port(port_), address(addr_),
 	isRunning(true), canRemove(false)/*, input(&Client::getInput, this)*/
 {
-	server.connect(address, port);
+	status = server.connect(address, port);
+	if (status == sf::Socket::Done) {
+		//std::cout << "Connection established\n";
+		MessageObject hi(MessageObject::MESSAGES::CONN, nickname);
+		send(hi);
+		sf::Thread manager(&Client::manageClient, this);
+		manager.launch();
+		//input.launch();
+	}
+	//else
+		//std::cout << "Connection not established\n";
+	/*server.connect(address, port);
 	MessageObject hi(MessageObject::MESSAGES::CONN, nickname);
 	send(hi);
 	//input.launch();
-	//launch();
+	//launch();*/
 }
 
 /*void Client::launch()
@@ -68,6 +79,14 @@ void Client::getInput()
 			send(m);
 		}
 	}
+}
+
+bool Client::isConnected()
+{
+	if (status==sf::Socket::Done)
+		return true;
+	else
+		return false;
 }
 
 sf::TcpSocket* Client::getSocket()
