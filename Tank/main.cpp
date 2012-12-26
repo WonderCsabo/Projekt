@@ -113,9 +113,14 @@ void addRandomBarrels(AbstractView* v)
 }
 void __stdcall WinMain(int a, short d, char * c, char* b)
 {
-	/*Client* client = startgui();
+	Client* client = startgui();
 	if (client==NULL)
-		return;*/
+		return;
+	/*
+	csak hogy ne kelljen mindig e-mail nyitni
+	IP: 145.236.181.29
+	port: 54322
+	*/
 	//Client* client = new Client(54322, "192.168.1.67", "client0");
 
 	sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(700,700), "Tank Battle!", sf::Style::Close);
@@ -124,8 +129,8 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 	addRandomBarrels(view);
 	bool run = true;
 
-	//sf::Thread thread(std::bind(&recieveFromClient, view, client, run));
-	//thread.launch();
+	sf::Thread thread(std::bind(&recieveFromClient, view, client, run));
+	thread.launch();
 	
 	std::string console = "";
 	sf::Text consoleText;
@@ -147,17 +152,17 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 				if (event.type == sf::Event::Closed)
 				{
 					run = false;
-					//thread.terminate();
-					//client->shutDown();
+					thread.terminate();
+					client->shutDown();
 					window->close();
 				}
 
-				//client->sendEventMessage(event);
-				//wrt(client, window, consoleText, console, event, writeToConsole);
+				client->sendEventMessage(event);
+				wrt(client, window, consoleText, console, event, writeToConsole);
 				
 			}
-			//view->addDebugInfo("Debug info1");
-			//view->addDebugInfo("Debug info2");
+			view->addDebugInfo("Debug info1");
+			view->addDebugInfo("Debug info2");
 			view->drawEverything();
 			window->draw(consoleText);
 			window->display();
@@ -168,11 +173,11 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 			e.what();
 		}
 	}
-	/*
+	
 	if (client!=NULL) {
 		client->shutDown();
 		delete client;
-	}*/
+	}
 
     return ;
 }
