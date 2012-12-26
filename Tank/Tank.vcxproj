@@ -85,6 +85,7 @@
     <ClCompile Include="AbstractView.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="DebugWindow.cpp" />
     <ClCompile Include="EditBox.cpp" />
     <ClCompile Include="guielement.cpp" />
     <ClCompile Include="Label.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="AbstractView.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="DebugWindow.h" />
     <ClInclude Include="EditBox.h" />
     <ClInclude Include="GuiContainer.hpp" />
     <ClInclude Include="guielement.h" />
