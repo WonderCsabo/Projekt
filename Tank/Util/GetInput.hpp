@@ -42,6 +42,7 @@ char getChar(sf::Event& ev)
 			return '.';
 		else return NULL;
 	}
+	else return NULL;
 }
 
 std::string wrt(Client* client, sf::RenderWindow* window, sf::Text& consoleText, std::string& console, sf::Event& event, bool& writeToConsole)
