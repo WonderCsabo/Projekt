@@ -38,13 +38,10 @@ private:
 	Label* lPort;
 	Label* lIPAddress;
 	Label* lNickname;
-	//Label* lDebug;
 	Button* start;
-	//Button* send;
 	EditBox* ePort;
 	EditBox* eIPAddress;
 	EditBox* eNickname;
-	//EditBox* debug;
 	sf::RenderWindow* window;
 	bool isOK;
 	Client* client;
@@ -56,9 +53,12 @@ private:
 			sf::Event event;
 			while (window->pollEvent(event))
 			{
-				if (event.type == sf::Event::Closed)
+				if (event.type == sf::Event::Closed) {
 					window->close();
-				sf::sleep(sf::milliseconds(100));
+					client = NULL;
+					isOK = true;
+				}
+				sf::sleep(sf::milliseconds(10));
 
 				panel->draw();
 
@@ -88,13 +88,10 @@ private:
 		lPort = new Label("lport", window, new Coord(10,10), "Port:");
 		lIPAddress = new Label("lipaddress", window, new Coord(10,40), "IP:");
 		lNickname = new Label("lnickname", window, new Coord(10,70), "Nickname:");
-		//lDebug = new Label("ldebug", window, new Coord(10, 160), "incoming:");
 		start = new Button("start", window, new Coord(10, 100), "Start client", 100, 25);
 		ePort = new EditBox("eport", window, new Coord(80, 10), "54322", 150, 25);
 		eIPAddress = new EditBox("eipaddress", window, new Coord(80, 40), "192.168.1.67", 150, 25);
 		eNickname = new EditBox("enickname", window, new Coord(80, 70), "client0", 150, 25);
-		//debug = new EditBox("debug", window, new Coord(10, 130), "", 150, 25);
-		//send = new Button("send", window, new Coord(120, 100), "Send message", 100, 25);
 		panel->add(lPort);
 		panel->add(lIPAddress);
 		panel->add(lNickname);
@@ -102,9 +99,6 @@ private:
 		panel->add(ePort);
 		panel->add(eIPAddress);
 		panel->add(eNickname);
-		//panel->add(debug);
-		//panel->add(send);
-		//panel->add(lDebug);
 	}
 
 	int strtoint(std::string s)

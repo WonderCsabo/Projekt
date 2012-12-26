@@ -105,6 +105,8 @@ Client* startgui()
 void __stdcall WinMain(int a, short d, char * c, char* b)
 {
 	Client* client = startgui();
+	if (client==NULL)
+		return;
 	//Client* client = new Client(54322, "192.168.1.67", "client0");
 
 	sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(700,700), "Tank Battle!", sf::Style::Close);
@@ -157,8 +159,10 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 		}
 	}
 	
-	client->shutDown();
-	delete client;
+	if (client!=NULL) {
+		client->shutDown();
+		delete client;
+	}
 
     return ;
 }
