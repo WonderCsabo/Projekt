@@ -83,11 +83,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AbstractView.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="EditBox.cpp" />
+    <ClCompile Include="guielement.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractView.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="EditBox.h" />
+    <ClInclude Include="GuiContainer.hpp" />
+    <ClInclude Include="guielement.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="MessageObject.hpp" />
+    <ClInclude Include="StartGui.hpp" />
     <ClInclude Include="View.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

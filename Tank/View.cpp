@@ -45,7 +45,7 @@ void View::drawEverything()
 	window->clear();
 	drawBackground();
 	drawDebug();
-	window->display();
+	//window->display();
 }
 View::~View(void)
 {
