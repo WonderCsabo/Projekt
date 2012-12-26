@@ -28,7 +28,6 @@ private:
 	unsigned short port;
 	bool isRunning;
 	sf::Socket::Status status;
-	//sf::Thread input;
 
 	void send(MessageObject);
 	void send(unsigned short, std::string);

@@ -71,10 +71,6 @@ private:
 							client = NULL;
 						isOK = true;
 					}
-					/*else if (clicked->id == "send")
-					{
-						debug->setText("");
-					}*/
 				}
 				panel->type(event);
 			}
