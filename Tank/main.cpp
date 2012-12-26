@@ -9,6 +9,25 @@
 #include "GUI/StartGui.hpp"
 #include "Util/DebugWindow.h"
 
+/*
+void recieveFromClient(AbstractView* view, Client* client, bool& run)
+{
+ DebugWindow w;
+
+ while (run) {
+  MessageObject m = client->recieve();
+  if (m.type == MessageObject::CMD && m.message == "shut"){
+   client->shutDown();
+   run = false;
+  }
+  else
+   view -> addDebugInfo(m.toString());
+
+  std::cout << "loop" << std::endl;
+ }
+}
+*/
+
 void recieveFromClient(AbstractView* view, Client* client, bool& run)
 {
 
@@ -125,11 +144,12 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 				wrt(client, window, consoleText, console, event, writeToConsole);
 				
 			}
-			view->addDebugInfo("Debug info1");
-			view->addDebugInfo("Debug info2");
+			//view->addDebugInfo("Debug info1");
+			//view->addDebugInfo("Debug info2");
 			view->drawEverything();
 			window->draw(consoleText);
 			window->display();
+			sf::sleep(sf::milliseconds(10));
 		}
 		catch(std::exception e)
 		{

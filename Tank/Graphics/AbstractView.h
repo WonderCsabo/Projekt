@@ -1,5 +1,6 @@
-#include <SFML/Graphics.hpp>
 #pragma once
+#include <SFML/Graphics.hpp>
+#include <list>
 class AbstractView
 {
 public:
@@ -11,7 +12,7 @@ public:
 	virtual void drawEverything() = 0;
 	void addDebugInfo(std::string);
 protected:
-	std::vector<std::string> debugMessages;
+	std::list<std::string> debugMessages;
 	sf::RenderWindow *window;
 	bool debugMode;
 

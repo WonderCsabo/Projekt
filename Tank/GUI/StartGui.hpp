@@ -77,6 +77,7 @@ private:
 				panel->type(event);
 			}
 			if (isOK) break;
+			sf::sleep(sf::milliseconds(10));
 		}
 	}
 

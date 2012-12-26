@@ -26,9 +26,10 @@ void View::drawDebug()
 	box.setPosition(500,0);
 	box.setFillColor(sf::Color(0,0,0,128));
 	std::string message;
-	for(int i = 0; i < debugMessages.size(); i++) {
-		message += debugMessages[i] + "\n";
-	}
+	if (debugMessages.size()>24)
+		debugMessages.pop_front();
+	for (std::list<std::string>::iterator it = debugMessages.begin(); it!=debugMessages.end(); it++)
+		message+=(*it)+"\n";
 	sf::Text debug(message);
 	debug.setPosition(510,8);
 	debug.setCharacterSize(10);
