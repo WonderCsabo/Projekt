@@ -131,6 +131,9 @@
     <ClInclude Include="Util\DebugWindow.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
+    <ClInclude Include="Util\GetInput.hpp">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
     <ClInclude Include="Graphics\TextureHolder.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>

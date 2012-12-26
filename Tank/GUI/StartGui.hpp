@@ -67,12 +67,12 @@ private:
 				{
 					if (clicked->id=="start") {
 						client = new Client(strtoint(ePort->getText()), eIPAddress->getText(), eNickname->getText());
+						if (!client->isConnected()) {
+							delete client;
+							client = NULL;
+						}
 						isOK = true;
 					}
-					/*else if (clicked->id == "send")
-					{
-						debug->setText("");
-					}*/
 				}
 				panel->type(event);
 			}
@@ -90,7 +90,7 @@ private:
 		lNickname = new Label("lnickname", window, new Coord(10,70), "Nickname:");
 		start = new Button("start", window, new Coord(10, 100), "Start client", 100, 25);
 		ePort = new EditBox("eport", window, new Coord(80, 10), "54322", 150, 25);
-		eIPAddress = new EditBox("eipaddress", window, new Coord(80, 40), "192.168.1.67", 150, 25);
+		eIPAddress = new EditBox("eipaddress", window, new Coord(80, 40), "145.236.181.29", 150, 25);
 		eNickname = new EditBox("enickname", window, new Coord(80, 70), "client0", 150, 25);
 		panel->add(lPort);
 		panel->add(lIPAddress);
