@@ -4,12 +4,14 @@
 #include <exception>
 #include <functional>
 #include <vector>
-#include "View.h"
-#include "Client.h"
-#include "StartGui.hpp"
+#include "Graphics/View.h"
+#include "Net/Client.h"
+#include "GUI/StartGui.hpp"
+#include "Util/DebugWindow.h"
 
 void recieveFromClient(AbstractView* view, Client* client, bool& run)
 {
+
 	while (run) {
 		MessageObject m = client->recieve();
 		if (m.type == MessageObject::CMD && m.message == "shut"){
@@ -109,7 +111,7 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 			sf::Event event;
 			while (window->pollEvent(event))
 			{
-				sf::sleep(sf::milliseconds(100));
+				sf::sleep(sf::milliseconds(10));
 
 				if (event.type == sf::Event::Closed)
 				{
@@ -122,8 +124,8 @@ void __stdcall WinMain(int a, short d, char * c, char* b)
 				wrt(client, window, consoleText, console, event, writeToConsole);
 				
 			}
-			//view->addDebugInfo("Debug info1");
-			//view->addDebugInfo("Debug info2");
+			view->addDebugInfo("Debug info1");
+			view->addDebugInfo("Debug info2");
 			view->drawEverything();
 			window->draw(consoleText);
 			window->display();
