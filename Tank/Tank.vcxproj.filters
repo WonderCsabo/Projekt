@@ -81,6 +81,9 @@
     <ClCompile Include="Util\DebugWindow.cpp">
       <Filter>Source Files\Util</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\TextureHolder.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="Util\DebugWindow.h">
       <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\TextureHolder.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

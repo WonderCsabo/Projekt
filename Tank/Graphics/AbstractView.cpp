@@ -9,5 +9,6 @@ AbstractView::~AbstractView(void)
 void AbstractView::addDebugInfo(std::string s)
 {
 	if(debugMode==false) return;
+
 	debugMessages.push_back(s);
 }

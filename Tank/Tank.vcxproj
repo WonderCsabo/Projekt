@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Graphics\AbstractView.cpp" />
+    <ClCompile Include="Graphics\TextureHolder.cpp" />
     <ClCompile Include="Graphics\View.cpp" />
     <ClCompile Include="GUI\Button.cpp" />
     <ClCompile Include="GUI\EditBox.cpp" />
@@ -97,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h" />
+    <ClInclude Include="Graphics\TextureHolder.h" />
     <ClInclude Include="Graphics\View.h" />
     <ClInclude Include="GUI\Button.h" />
     <ClInclude Include="GUI\coord.hpp" />

@@ -11,6 +11,7 @@ public:
 	virtual ~AbstractView(void);
 	virtual void drawEverything() = 0;
 	void addDebugInfo(std::string);
+	virtual void addBarrel(float, float, float, float) = 0;
 protected:
 	std::list<std::string> debugMessages;
 	sf::RenderWindow *window;

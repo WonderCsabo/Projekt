@@ -3,7 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <exception>
 #include <functional>
-#include <Windows.h>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
 #include "Graphics/View.h"
 #include "Net/Client.h"
 #include "GUI/StartGui.hpp"
@@ -30,6 +32,7 @@ void recieveFromClient(AbstractView* view, Client* client, bool& run)
 
 void recieveFromClient(AbstractView* view, Client* client, bool& run)
 {
+
 	while (run) {
 		MessageObject m = client->recieve();
 		if (m.type == MessageObject::CMD && m.message == "shut"){
@@ -100,22 +103,29 @@ Client* startgui()
 	StartGui* gui = new StartGui();
 	return gui->getClient();
 }
-
-//void __stdcall WinMain(int a, short d, char * c, char* b)
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine, int iCmdShow)
+void addRandomBarrels(AbstractView* v)
 {
-	Client* client = startgui();
+	
+	for(int i = 0; i< 50 ;i++)
+	{
+	v->addBarrel(std::rand()%700, std::rand()%700, (std::rand()%20+90)/100, (std::rand()%20+90)/100);
+	}
+}
+void __stdcall WinMain(int a, short d, char * c, char* b)
+{
+	/*Client* client = startgui();
 	if (client==NULL)
-		return 0;
+		return;*/
 	//Client* client = new Client(54322, "192.168.1.67", "client0");
 
 	sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(700,700), "Tank Battle!", sf::Style::Close);
 	AbstractView* view = new View(window,true);//a második paramért a debugolás kiírásához van, alapértelmezetten hamis
-
+    std::srand((unsigned)std::time(0)); 
+	addRandomBarrels(view);
 	bool run = true;
 
-	sf::Thread thread(std::bind(&recieveFromClient, view, client, run));
-	thread.launch();
+	//sf::Thread thread(std::bind(&recieveFromClient, view, client, run));
+	//thread.launch();
 	
 	std::string console = "";
 	sf::Text consoleText;
@@ -132,18 +142,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 			sf::Event event;
 			while (window->pollEvent(event))
 			{
+				sf::sleep(sf::milliseconds(10));
+
 				if (event.type == sf::Event::Closed)
 				{
 					run = false;
-					thread.terminate();
-					client->shutDown();
+					//thread.terminate();
+					//client->shutDown();
 					window->close();
 				}
 
-				client->sendEventMessage(event);
-				wrt(client, window, consoleText, console, event, writeToConsole);
+				//client->sendEventMessage(event);
+				//wrt(client, window, consoleText, console, event, writeToConsole);
 				
 			}
+			//view->addDebugInfo("Debug info1");
+			//view->addDebugInfo("Debug info2");
 			view->drawEverything();
 			window->draw(consoleText);
 			window->display();
@@ -154,11 +168,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 			e.what();
 		}
 	}
-	
+	/*
 	if (client!=NULL) {
 		client->shutDown();
 		delete client;
-	}
+	}*/
 
-    return 0;
+    return ;
 }
