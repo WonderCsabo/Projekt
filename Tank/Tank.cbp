@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Tank" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Tank" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++0x" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Tank" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="../Tank" />
+			<Add option="-std=c++0x" />
+			<Add option="-Wall" />
+		</Compiler>
+		<Linker>
+			<Add library="/usr/lib/libsfml-audio.so.2.0" />
+			<Add library="/usr/lib/libsfml-graphics.so.2.0" />
+			<Add library="/usr/lib/libsfml-network.so.2.0" />
+			<Add library="/usr/lib/libsfml-system.so.2.0" />
+			<Add library="/usr/lib/libsfml-window.so.2.0" />
+		</Linker>
+		<Unit filename="GUI/Button.cpp" />
+		<Unit filename="GUI/Button.h" />
+		<Unit filename="GUI/EditBox.cpp" />
+		<Unit filename="GUI/EditBox.h" />
+		<Unit filename="GUI/GuiContainer.hpp" />
+		<Unit filename="GUI/Label.cpp" />
+		<Unit filename="GUI/Label.h" />
+		<Unit filename="GUI/StartGui.hpp" />
+		<Unit filename="GUI/coord.hpp" />
+		<Unit filename="GUI/guielement.cpp" />
+		<Unit filename="GUI/guielement.h" />
+		<Unit filename="Graphics/AbstractView.cpp" />
+		<Unit filename="Graphics/AbstractView.h" />
+		<Unit filename="Graphics/View.cpp" />
+		<Unit filename="Graphics/View.h" />
+		<Unit filename="Logic/AbstractEntity.cpp" />
+		<Unit filename="Logic/AbstractEntity.h" />
+		<Unit filename="Net/Client.cpp" />
+		<Unit filename="Net/Client.h" />
+		<Unit filename="Net/ClientManager.cpp" />
+		<Unit filename="Net/ClientManager.h" />
+		<Unit filename="Net/MessageObject.hpp" />
+		<Unit filename="Net/Server.cpp" />
+		<Unit filename="Net/Server.h" />
+		<Unit filename="Util/DebugWindow.cpp" />
+		<Unit filename="Util/DebugWindow.h" />
+		<Unit filename="Util/Os.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
