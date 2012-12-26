@@ -1,6 +1,6 @@
 #include "Button.h"
 
-Button::Button(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string txt, int w, int h) : Label(id_, rw, pos, txt)
+Button::Button(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string txt, float w, float h) : Label(id_, rw, pos, txt)
 {
 	TYPE = GuiElement::BTN;
 	width = w;
@@ -27,7 +27,7 @@ void Button::onClick(void (*func)())
 void Button::draw()
 {
 	sf::Text t(text);
-	t.setPosition(position->x+5, position->y+5);
+	t.setPosition(position->x+5.0f, position->y+5.0f);
 	t.setCharacterSize(12);
 	//width = t.getGlobalBounds().width;
 	//height = t.getGlobalBounds().height;

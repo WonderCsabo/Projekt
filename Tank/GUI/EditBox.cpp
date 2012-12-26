@@ -1,6 +1,6 @@
 #include "EditBox.h"
 
-EditBox::EditBox(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string txt, int w, int h) : Label(id_, rw, pos, txt)
+EditBox::EditBox(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string txt, float w, float h) : Label(id_, rw, pos, txt)
 {
 	TYPE = GuiElement::EDT;
 	width = w;

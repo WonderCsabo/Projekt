@@ -1,10 +1,11 @@
 #pragma once
 #ifndef COORD_HPP
 #define COORD_HPP
+#include <sstream>
 
 struct Coord
 {
-	Coord(unsigned int x_, unsigned int y_) : x(x_), y(y_) {};
+	Coord(float x_, float y_) : x(x_), y(y_) {};
 	Coord(const Coord& c)
 	{
 		x = c.x;
@@ -13,11 +14,15 @@ struct Coord
 
 	std::string toString()
 	{
-		return x + ";" + y;
+		std::stringstream ss;
+		ss << x << ";" << y;
+		std::string ret;
+		std::getline(ss, ret);
+		return ret;
 	}
 
-	unsigned int x;
-	unsigned int y;
+	float x;
+	float y;
 };
 
 #endif //COORD_HPP
