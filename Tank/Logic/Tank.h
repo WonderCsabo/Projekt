@@ -33,9 +33,9 @@ private:
 
 	void init();
 
+	size_t typeID;
 	bool selected;
 	size_t dirX, dirY;
 	short HP;
 	unsigned short fireDamage;
-	size_t typeID;
 };
