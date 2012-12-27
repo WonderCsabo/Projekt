@@ -113,6 +113,7 @@
     <ClCompile Include="Net\Server.cpp" />
     <ClCompile Include="Util\DebugWindow.cpp" />
     <ClCompile Include="Util\GetInput.cpp" />
+    <ClCompile Include="Util\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Util\DebugWindow.h" />
     <ClInclude Include="Util\GetInput.h" />
     <ClInclude Include="Util\Os.h" />
+    <ClInclude Include="Util\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\barrel1.png" />

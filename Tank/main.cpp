@@ -1,11 +1,9 @@
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include <exception>
-#include <functional>
-#include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <functional>
 #include "Graphics/View.h"
 #include "Net/Client.h"
 #include "GUI/StartGui.h"
@@ -52,9 +50,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 int main()
 #endif
 {
-    /*Client* client = startgui();
+    Client* client = startgui();
     if (client==NULL)
-        return 0;*/
+        return 0;
 
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(700,700), "Tank Battle!", sf::Style::Close);
     AbstractView* view = new View(window,true);//a második paramért a debugolás kiírásához van, alapértelmezetten hamis
@@ -64,8 +62,8 @@ int main()
 
     bool run = true;
 
-    /*sf::Thread thread(std::bind(&recieveFromClient, view, client, run));
-    thread.launch();*/
+    sf::Thread thread(std::bind(&recieveFromClient, view, client, run));
+    thread.launch();
 
     std::string console = "";
     sf::Text consoleText;
@@ -85,13 +83,13 @@ int main()
                 if (event.type == sf::Event::Closed)
                 {
                     run = false;
-                    /*thread.terminate();
-                    client->shutDown();*/
+                    thread.terminate();
+                    client->shutDown();
                     window->close();
                 }
 
-                /*client->sendEventMessage(event);
-                wrt(client, window, consoleText, console, event, writeToConsole);*/
+                client->sendEventMessage(event);
+                wrt(client, window, consoleText, console, event, writeToConsole);
 
             }
             view->drawEverything();
@@ -105,10 +103,10 @@ int main()
         }
     }
 
-    /*if (client!=NULL) {
+    if (client!=NULL) {
         client->shutDown();
         delete client;
-    }*/
+    }
 
     delete window;
 	for(unsigned i = 0; i< tanks.size();i++)

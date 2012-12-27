@@ -1,14 +1,13 @@
 #include "Tank.h"
 #include "TankTypes.h"
 
-Tank::Tank() {
+Tank::Tank() : dirX(0), dirY(0) {
 	init();
 }
 
 Tank::Tank(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY, const size_t& typeID)
-	: AbstractEntity(posX, posY, sizeX, sizeY) {
+	: AbstractEntity(posX, posY, sizeX, sizeY), typeID(typeID), dirX(0), dirY(0) {
 
-	this->typeID = typeID;
 	init();
 }
 
@@ -34,6 +33,7 @@ const size_t& Tank::getTypeID() const {
 const size_t& Tank::getDirX() const {
 	return dirX;
 }
+
 const size_t& Tank::getDirY() const {
 	return dirY;
 }

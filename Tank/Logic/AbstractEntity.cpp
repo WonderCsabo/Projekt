@@ -4,12 +4,10 @@ AbstractEntity::AbstractEntity() {
 	init();
 }
 
-AbstractEntity::AbstractEntity(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY) {
+AbstractEntity::AbstractEntity(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY)
+	: posX(posX), posY(posY), sizeX(sizeX), sizeY(sizeY) {
+
 	init();
-	this->posX = posX;
-	this->posY = posY;
-	this->sizeX = sizeX;
-	this->sizeY = sizeY;
 }
 
 AbstractEntity::~AbstractEntity() {
