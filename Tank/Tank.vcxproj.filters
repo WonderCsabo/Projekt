@@ -116,6 +116,12 @@
     <ClCompile Include="Logic\Player.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\Tank.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\TankAnimation.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h">
@@ -187,6 +193,12 @@
     <ClInclude Include="Logic\Player.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\Tank.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\TankAnimation.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\barrel1.png">
@@ -198,7 +210,13 @@
     <None Include="resource\barrel3.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\map.png">
+    <None Include="resource\tank1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resource\tank2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resource\tank3.png">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

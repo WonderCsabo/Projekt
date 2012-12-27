@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "Tank.h"
+#include "CommonTankInfo.h"
 #include "TextureHolder.h"
 #include "../Util/DebugWindow.h"
 #include <vector>
@@ -10,11 +10,11 @@ class TankAnimation
 private:
 	unsigned short state;
 	std::vector<sf::Sprite*> sprites;
-	Tank* tankInfo;
+	CommonTankInfo* tankInfo;
 public:
-	TankAnimation(Tank*,TextureHolder*, sf::Color);
-	bool isIt(Tank*);
-	void setTank(Tank*);
+	TankAnimation(CommonTankInfo*,TextureHolder*, sf::Color);
+	bool isIt(CommonTankInfo*);
+	void setTank(CommonTankInfo*);
 	sf::Sprite* getSprite();
 	~TankAnimation(void);
 };

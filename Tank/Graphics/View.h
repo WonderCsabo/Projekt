@@ -1,7 +1,7 @@
 #pragma once
 #include "../Graphics/abstractview.h"
 #include "../Graphics/TextureHolder.h"
-#include "../Graphics/Tank.h"
+#include "../Graphics/CommonTankInfo.h"
 #include "../Graphics/TankAnimation.h"
 
 #include <string>
@@ -14,8 +14,8 @@ class View :
 public:
 	void drawEverything();
 	void addBarrel(float, float, float, float);
-	void addTank(Tank*);
-	void upDateTank(Tank*, Tank*);
+	void addTank(CommonTankInfo*);
+	void upDateTank(CommonTankInfo*, CommonTankInfo*);
 	View(sf::RenderWindow *, bool);
 	View(sf::RenderWindow *rw);
 	~View(void);

@@ -44,7 +44,7 @@ void View::init()
 	 tankTextures->addTexture(texture6);
 
 }
-void View::addTank(Tank* tank)
+void View::addTank(CommonTankInfo* tank)
 {
 	bool hasColor = false;
 	for(unsigned i = 0; i < teamColors.size(); i++)
@@ -62,7 +62,7 @@ void View::addTank(Tank* tank)
 	tanks.push_back((new TankAnimation(tank, tankTextures, teamColors[tank->team])));
 	//tanks.push_back((new TankAnimation(tank, tankTextures, )));
 }
-void View::upDateTank(Tank* from, Tank* to)
+void View::upDateTank(CommonTankInfo* from, CommonTankInfo* to)
 {
 	for(unsigned i = 0; i < tanks.size(); i++)
 	{

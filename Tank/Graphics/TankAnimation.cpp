@@ -1,6 +1,6 @@
 #include "TankAnimation.h"
 
-TankAnimation::TankAnimation(Tank *tank, TextureHolder* texture, sf::Color color)
+TankAnimation::TankAnimation(CommonTankInfo *tank, TextureHolder* texture, sf::Color color)
 {
 	tankInfo = tank;
 	state = 0;
@@ -20,11 +20,11 @@ sf::Sprite* TankAnimation::getSprite()
 	if(++state==sprites.size()) state = 0;
 	return sprites[state];
 }
-bool TankAnimation::isIt(Tank* t)
+bool TankAnimation::isIt(CommonTankInfo* t)
 {
 	return t==tankInfo;
 }
-void TankAnimation::setTank(Tank* t)
+void TankAnimation::setTank(CommonTankInfo* t)
 {
 	tankInfo = t;
 	for(int i = 0; i<3;i++)

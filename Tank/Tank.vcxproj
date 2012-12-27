@@ -89,7 +89,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Graphics\AbstractView.cpp" />
-    <ClCompile Include="Graphics\Tank.cpp" />
+    <ClCompile Include="Graphics\CommonTankInfo.cpp" />
     <ClCompile Include="Graphics\TankAnimation.cpp" />
     <ClCompile Include="Graphics\TextureHolder.cpp" />
     <ClCompile Include="Graphics\View.cpp" />
@@ -116,7 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h" />
-    <ClInclude Include="Graphics\Tank.h" />
+    <ClInclude Include="Graphics\CommonTankInfo.h" />
     <ClInclude Include="Graphics\TankAnimation.h" />
     <ClInclude Include="Graphics\TextureHolder.h" />
     <ClInclude Include="Graphics\View.h" />
