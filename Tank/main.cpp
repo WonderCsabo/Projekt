@@ -23,17 +23,17 @@ void addRandomBarrels(AbstractView* v)
 {
     for(int i = 0; i< 50 ;i++)
     {
-        v->addBarrel(std::rand()%700, std::rand()%700, (std::rand()%20+90)/100, (std::rand()%20+90)/100);
+        v->addBarrel((float)(std::rand()%700), (float)(std::rand()%700), (float)((std::rand()%20+90)/100.0f), (float)((std::rand()%20+90)/100.0f));
     }
 }
 
-std::vector<Tank*> tanks;
+std::vector<CommonTankInfo*> tanks;
 void addTanks(AbstractView* v)
 {	
 	for(int j = 0; j < 2; j++)
 	for(int i = 0; i< 3 ;i++)
 	{
-		Tank* t = new Tank();
+		CommonTankInfo* t = new CommonTankInfo();
 		t->height = (float)(40);
 		t->width = (float)(30);
 		t->canonOrientation = (float)(std::rand()%359);
@@ -52,9 +52,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 int main()
 #endif
 {
-    Client* client = startgui();
+    /*Client* client = startgui();
     if (client==NULL)
-        return 0;
+        return 0;*/
 
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(700,700), "Tank Battle!", sf::Style::Close);
     AbstractView* view = new View(window,true);//a második paramért a debugolás kiírásához van, alapértelmezetten hamis
@@ -64,8 +64,8 @@ int main()
 
     bool run = true;
 
-    sf::Thread thread(std::bind(&recieveFromClient, view, client, run));
-    thread.launch();
+    /*sf::Thread thread(std::bind(&recieveFromClient, view, client, run));
+    thread.launch();*/
 
     std::string console = "";
     sf::Text consoleText;
@@ -85,13 +85,13 @@ int main()
                 if (event.type == sf::Event::Closed)
                 {
                     run = false;
-                    thread.terminate();
-                    client->shutDown();
+                    /*thread.terminate();
+                    client->shutDown();*/
                     window->close();
                 }
 
-                client->sendEventMessage(event);
-                wrt(client, window, consoleText, console, event, writeToConsole);
+                /*client->sendEventMessage(event);
+                wrt(client, window, consoleText, console, event, writeToConsole);*/
 
             }
             view->drawEverything();
@@ -105,10 +105,10 @@ int main()
         }
     }
 
-    if (client!=NULL) {
+    /*if (client!=NULL) {
         client->shutDown();
         delete client;
-    }
+    }*/
 
     delete window;
 	for(unsigned i = 0; i< tanks.size();i++)
