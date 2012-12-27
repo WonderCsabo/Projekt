@@ -100,13 +100,7 @@
     <ClInclude Include="GUI\EditBox.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\GuiContainer.hpp">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="GUI\Label.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\StartGui.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Logic\AbstractEntity.h">
@@ -118,14 +112,8 @@
     <ClInclude Include="Net\ClientManager.h">
       <Filter>Header Files\Net</Filter>
     </ClInclude>
-    <ClInclude Include="Net\MessageObject.hpp">
-      <Filter>Header Files\Net</Filter>
-    </ClInclude>
     <ClInclude Include="Net\Server.h">
       <Filter>Header Files\Net</Filter>
-    </ClInclude>
-    <ClInclude Include="Util\GetInput.hpp">
-      <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\TextureHolder.h">
       <Filter>Header Files\Graphics</Filter>
@@ -140,6 +128,18 @@
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="GUI\Coord.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\GuiContainer.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\GetInput.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Net\MessageObject.h">
+      <Filter>Header Files\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\StartGui.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>

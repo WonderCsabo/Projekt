@@ -109,17 +109,17 @@
     <ClInclude Include="GUI\Button.h" />
     <ClInclude Include="GUI\Coord.hpp" />
     <ClInclude Include="GUI\EditBox.h" />
-    <ClInclude Include="GUI\GuiContainer.hpp" />
+    <ClInclude Include="GUI\GuiContainer.h" />
     <ClInclude Include="GUI\GuiElement.h" />
     <ClInclude Include="GUI\Label.h" />
-    <ClInclude Include="GUI\StartGui.hpp" />
+    <ClInclude Include="GUI\StartGui.h" />
     <ClInclude Include="Logic\AbstractEntity.h" />
     <ClInclude Include="Net\Client.h" />
     <ClInclude Include="Net\ClientManager.h" />
-    <ClInclude Include="Net\MessageObject.hpp" />
+    <ClInclude Include="Net\MessageObject.h" />
     <ClInclude Include="Net\Server.h" />
     <ClInclude Include="Util\DebugWindow.h" />
-    <ClInclude Include="Util\GetInput.hpp" />
+    <ClInclude Include="Util\GetInput.h" />
     <ClInclude Include="Util\Os.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
