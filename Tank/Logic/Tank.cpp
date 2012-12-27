@@ -74,3 +74,25 @@ bool Tank::hit(const size_t& damage) {
 
 	return HP <= 0;
 }
+
+std::ostream& operator<<(std::ostream& o, const Tank& tank) {
+	o << dynamic_cast<const AbstractEntity&>(tank);
+
+	o.write((char*) &tank.dirX, sizeof(size_t));
+	o.write((char*) &tank.dirY, sizeof(size_t));
+	o.write((char*) &tank.typeID, sizeof(size_t));
+
+	return o;
+}
+
+std::istream& operator>>(std::istream& i, Tank& tank) {
+	i >> dynamic_cast<AbstractEntity&>(tank);
+
+	i.read((char*) &tank.dirX, sizeof(size_t));
+	i.read((char*) &tank.dirY, sizeof(size_t));
+	i.read((char*) &tank.typeID, sizeof(size_t));
+
+	tank.init();
+
+	return i;
+}

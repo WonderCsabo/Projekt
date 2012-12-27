@@ -60,3 +60,23 @@ void AbstractEntity::init() {
 
 size_t AbstractEntity::entityCount = 0;
 size_t AbstractEntity::IDCount = 0;
+
+std::ostream& operator<<(std::ostream& o, const AbstractEntity& abstractEntity) {
+	o.write((char*) &abstractEntity.ID, sizeof(size_t));
+	o.write((char*) &abstractEntity.posX, sizeof(size_t));
+	o.write((char*) &abstractEntity.posY, sizeof(size_t));
+	o.write((char*) &abstractEntity.sizeX, sizeof(size_t));
+	o.write((char*) &abstractEntity.sizeY, sizeof(size_t));
+
+	return o;
+}
+
+std::istream& operator>>(std::istream& i, AbstractEntity& abstractEntity) {
+	i.read((char*) &abstractEntity.ID, sizeof(size_t));
+	i.read((char*) &abstractEntity.posX, sizeof(size_t));
+	i.read((char*) &abstractEntity.posY, sizeof(size_t));
+	i.read((char*) &abstractEntity.sizeX, sizeof(size_t));
+	i.read((char*) &abstractEntity.sizeY, sizeof(size_t));
+
+	return i;
+}
