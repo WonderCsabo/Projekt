@@ -27,6 +27,25 @@ void addRandomBarrels(AbstractView* v)
     }
 }
 
+std::vector<Tank*> tanks;
+void addTanks(AbstractView* v)
+{	
+	for(int j = 0; j < 2; j++)
+	for(int i = 0; i< 3 ;i++)
+	{
+		Tank* t = new Tank();
+		t->height = (float)(40);
+		t->width = (float)(30);
+		t->canonOrientation = (float)(std::rand()%359);
+		t->orientation = (float)(std::rand()%359);
+		t->posX = (float)(std::rand()%700);
+		t->posY = (float)(std::rand()%700);
+		t->team = j;
+		tanks.push_back(t);
+		v->addTank(t);
+	}
+}
+
 #if defined WINDOWS
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine, int iCmdShow)
 #else
@@ -41,6 +60,7 @@ int main()
     AbstractView* view = new View(window,true);//a második paramért a debugolás kiírásához van, alapértelmezetten hamis
     std::srand((unsigned)std::time(0));
     addRandomBarrels(view);
+	addTanks(view);
 
     bool run = true;
 
@@ -77,7 +97,7 @@ int main()
             view->drawEverything();
             window->draw(consoleText);
             window->display();
-            sf::sleep(sf::milliseconds(10));
+            sf::sleep(sf::milliseconds(70));
         }
         catch(std::exception e)
         {
@@ -91,6 +111,7 @@ int main()
     }
 
     delete window;
-
+	for(unsigned i = 0; i< tanks.size();i++)
+		delete tanks[i];
     return 0;
 }
