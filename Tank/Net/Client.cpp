@@ -12,7 +12,7 @@ Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : 
 {
 	status = server.connect(address, port);
 	if (status == sf::Socket::Done) {
-		MessageObject hi(MessageObject::MESSAGES::CONN, nickname);
+		MessageObject hi(MessageObject::CONN, nickname);
 		send(hi);
 	}
 }
@@ -26,7 +26,7 @@ void Client::sendEventMessage(sf::Event& ev)
 		std::getline(ss, buf);
 	}
 	if (buf!="")
-		send(MessageObject::MESSAGES::MVMNT, "user clicked at: " + buf);
+		send(MessageObject::MVMNT, "user clicked at: " + buf);
 }
 
 /**
@@ -38,7 +38,7 @@ void Client::manageClient()
 	{
 		MessageObject m = recieve();
 		//std::cout << "server> " << m << std::endl;
-		if (m.type == MessageObject::MESSAGES::CMD && m.message == "shut")
+		if (m.type == MessageObject::CMD && m.message == "shut")
 			shutDown();
 	}
 }
@@ -131,7 +131,7 @@ MessageObject Client::recieve()
 void Client::shutDown()
 {
 	//std::cout << "Connection closed\nPress Enter to exit";
-	send(MessageObject::MESSAGES::CMD, "DISC");
+	send(MessageObject::CMD, "DISC");
 	isRunning = false;
 	server.disconnect();
 }
