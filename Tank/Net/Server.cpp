@@ -206,7 +206,7 @@ void Server::shutDown()
 		sf::TcpSocket& client = * cm.getSocket();
 		if (selector.isReady(client))
 		{
-			send(MessageObject::MESSAGES::CMD, "shut", client);
+			send(MessageObject::CMD, "shut", client);
 			//send("shut", client);
 		}
 		else
