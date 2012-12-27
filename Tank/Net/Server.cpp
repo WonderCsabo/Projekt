@@ -5,7 +5,7 @@
 * server starts listening on the specified port
 * also starts the thread for user input and starts waiting for clients
 */
-Server::Server(unsigned int port_) : port(port_), input(&Server::getInput, this)
+Server::Server(unsigned int port_) : port(port_)
 {
 	std::cout << "Server started\nListening on port " << port << std::endl;
 	std::cout << "public ip address: " << sf::IpAddress::getPublicAddress().toString() << std::endl
@@ -13,6 +13,12 @@ Server::Server(unsigned int port_) : port(port_), input(&Server::getInput, this)
 	listener.listen(port);
 	selector.add(listener);
 	isRunning = true;
+	launch();
+}
+
+void Server::launch()
+{
+	sf::Thread input(&Server::getInput, this);
 	sf::Thread thread(&Server::waitForClients, this);
 	thread.launch();
 	input.launch();
