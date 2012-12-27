@@ -27,6 +27,7 @@ private:
 
 	void loop();
 	void makeGui();
+	void tryToConnect();
 	int strtoint(std::string s);
 
 };

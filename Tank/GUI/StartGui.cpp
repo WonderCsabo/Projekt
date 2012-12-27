@@ -24,6 +24,16 @@ Client* StartGui::getClient()
 	return client;
 }
 
+void StartGui::tryToConnect()
+{
+	client = new Client(strtoint(ePort->getText()), eIPAddress->getText(), eNickname->getText());
+	if (!client->isConnected()) {
+		delete client;
+		client = NULL;
+	}
+	isOK = true;
+}
+
 void StartGui::loop()
 {
 	while (window->isOpen())
@@ -44,12 +54,8 @@ void StartGui::loop()
 			if (clicked!=NULL && clicked->getType()==GuiElement::BTN)
 			{
 				if (clicked->getId()=="start") {
-					client = new Client(strtoint(ePort->getText()), eIPAddress->getText(), eNickname->getText());
-					if (!client->isConnected()) {
-						delete client;
-						client = NULL;
-					}
-					isOK = true;
+					sf::Thread connectionThread(&StartGui::tryToConnect, this);//tryToConnect();
+					connectionThread.launch();
 				}
 			}
 			panel->type(event);
