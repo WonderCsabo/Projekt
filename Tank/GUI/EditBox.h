@@ -1,6 +1,4 @@
 #pragma once
-#ifndef EDITBOX_H
-#define EDITBOX_H
 
 #include "Label.h"
 
@@ -23,5 +21,3 @@ protected:
 private:
 	sf::RectangleShape* rect;
 };
-
-#endif //EDITBOX_H

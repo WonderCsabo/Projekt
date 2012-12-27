@@ -53,6 +53,10 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>
+      </TreatWarningAsError>
+      <MultiProcessorCompilation>
+      </MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -71,6 +75,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -87,7 +93,7 @@
     <ClCompile Include="Graphics\View.cpp" />
     <ClCompile Include="GUI\Button.cpp" />
     <ClCompile Include="GUI\EditBox.cpp" />
-    <ClCompile Include="GUI\guielement.cpp" />
+    <ClCompile Include="GUI\GuiElement.cpp" />
     <ClCompile Include="GUI\Label.cpp" />
     <ClCompile Include="Logic\AbstractEntity.cpp" />
     <ClCompile Include="main.cpp" />
@@ -101,10 +107,10 @@
     <ClInclude Include="Graphics\TextureHolder.h" />
     <ClInclude Include="Graphics\View.h" />
     <ClInclude Include="GUI\Button.h" />
-    <ClInclude Include="GUI\coord.hpp" />
+    <ClInclude Include="GUI\Coord.hpp" />
     <ClInclude Include="GUI\EditBox.h" />
     <ClInclude Include="GUI\GuiContainer.hpp" />
-    <ClInclude Include="GUI\guielement.h" />
+    <ClInclude Include="GUI\GuiElement.h" />
     <ClInclude Include="GUI\Label.h" />
     <ClInclude Include="GUI\StartGui.hpp" />
     <ClInclude Include="Logic\AbstractEntity.h" />

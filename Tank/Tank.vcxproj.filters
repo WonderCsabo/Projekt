@@ -33,6 +33,8 @@
     </Filter>
     <Filter Include="Header Files\Util">
       <UniqueIdentifier>{55385023-0ef6-4d2c-a099-4355149f81f7}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
     </Filter>
     <Filter Include="Source Files\Util">
       <UniqueIdentifier>{965bebef-beda-40f7-8424-248130e7b9da}</UniqueIdentifier>
@@ -60,9 +62,6 @@
     <ClCompile Include="GUI\EditBox.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\guielement.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="GUI\Label.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -84,6 +83,9 @@
     <ClCompile Include="Graphics\TextureHolder.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\GuiElement.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h">
@@ -95,16 +97,10 @@
     <ClInclude Include="GUI\Button.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\coord.hpp">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="GUI\EditBox.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="GUI\GuiContainer.hpp">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\guielement.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="GUI\Label.h">
@@ -128,14 +124,23 @@
     <ClInclude Include="Net\Server.h">
       <Filter>Header Files\Net</Filter>
     </ClInclude>
-    <ClInclude Include="Util\DebugWindow.h">
-      <Filter>Header Files\Util</Filter>
-    </ClInclude>
     <ClInclude Include="Util\GetInput.hpp">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\TextureHolder.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Os.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\DebugWindow.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\GuiElement.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Coord.hpp">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

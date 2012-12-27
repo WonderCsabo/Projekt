@@ -1,9 +1,7 @@
 #pragma once
-#ifndef GUICONTAINER_HPP
-#define GUICONTAINER_HPP
 
 #include <list>
-#include "guielement.h"
+#include "GuiElement.h"
 #include "EditBox.h"
 #include "Label.h"
 #include "Button.h"
@@ -80,5 +78,3 @@ private:
 	std::list<GuiElement*> elements;
 	sf::RenderWindow* window;
 };
-
-#endif //GUICONTAINER_HPP

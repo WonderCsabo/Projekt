@@ -1,10 +1,8 @@
 #pragma once
-#ifndef GUIELEMENT_H
-#define GUIELEMENT_H
 
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "coord.hpp"
+#include "Coord.hpp"
 
 class GuiElement
 {
@@ -34,5 +32,3 @@ protected:
 	std::string text;
 	sf::RenderWindow* window;
 };
-
-#endif //GUIELEMENT_H

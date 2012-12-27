@@ -30,7 +30,6 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add directory="../Tank" />
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 		</Compiler>
@@ -49,11 +48,13 @@
 		<Unit filename="GUI/Label.cpp" />
 		<Unit filename="GUI/Label.h" />
 		<Unit filename="GUI/StartGui.hpp" />
-		<Unit filename="GUI/coord.hpp" />
-		<Unit filename="GUI/guielement.cpp" />
-		<Unit filename="GUI/guielement.h" />
+		<Unit filename="GUI/Coord.hpp" />
+		<Unit filename="GUI/GuiElement.cpp" />
+		<Unit filename="GUI/GuiElement.h" />
 		<Unit filename="Graphics/AbstractView.cpp" />
 		<Unit filename="Graphics/AbstractView.h" />
+		<Unit filename="Graphics/TextureHolder.cpp" />
+		<Unit filename="Graphics/TextureHolder.h" />
 		<Unit filename="Graphics/View.cpp" />
 		<Unit filename="Graphics/View.h" />
 		<Unit filename="Logic/AbstractEntity.cpp" />
@@ -65,6 +66,7 @@
 		<Unit filename="Net/MessageObject.hpp" />
 		<Unit filename="Net/Server.cpp" />
 		<Unit filename="Net/Server.h" />
+		<Unit filename="Util/GetInput.hpp" />
 		<Unit filename="Util/DebugWindow.cpp" />
 		<Unit filename="Util/DebugWindow.h" />
 		<Unit filename="Util/Os.h" />

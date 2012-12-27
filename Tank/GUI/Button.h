@@ -1,6 +1,4 @@
 #pragma once
-#ifndef BUTTON_H
-#define BUTTON_H
 
 #include <SFML/Graphics.hpp>
 #include "Label.h"
@@ -16,5 +14,3 @@ public:
 private:
 	sf::RectangleShape* rect;
 };
-
-#endif //BUTTON_H

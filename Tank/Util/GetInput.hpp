@@ -1,10 +1,8 @@
 #pragma once
-#ifndef GETINPUT_HPP
-#define GETINPUT_HPP
 
-#include "Graphics/AbstractView.h"
-#include "Net/Client.h"
-#include "Net/MessageObject.hpp"
+#include "../Graphics/AbstractView.h"
+#include "../Net/Client.h"
+#include "../Net/MessageObject.hpp"
 
 void recieveFromClient(AbstractView* view, Client* client, bool& run)
 {
@@ -73,5 +71,3 @@ std::string wrt(Client* client, sf::RenderWindow* window, sf::Text& consoleText,
 	}
 	return ret_str;
 }
-
-#endif //GETINPUT_HPP

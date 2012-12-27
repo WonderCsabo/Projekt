@@ -1,6 +1,8 @@
+#pragma once
+
 #include <vector>
 #include <SFML/Graphics.hpp>
-#pragma once
+
 class TextureHolder
 {
 private:

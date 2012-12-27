@@ -1,6 +1,5 @@
 #pragma once
-#ifndef COORD_HPP
-#define COORD_HPP
+
 #include <sstream>
 
 struct Coord
@@ -24,5 +23,3 @@ struct Coord
 	float x;
 	float y;
 };
-
-#endif //COORD_HPP

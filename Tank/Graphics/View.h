@@ -1,9 +1,11 @@
 #pragma once
+
 #include "../Graphics/abstractview.h"
 #include "../Graphics/TextureHolder.h"
 #include "../Util/DebugWindow.h"
 #include <string>
 #include <vector>
+
 class View :
 	public AbstractView
 {

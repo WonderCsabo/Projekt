@@ -1,4 +1,4 @@
-#include "guielement.h"
+#include "GuiElement.h"
 
 GuiElement::GuiElement(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string txt) : id(id_), window(rw), position(pos), text(txt)
 {

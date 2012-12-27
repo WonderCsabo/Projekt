@@ -1,5 +1,4 @@
-#ifndef CLIENTMANAGER_H
-#define CLIENTMANAGER_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
@@ -19,5 +18,3 @@ private:
 	std::string nickname;
 	sf::TcpSocket* client;
 };
-
-#endif //CLIENTMANAGER_H

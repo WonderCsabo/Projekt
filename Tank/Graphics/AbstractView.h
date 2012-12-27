@@ -1,6 +1,8 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 #include <list>
+
 class AbstractView
 {
 public:

@@ -1,8 +1,6 @@
 #pragma once
-#ifndef LABEL_H
-#define LABEL_H
 
-#include "guielement.h"
+#include "GuiElement.h"
 
 class Label : public GuiElement
 {
@@ -15,5 +13,3 @@ public:
 protected:
 
 };
-
-#endif //LABEL_H

@@ -1,9 +1,7 @@
 #pragma once
-#ifndef STARTGUI_HPP
-#define STARTGUI_HPP
 
 #include <SFML/Graphics.hpp>
-#include "Net/Client.h"
+#include "../Net/Client.h"
 #include "GuiContainer.hpp"
 
 class StartGui
@@ -110,5 +108,3 @@ private:
 	}
 
 };
-
-#endif //STARTGUI_HPP

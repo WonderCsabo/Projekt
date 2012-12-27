@@ -1,6 +1,4 @@
 #pragma once
-#ifndef CLIENT_H
-#define CLIENT_H
 
 #include <SFML/Network.hpp>
 #include <SFML/Graphics.hpp>
@@ -35,5 +33,3 @@ private:
 	void manageClient();
 	void getInput();
 };
-
-#endif //CLIENT_H

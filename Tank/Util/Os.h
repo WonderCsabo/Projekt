@@ -1,3 +1,5 @@
+#pragma once
+
 #define WINDOWS
 
 #if defined WINDOWS

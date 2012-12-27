@@ -2,6 +2,7 @@
 #include <exception>
 #include <cstdlib>
 #include <ctime>
+
 View::View(sf::RenderWindow *rw, bool deb):AbstractView(rw,deb) 
 {
 	init();

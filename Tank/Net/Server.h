@@ -1,5 +1,4 @@
-#ifndef SERVER_H
-#define SERVER_H
+#pragma once
 
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
@@ -35,5 +34,3 @@ private:
 	void sendAll(MessageObject);
 	void sendAllExceptSender(MessageObject, sf::TcpSocket&);
 };
-
-#endif //SERVER_H

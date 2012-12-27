@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef MESSAGEOBJECT_HPP
-#define MESSAGEOBJECT_HPP
-
 #include <SFML\Network.hpp>
 #include <iostream>
 #include <sstream>
@@ -58,5 +55,3 @@ struct MessageObject
 		return packet >> m.type >> m.message;
 	}
 };
-
-#endif //MESSAGEOBJECT_HPP
