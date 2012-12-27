@@ -116,10 +116,10 @@
     <ClCompile Include="Logic\Player.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Tank.cpp">
+    <ClCompile Include="Graphics\TankAnimation.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\TankAnimation.cpp">
+    <ClCompile Include="Graphics\CommonTankInfo.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -193,10 +193,10 @@
     <ClInclude Include="Logic\Player.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Tank.h">
+    <ClInclude Include="Graphics\TankAnimation.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\TankAnimation.h">
+    <ClInclude Include="Graphics\CommonTankInfo.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
