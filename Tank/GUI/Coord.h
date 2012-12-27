@@ -1,25 +1,20 @@
 #pragma once
 
 #include <sstream>
+#include <iostream>
 
 struct Coord
 {
-	Coord(float x_, float y_) : x(x_), y(y_) {};
-	Coord(const Coord& c)
-	{
-		x = c.x;
-		y = c.y;
-	}
+	Coord(float x_, float y_);
+	Coord(const Coord& c);
 
-	std::string toString()
-	{
-		std::stringstream ss;
-		ss << x << ";" << y;
-		std::string ret;
-		std::getline(ss, ret);
-		return ret;
-	}
+	Coord& operator=(const Coord& c);
+
+	const std::string& toString() const;
 
 	float x;
 	float y;
 };
+
+std::ostream& operator<< (std::ostream& o, const Coord& coord);
+

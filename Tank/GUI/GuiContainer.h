@@ -9,70 +9,13 @@
 class GuiContainer
 {
 public:
-	GuiContainer(sf::RenderWindow* rw) : window(rw) {};
+	GuiContainer(sf::RenderWindow*);
+	~GuiContainer();
 
-	void add(GuiElement* e)
-	{
-		elements.push_back(e);
-	}
-
-	GuiElement* isClicked(sf::Event& ev)
-	{
-		for (std::list<GuiElement*>::iterator it = elements.begin(); it!=elements.end(); it++)
-		{
-			if ((**it).isMouseClicked(ev))
-			{
-				if ((**it).getType()==GuiElement::EDT)
-				{
-					EditBox* e = static_cast<EditBox*>(*it);
-					for (std::list<GuiElement*>::iterator it = elements.begin(); it!=elements.end(); it++) {
-						if ((**it).getType() == GuiElement::EDT) {
-							EditBox* tmp = static_cast<EditBox*>(*it);
-							tmp->setFocused(false);
-						}
-					}
-					e->setFocused(true);
-				}
-				return *it;
-			}
-		}
-		return NULL;
-	}
-
-	void type(sf::Event& ev)
-	{
-		bool* next = NULL;
-		for (std::list<GuiElement*>::iterator it = elements.begin(); it!=elements.end(); it++)
-		{
-			if ((**it).getType()==GuiElement::EDT)
-			{
-				EditBox* e = static_cast<EditBox*>(*it);
-				if (e->isFocused())
-				{
-					e->type(ev);
-				}
-			}
-		}
-		if (next!=NULL) delete next;
-	}
-
-	void draw()
-	{
-		window->clear();
-		for (std::list<GuiElement*>::iterator it = elements.begin(); it!=elements.end(); it++)
-		{
-			(**it).draw();
-		}
-		window->display();
-	}
-
-	~GuiContainer()
-	{
-		for (std::list<GuiElement*>::iterator it = elements.begin(); it!=elements.end(); it++)
-		{
-			delete *it;
-		}
-	}
+	void add(GuiElement*);
+	GuiElement* isClicked(sf::Event&);
+	void type(sf::Event&);
+	void draw();
 
 private:
 	std::list<GuiElement*> elements;
