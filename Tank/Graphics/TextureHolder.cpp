@@ -15,6 +15,10 @@ sf::Texture* TextureHolder::returnRandom()
 {
 return textures[std::rand()%textures.size()];
 }
+sf::Texture* TextureHolder::returnIndex(int i)
+{
+return textures[i];
+}
 
 
 TextureHolder::~TextureHolder(void)

@@ -10,6 +10,7 @@ private:
 public:
 	void addTexture(sf::Texture*);
 	sf::Texture* returnRandom();
+	sf::Texture* returnIndex(int);
 	TextureHolder(void);
 	void clear();
 	~TextureHolder(void);

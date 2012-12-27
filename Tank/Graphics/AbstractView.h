@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Tank.h"
 #include <SFML/Graphics.hpp>
 #include <list>
 
@@ -14,6 +14,8 @@ public:
 	virtual void drawEverything() = 0;
 	void addDebugInfo(std::string);
 	virtual void addBarrel(float, float, float, float) = 0;
+	virtual void addTank(Tank*) = 0;
+	virtual void upDateTank(Tank*, Tank*) = 0;
 protected:
 	std::list<std::string> debugMessages;
 	sf::RenderWindow *window;

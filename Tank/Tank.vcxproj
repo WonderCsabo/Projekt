@@ -89,6 +89,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Graphics\AbstractView.cpp" />
+    <ClCompile Include="Graphics\Tank.cpp" />
+    <ClCompile Include="Graphics\TankAnimation.cpp" />
     <ClCompile Include="Graphics\TextureHolder.cpp" />
     <ClCompile Include="Graphics\View.cpp" />
     <ClCompile Include="GUI\Button.cpp" />
@@ -114,6 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h" />
+    <ClInclude Include="Graphics\Tank.h" />
+    <ClInclude Include="Graphics\TankAnimation.h" />
     <ClInclude Include="Graphics\TextureHolder.h" />
     <ClInclude Include="Graphics\View.h" />
     <ClInclude Include="GUI\Button.h" />
@@ -141,7 +145,9 @@
     <None Include="resource\barrel1.png" />
     <None Include="resource\barrel2.png" />
     <None Include="resource\barrel3.png" />
-    <None Include="resource\map.png" />
+    <None Include="resource\tank1.png" />
+    <None Include="resource\tank2.png" />
+    <None Include="resource\tank3.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

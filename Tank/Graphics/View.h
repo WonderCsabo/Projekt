@@ -1,10 +1,12 @@
 #pragma once
-
-#include "../Graphics/AbstractView.h"
+#include "../Graphics/abstractview.h"
 #include "../Graphics/TextureHolder.h"
-#include "../Util/DebugWindow.h"
+#include "../Graphics/Tank.h"
+#include "../Graphics/TankAnimation.h"
+
 #include <string>
 #include <vector>
+#include <map>
 
 class View :
 	public AbstractView
@@ -12,18 +14,25 @@ class View :
 public:
 	void drawEverything();
 	void addBarrel(float, float, float, float);
+	void addTank(Tank*);
+	void upDateTank(Tank*, Tank*);
 	View(sf::RenderWindow *, bool);
 	View(sf::RenderWindow *rw);
 	~View(void);
 private:
+	void drawTank();
 	void drawBarrels();
 	void init();
-	std::vector<sf::Sprite*> barrels;
-	DebugWindow debugWindow;
 	TextureHolder barrelTextures;
 	void drawDebug();
 	void clearBackground();
-	sf::RectangleShape *debugBox;
-	sf::Text *debug;
+	std::vector<sf::Color> teamColors;
+	std::vector<TankAnimation*> tanks;
+	
+	//pointers
+	std::vector<sf::Sprite*> barrels;//pipa
+	TextureHolder *tankTextures;//pipa
+	sf::RectangleShape *debugBox;//pipa
+	sf::Text *debug;//pipa
 };
 
