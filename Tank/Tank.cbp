@@ -49,14 +49,12 @@
 		<Unit filename="GUI/EditBox.h" />
 		<Unit filename="GUI/GuiContainer.cpp" />
 		<Unit filename="GUI/GuiContainer.h" />
-		<Unit filename="GUI/GuiContainer.hpp" />
 		<Unit filename="GUI/GuiElement.cpp" />
 		<Unit filename="GUI/GuiElement.h" />
 		<Unit filename="GUI/Label.cpp" />
 		<Unit filename="GUI/Label.h" />
 		<Unit filename="GUI/StartGui.cpp" />
 		<Unit filename="GUI/StartGui.h" />
-		<Unit filename="GUI/StartGui.hpp" />
 		<Unit filename="Graphics/AbstractView.cpp" />
 		<Unit filename="Graphics/AbstractView.h" />
 		<Unit filename="Graphics/TextureHolder.cpp" />
@@ -77,7 +75,6 @@
 		<Unit filename="Net/ClientManager.h" />
 		<Unit filename="Net/MessageObject.cpp" />
 		<Unit filename="Net/MessageObject.h" />
-		<Unit filename="Net/MessageObject.hpp" />
 		<Unit filename="Net/Server.cpp" />
 		<Unit filename="Net/Server.h" />
 		<Unit filename="Util/DebugWindow.cpp" />
