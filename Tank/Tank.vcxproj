@@ -100,6 +100,8 @@
     <ClCompile Include="GUI\StartGui.cpp" />
     <ClCompile Include="Logic\AbstractEntity.cpp" />
     <ClCompile Include="Logic\Block.cpp" />
+    <ClCompile Include="Logic\Map.cpp" />
+    <ClCompile Include="Logic\Player.cpp" />
     <ClCompile Include="Logic\Tank.cpp" />
     <ClCompile Include="Logic\TankTypes.cpp" />
     <ClCompile Include="main.cpp" />
@@ -123,6 +125,8 @@
     <ClInclude Include="GUI\StartGui.h" />
     <ClInclude Include="Logic\AbstractEntity.h" />
     <ClInclude Include="Logic\Block.h" />
+    <ClInclude Include="Logic\Map.h" />
+    <ClInclude Include="Logic\Player.h" />
     <ClInclude Include="Logic\Tank.h" />
     <ClInclude Include="Logic\TankTypes.h" />
     <ClInclude Include="Net\Client.h" />

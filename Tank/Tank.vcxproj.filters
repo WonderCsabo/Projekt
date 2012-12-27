@@ -110,6 +110,12 @@
     <ClCompile Include="Logic\TankTypes.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\Map.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Player.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h">
@@ -173,6 +179,12 @@
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
     <ClInclude Include="Logic\TankTypes.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Map.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Player.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
   </ItemGroup>
