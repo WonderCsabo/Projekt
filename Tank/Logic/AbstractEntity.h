@@ -8,6 +8,8 @@ protected:
 	AbstractEntity(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY);
 	virtual ~AbstractEntity();
 
+	virtual void init();
+
 public:
 
 	const size_t& getPosX() const;
@@ -20,12 +22,16 @@ public:
 	void setSizeX(const size_t& sizeX);
 	void setSizeY(const size_t& sizeY);
 
+	const size_t& getID() const;
+
 	static const size_t& getEntityCount();
 
-private:
+protected:
 
 	size_t posX, posY;
 	size_t sizeX, sizeY;
 
-	static size_t entityCount;
+	size_t ID;
+
+	static size_t entityCount, IDCount;
 };

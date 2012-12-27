@@ -1,11 +1,11 @@
 #include "AbstractEntity.h"
 
 AbstractEntity::AbstractEntity() {
-	++entityCount;
+	init();
 }
 
 AbstractEntity::AbstractEntity(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY) {
-	++entityCount;
+	init();
 	this->posX = posX;
 	this->posY = posY;
 	this->sizeX = sizeX;
@@ -52,4 +52,11 @@ const size_t& AbstractEntity::getEntityCount() {
 	return entityCount;
 }
 
-size_t AbstractEntity::entityCount;
+void AbstractEntity::init() {
+	++entityCount;
+	++IDCount;
+	ID = IDCount;
+}
+
+size_t AbstractEntity::entityCount = 0;
+size_t AbstractEntity::IDCount = 0;
