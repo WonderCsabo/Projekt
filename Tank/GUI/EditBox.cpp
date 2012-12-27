@@ -1,6 +1,6 @@
 #include "EditBox.h"
 
-EditBox::EditBox(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string txt, float w, float h) : Label(id_, rw, pos, txt)
+EditBox::EditBox(std::string id_, sf::RenderWindow* rw, Coord pos, std::string txt, float w, float h) : Label(id_, rw, pos, txt)
 {
 	TYPE = GuiElement::EDT;
 	width = w;
@@ -9,7 +9,7 @@ EditBox::EditBox(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string 
 	sf::Vector2f v(width,height);
 	rect->setSize(v);
 	rect->setFillColor(sf::Color(255,255,255));
-	rect->setPosition(position->x, position->y);
+	rect->setPosition(position.x, position.y);
 	draw();
 	focused = false;
 }
@@ -34,7 +34,7 @@ void EditBox::type(sf::Event& ev)
 	if (ev.type == ev.KeyPressed) {
 		char* c = NULL;
 		if (ev.key.code>=0 && ev.key.code<=25) {
-			
+
 			if (ev.key.shift==false)
 				c = new char(97+ev.key.code);
 			else
@@ -83,7 +83,7 @@ void EditBox::backspace()
 void EditBox::draw()
 {
 	sf::Text t(text);
-	t.setPosition(position->x+5, position->y+5);
+	t.setPosition(position.x+5, position.y+5);
 	t.setCharacterSize(12);
 	t.setColor(sf::Color(0, 0, 0));
 	window->draw(*rect);

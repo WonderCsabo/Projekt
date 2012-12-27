@@ -63,13 +63,20 @@ void StartGui::makeGui()
 {
 	//init gui
 	panel = new GuiContainer(window);
-	lPort = new Label("lport", window, new Coord(10,10), "Port:");
-	lIPAddress = new Label("lipaddress", window, new Coord(10,40), "IP:");
-	lNickname = new Label("lnickname", window, new Coord(10,70), "Nickname:");
-	start = new Button("start", window, new Coord(10, 100), "Start client", 100, 25);
-	ePort = new EditBox("eport", window, new Coord(80, 10), "54322", 150, 25);
-	eIPAddress = new EditBox("eipaddress", window, new Coord(80, 40), "145.236.181.29", 150, 25);
-	eNickname = new EditBox("enickname", window, new Coord(80, 70), "client0", 150, 25);
+	Coord lportcoord(10, 10);
+	lPort = new Label("lport", window, lportcoord, "Port:");
+	Coord lipcoord(10, 40);
+	lIPAddress = new Label("lipaddress", window, lipcoord, "IP:");
+	Coord lnickcoord(10, 70);
+	lNickname = new Label("lnickname", window, lnickcoord, "Nickname:");
+	Coord startcoord(10, 100);
+	start = new Button("start", window, startcoord, "Start client", 100, 25);
+	Coord eportcoord(80, 10);
+	ePort = new EditBox("eport", window, eportcoord, "54322", 150, 25);
+	Coord eipcoord(80, 40);
+	eIPAddress = new EditBox("eipaddress", window, eipcoord, "145.236.181.29", 150, 25);
+	Coord enickcoord(80, 70);
+	eNickname = new EditBox("enickname", window, enickcoord, "client0", 150, 25);
 	panel->add(lPort);
 	panel->add(lIPAddress);
 	panel->add(lNickname);

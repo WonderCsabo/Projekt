@@ -7,10 +7,10 @@
 class GuiElement
 {
 public:
-	GuiElement(std::string, sf::RenderWindow*, Coord*, std::string);
+	GuiElement(std::string, sf::RenderWindow*, Coord, std::string);
 	virtual ~GuiElement();
 	std::string getText() const;
-	Coord* getPosition() const;
+	Coord getPosition() const;
 	virtual void setText(std::string);
 	bool isMouseClicked(sf::Event);
 	virtual void draw() = 0;
@@ -26,7 +26,7 @@ public:
 
 protected:
     std::string id;
-	Coord* position;
+	Coord position;
 	int TYPE;
 	float width;
 	float height;

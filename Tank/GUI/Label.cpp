@@ -1,6 +1,6 @@
 #include "Label.h"
 
-Label::Label(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string txt) : GuiElement(id_, rw, pos, txt)
+Label::Label(std::string id_, sf::RenderWindow* rw, Coord pos, std::string txt) : GuiElement(id_, rw, pos, txt)
 {
 	TYPE = GuiElement::LBL;
 	draw();
@@ -9,7 +9,7 @@ Label::Label(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string txt)
 void Label::draw()
 {
 	sf::Text t(text);
-	t.setPosition(position->x+5, position->y+5);
+	t.setPosition(position.x+5, position.y+5);
 	t.setCharacterSize(12);
 	width = t.getGlobalBounds().width;
 	height = t.getGlobalBounds().height;
@@ -25,5 +25,5 @@ void Label::setText(std::string newtext)
 
 Label::~Label()
 {
-
+	//delete window;
 }

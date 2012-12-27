@@ -5,7 +5,7 @@
 class EditBox : public Label
 {
 public:
-	EditBox(std::string, sf::RenderWindow*, Coord*, std::string, float, float);
+	EditBox(std::string, sf::RenderWindow*, Coord, std::string, float, float);
 	virtual ~EditBox();
 	virtual void draw();
 	bool isFocused();
