@@ -15,7 +15,6 @@ Button::Button(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string tx
 
 Button::~Button()
 {
-	delete position;
 	delete rect;
 }
 

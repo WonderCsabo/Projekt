@@ -21,7 +21,7 @@ void Client::sendEventMessage(sf::Event& ev)
 {
 	std::stringstream ss;
 	std::string buf = "";
-	if (ev.mouseButton.button == sf::Mouse::Button::Left && ev.type == ev.MouseButtonPressed) {
+	if (ev.mouseButton.button == sf::Mouse::Left && ev.type == ev.MouseButtonPressed) {
 		ss << ev.mouseButton.x << " " << ev.mouseButton.y;
 		std::getline(ss, buf);
 	}

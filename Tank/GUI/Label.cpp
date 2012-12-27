@@ -25,6 +25,5 @@ void Label::setText(std::string newtext)
 
 Label::~Label()
 {
-	//delete window;
-	delete position;
+
 }

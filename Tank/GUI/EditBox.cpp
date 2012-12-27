@@ -16,7 +16,6 @@ EditBox::EditBox(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string 
 
 EditBox::~EditBox()
 {
-	delete position;
 	delete rect;
 }
 
