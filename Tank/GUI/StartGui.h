@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "../Net/Client.h"
-#include "GuiContainer.hpp"
+#include "GuiContainer.h"
 
 class StartGui
 {

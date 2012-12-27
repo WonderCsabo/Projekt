@@ -3,7 +3,7 @@
 #include <SFML/Network.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "MessageObject.hpp"
+#include "MessageObject.h"
 
 class Client
 {

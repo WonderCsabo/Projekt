@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "Coord.hpp"
+#include "Coord.h"
 
 class GuiElement
 {

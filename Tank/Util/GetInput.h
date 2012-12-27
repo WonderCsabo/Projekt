@@ -2,7 +2,7 @@
 
 #include "../Graphics/AbstractView.h"
 #include "../Net/Client.h"
-#include "../Net/MessageObject.hpp"
+#include "../Net/MessageObject.h"
 
 void recieveFromClient(AbstractView* view, Client* client, bool& run)
 {

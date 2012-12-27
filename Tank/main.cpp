@@ -8,9 +8,9 @@
 #include <ctime>
 #include "Graphics/View.h"
 #include "Net/Client.h"
-#include "GUI/StartGui.hpp"
+#include "GUI/StartGui.h"
 #include "Util/DebugWindow.h"
-#include "Util/GetInput.hpp"
+#include "Util/GetInput.h"
 #include "Util/Os.h"
 
 Client* startgui()

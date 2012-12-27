@@ -4,7 +4,7 @@
 #include <SFML/System.hpp>
 #include <list>
 #include <iostream>
-#include "MessageObject.hpp"
+#include "MessageObject.h"
 #include "Client.h"
 #include "ClientManager.h"
 
