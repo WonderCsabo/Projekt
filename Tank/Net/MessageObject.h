@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML\Network.hpp>
+#include <SFML/Network.hpp>
 #include <iostream>
 #include <sstream>
 
@@ -30,5 +30,5 @@ struct MessageObject
 	std::ostream& operator<<(std::ostream&, const MessageObject&);
 
 	sf::Packet& operator<<(sf::Packet&, const MessageObject&);
-	
+
 	sf::Packet& operator>>(sf::Packet&, MessageObject&);

@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
-View::View(sf::RenderWindow *rw, bool deb):AbstractView(rw,deb) 
+View::View(sf::RenderWindow *rw, bool deb):AbstractView(rw,deb)
 {
 	init();
 }
@@ -29,7 +29,7 @@ void View::init()
 }
 void View::drawDebug()
 {
-	if(debugMode == false) return;	
+	if(debugMode == false) return;
 	debugBox->setPosition(500,0);
 	debugBox->setFillColor(sf::Color(40,40,40,128));
 	std::string message;
@@ -63,7 +63,7 @@ void View::addBarrel(float posX, float posY, float dimX, float dimY)
 	barrel->setScale(dimX, dimY);
 	barrel->setOrigin(dimX/2, dimY/2);
 	barrel->setRotation(std::rand()%350);
-	barrel->setColor(sf::Color::Color(std::rand()%255,std::rand()%255,std::rand()%255));
+	barrel->setColor(sf::Color(std::rand()%255,std::rand()%255,std::rand()%255));
 	barrels.push_back(barrel);
 }
 void View::drawEverything()

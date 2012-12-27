@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <cstddef>
 
 class TankTypes {
 
@@ -12,7 +13,7 @@ public:
 
 		TankType();
 		TankType(const short& HP, const unsigned short& fireDamage);
-		
+
 		short HP;
 		unsigned short fireDamage;
 	};

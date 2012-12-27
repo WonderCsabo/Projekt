@@ -32,6 +32,7 @@
 		<Compiler>
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
+			<Add directory="../Tank" />
 		</Compiler>
 		<Linker>
 			<Add library="/usr/lib/libsfml-audio.so.2.0" />
@@ -42,15 +43,20 @@
 		</Linker>
 		<Unit filename="GUI/Button.cpp" />
 		<Unit filename="GUI/Button.h" />
+		<Unit filename="GUI/Coord.cpp" />
+		<Unit filename="GUI/Coord.h" />
 		<Unit filename="GUI/EditBox.cpp" />
 		<Unit filename="GUI/EditBox.h" />
+		<Unit filename="GUI/GuiContainer.cpp" />
+		<Unit filename="GUI/GuiContainer.h" />
 		<Unit filename="GUI/GuiContainer.hpp" />
-		<Unit filename="GUI/Label.cpp" />
-		<Unit filename="GUI/Label.h" />
-		<Unit filename="GUI/StartGui.hpp" />
-		<Unit filename="GUI/Coord.hpp" />
 		<Unit filename="GUI/GuiElement.cpp" />
 		<Unit filename="GUI/GuiElement.h" />
+		<Unit filename="GUI/Label.cpp" />
+		<Unit filename="GUI/Label.h" />
+		<Unit filename="GUI/StartGui.cpp" />
+		<Unit filename="GUI/StartGui.h" />
+		<Unit filename="GUI/StartGui.hpp" />
 		<Unit filename="Graphics/AbstractView.cpp" />
 		<Unit filename="Graphics/AbstractView.h" />
 		<Unit filename="Graphics/TextureHolder.cpp" />
@@ -59,16 +65,25 @@
 		<Unit filename="Graphics/View.h" />
 		<Unit filename="Logic/AbstractEntity.cpp" />
 		<Unit filename="Logic/AbstractEntity.h" />
+		<Unit filename="Logic/Block.cpp" />
+		<Unit filename="Logic/Block.h" />
+		<Unit filename="Logic/Tank.cpp" />
+		<Unit filename="Logic/Tank.h" />
+		<Unit filename="Logic/TankTypes.cpp" />
+		<Unit filename="Logic/TankTypes.h" />
 		<Unit filename="Net/Client.cpp" />
 		<Unit filename="Net/Client.h" />
 		<Unit filename="Net/ClientManager.cpp" />
 		<Unit filename="Net/ClientManager.h" />
+		<Unit filename="Net/MessageObject.cpp" />
+		<Unit filename="Net/MessageObject.h" />
 		<Unit filename="Net/MessageObject.hpp" />
 		<Unit filename="Net/Server.cpp" />
 		<Unit filename="Net/Server.h" />
-		<Unit filename="Util/GetInput.hpp" />
 		<Unit filename="Util/DebugWindow.cpp" />
 		<Unit filename="Util/DebugWindow.h" />
+		<Unit filename="Util/GetInput.cpp" />
+		<Unit filename="Util/GetInput.h" />
 		<Unit filename="Util/Os.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

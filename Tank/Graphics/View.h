@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Graphics/abstractview.h"
+#include "../Graphics/AbstractView.h"
 #include "../Graphics/TextureHolder.h"
 #include "../Util/DebugWindow.h"
 #include <string>
