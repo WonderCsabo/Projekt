@@ -1,6 +1,6 @@
 #include "GuiContainer.h"
 
-GuiContainer::GuiContainer(sf::RenderWindow* rw) : window(rw) {};
+GuiContainer::GuiContainer(sf::RenderWindow* rw) : window(rw) {}
 
 GuiContainer::~GuiContainer()
 {

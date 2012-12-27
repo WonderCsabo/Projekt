@@ -1,14 +1,14 @@
 #include "MessageObject.h"
 
 //deault constructor, general type, null message
-MessageObject::MessageObject() : type(100), message("null") {};
+MessageObject::MessageObject() : type(100), message("null") {}
 
 //general message with the specified string
-MessageObject::MessageObject(std::string message_) : type(100), message(message_) {};
+MessageObject::MessageObject(std::string message_) : type(100), message(message_) {}
 
 
 //message with specified type and message string
-MessageObject::MessageObject(unsigned short type_, std::string message_) : type(type_), message(message_) {};
+MessageObject::MessageObject(unsigned short type_, std::string message_) : type(type_), message(message_) {}
 
 std::string MessageObject::toString()
 {

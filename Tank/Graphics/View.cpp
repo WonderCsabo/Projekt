@@ -51,7 +51,7 @@ void View::clearBackground()
 }
 void View::drawBarrels()
 {
-	for(int i = 0; i< barrels.size(); i++)
+	for(unsigned int i = 0; i< barrels.size(); i++)
 		window->draw(*barrels[i]);
 }
 void View::addBarrel(float posX, float posY, float dimX, float dimY)
@@ -76,7 +76,7 @@ View::~View(void)
 {
 	delete debugBox;
 	delete debug;
-	for(int i = 0; i< barrels.size(); i++)
+	for(unsigned int i = 0; i< barrels.size(); i++)
 		delete barrels[i];
 	barrelTextures.clear();
 }

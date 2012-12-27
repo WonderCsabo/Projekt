@@ -101,6 +101,15 @@
     <ClCompile Include="Util\GetInput.cpp">
       <Filter>Source Files\Util</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\Block.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Tank.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\TankTypes.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h">
@@ -157,5 +166,28 @@
     <ClInclude Include="GUI\Coord.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Block.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Tank.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\TankTypes.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\barrel1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resource\barrel2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resource\barrel3.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resource\map.png">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

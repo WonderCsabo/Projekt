@@ -10,7 +10,7 @@ struct Coord
 
 	Coord& operator=(const Coord& c);
 
-	const std::string& toString() const;
+	std::string toString() const;
 
 	float x;
 	float y;

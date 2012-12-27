@@ -1,6 +1,6 @@
 #include "Coord.h"
 
-Coord::Coord(float x_, float y_) : x(x_), y(y_) {};
+Coord::Coord(float x_, float y_) : x(x_), y(y_) {}
 
 Coord::Coord(const Coord& c)
 {
@@ -15,7 +15,7 @@ Coord& Coord::operator=(const Coord& c)
 	return *this;
 }
 
-const std::string& Coord::toString() const
+std::string Coord::toString() const
 {
 	std::stringstream ss;
 	ss << *this;

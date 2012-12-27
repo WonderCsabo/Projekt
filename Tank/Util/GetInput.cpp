@@ -34,9 +34,9 @@ char getChar(sf::Event& ev)
 		}
 		else if (ev.key.code == sf::Keyboard::Period)
 			return '.';
-		else return NULL;
+		else return 0;
 	}
-	else return NULL;
+	else return 0;
 }
 
 std::string wrt(Client* client, sf::RenderWindow* window, sf::Text& consoleText, std::string& console, sf::Event& event, bool& writeToConsole)
@@ -50,7 +50,7 @@ std::string wrt(Client* client, sf::RenderWindow* window, sf::Text& consoleText,
 	if (writeToConsole && event.type == sf::Event::KeyPressed)
 	{
 		char c = getChar(event);
-		if (c!=NULL)
+		if (c!=0)
 			console+=c;
 		if (console[0] == '0' && console.length()>1)
 			console = console.substr(1, console.length());

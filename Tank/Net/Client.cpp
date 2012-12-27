@@ -1,13 +1,13 @@
 #include "Client.h"
 
 /**
-* constructs a client with the given port and ip address, 
-* sets the default variables, and starts the input thread, 
+* constructs a client with the given port and ip address,
+* sets the default variables, and starts the input thread,
 * and also the manager thread for the client
 * @param unsigned int port
 * @param IpAddress IP address
 */
-Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : port(port_), address(addr_),
+Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : address(addr_), port(port_),
 	isRunning(true), canRemove(false)/*, input(&Client::getInput, this)*/
 {
 	status = server.connect(address, port);

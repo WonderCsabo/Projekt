@@ -15,7 +15,7 @@ public:
 	bool isMouseClicked(sf::Event);
 	virtual void draw() = 0;
 	int getType() const;
-	std::string id;
+	const std::string& getId() const;
 
 	enum TYPES
 	{
@@ -25,6 +25,7 @@ public:
 	};
 
 protected:
+    std::string id;
 	Coord* position;
 	int TYPE;
 	float width;

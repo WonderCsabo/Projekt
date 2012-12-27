@@ -10,11 +10,10 @@ class Client
 public:
 	Client(unsigned int, sf::IpAddress, std::string);
 	~Client();
-	bool canRemove;
 
 	sf::TcpSocket* getSocket();
 	void sendEventMessage(sf::Event&);
-	
+
 	void shutDown();
 	void send(std::string);
 	MessageObject recieve();
@@ -26,6 +25,7 @@ private:
 	unsigned short port;
 	bool isRunning;
 	sf::Socket::Status status;
+	bool canRemove;
 
 	void send(MessageObject);
 	void send(unsigned short, std::string);

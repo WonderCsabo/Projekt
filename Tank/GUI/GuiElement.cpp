@@ -1,6 +1,6 @@
 #include "GuiElement.h"
 
-GuiElement::GuiElement(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string txt) : id(id_), window(rw), position(pos), text(txt)
+GuiElement::GuiElement(std::string id_, sf::RenderWindow* rw, Coord* pos, std::string txt) : id(id_), position(pos), text(txt), window(rw)
 {
 	width = height = 0;
 }
@@ -18,6 +18,11 @@ std::string GuiElement::getText() const
 int GuiElement::getType() const
 {
 	return TYPE;
+}
+
+const std::string& GuiElement::getId() const
+{
+    return id;
 }
 
 void GuiElement::setText(std::string t)

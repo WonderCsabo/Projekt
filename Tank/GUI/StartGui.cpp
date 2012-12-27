@@ -43,7 +43,7 @@ void StartGui::loop()
 			GuiElement* clicked = panel->isClicked(event);
 			if (clicked!=NULL && clicked->getType()==GuiElement::BTN)
 			{
-				if (clicked->id=="start") {
+				if (clicked->getId()=="start") {
 					client = new Client(strtoint(ePort->getText()), eIPAddress->getText(), eNickname->getText());
 					if (!client->isConnected()) {
 						delete client;
