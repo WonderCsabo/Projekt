@@ -1,4 +1,5 @@
 #include "TankAnimation.h"
+#include "../Util/Utils.h"
 
 TankAnimation::TankAnimation(CommonTankInfo *tank, TextureHolder* texture, sf::Color color)
 {
@@ -36,8 +37,5 @@ void TankAnimation::setTank(CommonTankInfo* t)
 }
 TankAnimation::~TankAnimation(void)
 {
-	for(unsigned i = 0; i< sprites.size(); i++)
-	{
-		delete sprites[i];
-	}
+	clearPointerContainer(sprites);
 }

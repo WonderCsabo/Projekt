@@ -1,4 +1,5 @@
 #include "View.h"
+#include "../Util/Utils.h"
 #include <exception>
 #include <cstdlib>
 #include <ctime>
@@ -127,9 +128,9 @@ View::~View(void)
 {
 	delete debugBox;
 	delete debug;
-	for(unsigned i = 0; i< barrels.size(); i++)
-		delete barrels[i];
-	barrelTextures.clear();
+
+	clearPointerContainer(barrels);
+
 	barrelTextures.clear();
 	delete tankTextures;
 }

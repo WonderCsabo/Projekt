@@ -1,4 +1,5 @@
 #include "TextureHolder.h"
+#include "../Util/Utils.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -28,9 +29,5 @@ TextureHolder::~TextureHolder(void)
 
 void TextureHolder::clear(void)
 {
-	for(unsigned i = 0; i < textures.size(); i++)
-	{
-		delete textures[i];
-	}
-	textures.clear();
+	clearPointerContainer(textures);
 }

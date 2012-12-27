@@ -1,13 +1,11 @@
 #include "GuiContainer.h"
+#include "../Util/Utils.h"
 
 GuiContainer::GuiContainer(sf::RenderWindow* rw) : window(rw) {}
 
 GuiContainer::~GuiContainer()
 {
-	for (std::list<GuiElement*>::iterator it = elements.begin(); it!=elements.end(); it++)
-	{
-		delete *it;
-	}
+	clearPointerContainer(elements);
 }
 
 void GuiContainer::add(GuiElement* e)
