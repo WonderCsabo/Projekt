@@ -92,22 +92,27 @@
     <ClCompile Include="Graphics\TextureHolder.cpp" />
     <ClCompile Include="Graphics\View.cpp" />
     <ClCompile Include="GUI\Button.cpp" />
+    <ClCompile Include="GUI\Coord.cpp" />
     <ClCompile Include="GUI\EditBox.cpp" />
+    <ClCompile Include="GUI\GuiContainer.cpp" />
     <ClCompile Include="GUI\GuiElement.cpp" />
     <ClCompile Include="GUI\Label.cpp" />
+    <ClCompile Include="GUI\StartGui.cpp" />
     <ClCompile Include="Logic\AbstractEntity.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Net\Client.cpp" />
     <ClCompile Include="Net\ClientManager.cpp" />
+    <ClCompile Include="Net\MessageObject.cpp" />
     <ClCompile Include="Net\Server.cpp" />
     <ClCompile Include="Util\DebugWindow.cpp" />
+    <ClCompile Include="Util\GetInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h" />
     <ClInclude Include="Graphics\TextureHolder.h" />
     <ClInclude Include="Graphics\View.h" />
     <ClInclude Include="GUI\Button.h" />
-    <ClInclude Include="GUI\Coord.hpp" />
+    <ClInclude Include="GUI\Coord.h" />
     <ClInclude Include="GUI\EditBox.h" />
     <ClInclude Include="GUI\GuiContainer.h" />
     <ClInclude Include="GUI\GuiElement.h" />

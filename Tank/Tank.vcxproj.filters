@@ -86,6 +86,21 @@
     <ClCompile Include="GUI\GuiElement.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\Coord.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\StartGui.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\GuiContainer.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Net\MessageObject.cpp">
+      <Filter>Source Files\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\GetInput.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h">
@@ -127,9 +142,6 @@
     <ClInclude Include="GUI\GuiElement.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\Coord.hpp">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="GUI\GuiContainer.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
@@ -140,6 +152,9 @@
       <Filter>Header Files\Net</Filter>
     </ClInclude>
     <ClInclude Include="GUI\StartGui.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Coord.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
