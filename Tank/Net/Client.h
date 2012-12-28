@@ -22,10 +22,9 @@ public:
 private:
 	sf::TcpSocket server;
 	sf::IpAddress address;
-	unsigned short port;
+	unsigned int port;
 	bool isRunning;
 	sf::Socket::Status status;
-	bool canRemove;
 
 	void send(MessageObject);
 	void send(unsigned short, std::string);

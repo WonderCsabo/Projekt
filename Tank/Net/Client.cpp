@@ -8,7 +8,7 @@
 * @param IpAddress IP address
 */
 Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : address(addr_), port(port_),
-	isRunning(true), canRemove(false)/*, input(&Client::getInput, this)*/
+	isRunning(true)
 {
 	status = server.connect(address, port);
 	if (status == sf::Socket::Done) {
@@ -20,13 +20,12 @@ Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : 
 void Client::sendEventMessage(sf::Event& ev)
 {
 	std::stringstream ss;
-	std::string buf = "";
 	if (ev.mouseButton.button == sf::Mouse::Left && ev.type == ev.MouseButtonPressed) {
 		ss << ev.mouseButton.x << " " << ev.mouseButton.y;
-		std::getline(ss, buf);
 	}
-	if (buf!="")
-		send(MessageObject::MVMNT, "user clicked at: " + buf);
+	if (ss.str()!="")
+		send(MessageObject::MVMNT, "user clicked at: " + ss.str());
+	
 }
 
 /**
@@ -37,7 +36,6 @@ void Client::manageClient()
 	while(isRunning)
 	{
 		MessageObject m = recieve();
-		//std::cout << "server> " << m << std::endl;
 		if (m.type == MessageObject::CMD && m.message == "shut")
 			shutDown();
 	}
