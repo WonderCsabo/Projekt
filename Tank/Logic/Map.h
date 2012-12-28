@@ -12,6 +12,7 @@ class Map {
 
 public:
 
+	Map();
 	Map(const size_t& sizeX, const size_t& sizeY, std::vector<const Block*> blocks = std::vector<const Block*>());
 	~Map();
 

@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "../Util/Utils.h"
 
-typedef std::vector<Tank*>::size_type vec_size_t;
 typedef std::string::size_type str_size_t;
 
 Player::Player() {
@@ -53,11 +52,7 @@ std::ostream& operator<<(std::ostream& o, const Player& player) {
 	o.write((char*) &stringSize, sizeof(str_size_t));
 	o.write(player.name.c_str(), player.name.size());
 
-	vec_size_t numOfTanks = player.tanks.size();
-	o.write((char*) &numOfTanks, sizeof(vec_size_t));
-
-	for(vec_size_t i = 0; i < numOfTanks; ++i) 
-		o << *player.tanks[i];
+	serializePointerContainer(player.tanks.cbegin(), player.tanks.cend(), o);
 
 	return o;
 }
@@ -78,15 +73,7 @@ std::istream& operator>>(std::istream& in, Player& player) {
 
 	player.name = std::string(text);
 
-	vec_size_t numOfTanks = 0;
-	in.read((char*) &numOfTanks, sizeof(vec_size_t));
-
-	for(vec_size_t i = 0; i < numOfTanks; ++i) {
-
-		Tank* t = new Tank();
-		in >> *t;
-		player.tanks.push_back(t);
-	}
+	deserializePointerContainer<Tank>(player.tanks, in);
 
 	return in;
 }

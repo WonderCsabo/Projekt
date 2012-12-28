@@ -1,11 +1,14 @@
 #include "Map.h"
 #include "../Util/Utils.h"
 
-typedef std::vector<Block*>::size_type vec_size_t;
 typedef std::string::size_type str_size_t;
 
+Map::Map() { }
+
 Map::Map(const size_t& sizeX, const size_t& sizeY, std::vector<const Block*> blocks) : sizeX(sizeX), sizeY(sizeY), blocks(blocks) {
-	initBlocks();
+
+	if(blocks.size() == 0)
+		initBlocks();
 }
 
 Map::~Map() {
@@ -48,17 +51,9 @@ std::ostream& operator<<(std::ostream& o, const Map& map) {
 	o.write((char*) &map.sizeX, sizeof(size_t));
 	o.write((char*) &map.sizeY, sizeof(size_t));
 
-	vec_size_t numOfBlocks = map.blocks.size();
-	o.write((char*) &numOfBlocks, sizeof(vec_size_t));
+	serializePointerContainer(map.blocks.cbegin(), map.blocks.cend(), o);
 
-	for(vec_size_t i = 0; i < numOfBlocks; ++i) 
-		o << *map.blocks[i];
-
-	vec_size_t numOfPlayers = map.players.size();
-	o.write((char*) &numOfPlayers, sizeof(vec_size_t));
-
-	for(vec_size_t i = 0; i < numOfPlayers; ++i) 
-		o << *map.players[i];
+	serializePointerContainer(map.players.cbegin(), map.players.cend(), o);
 
 	return o;
 }
@@ -71,25 +66,9 @@ std::istream& operator>>(std::istream& in, Map& map) {
 	in.read((char*) &map.sizeX, sizeof(size_t));
 	in.read((char*) &map.sizeY, sizeof(size_t));
 
-	vec_size_t numOfBlocks = map.blocks.size();
-	in.read((char*) &numOfBlocks, sizeof(vec_size_t));
+	deserializePointerContainer<Block>(map.blocks, in);
 
-	for(vec_size_t i = 0; i < numOfBlocks; ++i) {
-
-		Block* b = new Block();
-		in >> *b;
-		map.blocks.push_back(b);
-	}
-
-	vec_size_t numOfPlayers = map.players.size();
-	in.read((char*) &numOfPlayers, sizeof(vec_size_t));
-
-	for(vec_size_t i = 0; i < numOfPlayers; ++i) {
-
-		Player* p = new Player();
-		in >> *p;
-		map.players.push_back(p);
-	}
+	deserializePointerContainer<Player>(map.players, in);
 
 	return in;
 }
