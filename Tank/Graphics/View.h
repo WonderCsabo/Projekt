@@ -3,7 +3,7 @@
 #include "../Graphics/TextureHolder.h"
 #include "../Graphics/CommonTankInfo.h"
 #include "../Graphics/TankAnimation.h"
-
+#include "../Util/DebugWindow.h"
 #include <string>
 #include <vector>
 #include <map>
@@ -24,6 +24,7 @@ private:
 	void drawTank();
 	void drawTexts();
 	void drawBarrels();
+	DebugWindow d;
 	void init();
 	TextureHolder barrelTextures;
 	void drawDebug();

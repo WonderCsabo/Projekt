@@ -118,7 +118,7 @@ void View::addBarrel(float posX, float posY, float dimX, float dimY)
 	barrel->setOrigin(dimX/2, dimY/2);
 	barrel->setRotation((float)(std::rand()%350));
 	barrel->setColor(sf::Color(std::rand()%255,std::rand()%255,std::rand()%255));
-
+	std::cout<<"Barrel added on ("<<posX<<","<<posY<<") size:["<<dimX<<","<<dimY<<"]\n";
 	barrels.push_back(barrel);
 }
 void View::drawTexts()

@@ -1,5 +1,5 @@
 #include "Controller.h"
-
+#include "Util/Utils.h"
 
 Client* Controller::startgui()
 {
@@ -73,13 +73,10 @@ void Controller::addRandomBarrels(AbstractView* v)
 {
     for(int i = 0; i< 50 ;i++)
     {
-        v->addBarrel((float)(std::rand()%700), (float)(std::rand()%700), (float)((std::rand()%20+90)/100.0f), (float)((std::rand()%20+90)/100.0f));
+        v->addBarrel((float)(std::rand()%700), (float)(std::rand()%700), (float)(std::rand()%10+30), (float)(std::rand()%10+30));
     }
 }
 Controller::~Controller(void)
 {
-	for(int i = 0; i < tanks.size(); i++)
-	{
-		delete tanks[i];
-	}
+	clearPointerContainer(tanks);
 }
