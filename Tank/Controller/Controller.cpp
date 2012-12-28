@@ -91,14 +91,13 @@ void Controller::addTanks(AbstractView* v)
   for(int j = 0; j < 2; j++)//teams
     for(int i = 0; i< 3 ; i++)//players in tank
       {
-        CommonTankInfo* t = new CommonTankInfo();
+        CommonTankInfo* t = new CommonTankInfo(j);
         t->height = (float)(40);
         t->width = (float)(30);
         t->cannonOrientation = (float)(std::rand()%359);
         t->orientation = 0.0f;//(float)(std::rand()%359);
         t->posX = (float)(std::rand()%700);
         t->posY = (float)(std::rand()%700);
-        t->team = j;
 		t->selected = false;
         tanks.push_back(t);
         v->addTank(t);

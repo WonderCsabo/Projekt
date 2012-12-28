@@ -5,6 +5,7 @@
 #include "TextureHolder.h"
 #include "../Util/DebugWindow.h"
 #include <vector>
+
 class TankAnimation
 {
 private:

@@ -36,9 +36,11 @@ int main()
     {
         try
         {
-            while (controller.pollEvent())
+			controller.recieveEvents();
+			sf::Event ev;
+			while (controller.getEvent(ev))
             {
-				if (controller.getEvent().type == sf::Event::Closed)
+				if (ev.type == sf::Event::Closed)
                 {
                     run = false;
 					if (thread!=NULL) {
@@ -49,8 +51,8 @@ int main()
                 }
 
 				if(client!=NULL) {
-					client->sendEventMessage(controller.getEvent());
-					wrt(client, controller.getWindow(), consoleText, console, controller.getEvent(), writeToConsole);
+					client->sendEventMessage(ev);
+					wrt(client, controller.getWindow(), consoleText, console, ev, writeToConsole);
 				}
 
             }

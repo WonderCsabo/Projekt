@@ -62,16 +62,16 @@ void View::addTank(CommonTankInfo* tank)
   bool hasColor = false;
   for(unsigned i = 0; i < teamColors.size(); i++)
     {
-      if(i == tank->team) hasColor = true;
+      if(i == tank->team()) hasColor = true;
     }
   if(!hasColor)
     {
-      teamColors.resize(tank->team+1);
-      teamColors[tank->team] = sf::Color(std::rand()%255,std::rand()%255,std::rand()%255);
+      teamColors.resize(tank->team()+1);
+      teamColors[tank->team()] = sf::Color(std::rand()%255,std::rand()%255,std::rand()%255);
     }
   //TankAnimation(Tank*,TextureHolder*, sf::Color);
   //new TankAnimaton(tank, tankTextures, teamColors[t->team])
-  tanks.push_back((new TankAnimation(tank, tankTextures,cannonTexture,selection, teamColors[tank->team])));
+  tanks.push_back((new TankAnimation(tank, tankTextures,cannonTexture,selection, teamColors[tank->team()])));
   //tanks.push_back((new TankAnimation(tank, tankTextures, )));
 }
 void View::upDateTank(CommonTankInfo* from, CommonTankInfo* to)
