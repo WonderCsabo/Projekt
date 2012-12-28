@@ -15,12 +15,14 @@ public:
 	void drawEverything();
 	void addBarrel(float, float, float, float);
 	void addTank(CommonTankInfo*);
+	void addText(sf::Text);
 	void upDateTank(CommonTankInfo*, CommonTankInfo*);
 	View(sf::RenderWindow *, bool);
 	View(sf::RenderWindow *rw);
 	~View(void);
 private:
 	void drawTank();
+	void drawTexts();
 	void drawBarrels();
 	void init();
 	TextureHolder barrelTextures;
@@ -28,7 +30,7 @@ private:
 	void clearBackground();
 	std::vector<sf::Color> teamColors;
 	std::vector<TankAnimation*> tanks;
-	
+	std::vector<sf::Text> texts;
 	//pointers
 	std::vector<sf::Sprite*> barrels;//pipa
 	TextureHolder *tankTextures;//pipa

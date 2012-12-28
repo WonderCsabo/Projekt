@@ -11,6 +11,10 @@ View::View(sf::RenderWindow *rw, bool deb):AbstractView(rw,deb)
 View::View(sf::RenderWindow *rw) : AbstractView(rw) {
 	init();
 }
+void View::addText(sf::Text text)
+{
+	texts.push_back(text);
+}
 void View::init()
 {
 	debugBox = new sf::RectangleShape();
@@ -117,12 +121,19 @@ void View::addBarrel(float posX, float posY, float dimX, float dimY)
 
 	barrels.push_back(barrel);
 }
+void View::drawTexts()
+{
+	for(unsigned i = 0; i< texts.size(); i++)
+		window->draw(texts[i]);
+}
 void View::drawEverything()
 {
 	clearBackground();
 	drawBarrels();
 	drawTank();
 	drawDebug();
+	drawTexts();
+	window->display();
 }
 View::~View(void)
 {
