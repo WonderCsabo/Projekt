@@ -46,9 +46,15 @@ bool Controller::getEvent(sf::Event& ev)
 	ev = *events.begin();
 	events.pop_front();
   if(ev.type == sf::Event::Closed)
+  {
     shutDown();
+	return false;
+  }
   if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+  {
 	  handleSelectedTank(getTankOnPosition(sf::Mouse::getPosition(*window).x,sf::Mouse::getPosition(*window).y));
+	  return false;
+  }
 	
 	return true;
 }
