@@ -87,7 +87,7 @@ void View::drawDebug()
     debugMessages.pop_front();
   for (std::list<std::string>::iterator it = debugMessages.begin(); it!=debugMessages.end(); it++)
     message+=(*it)+"\n";
-  debugBox->setSize(sf::Vector2f(200.0f,13.0f*(float)debugMessages.size()));
+  debugBox->setSize(sf::Vector2f(200.0f,8+12.0f*(float)debugMessages.size()));
   debug->setString(message);
   debug->setPosition(510,8);
   debug->setCharacterSize(10);

@@ -1,22 +1,4 @@
-#include <SFML/Network.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include <cstdlib>
-#include <ctime>
-#include <functional>
 #include "Controller.h"
-#include "Graphics/View.h"
-#include "Net/Client.h"
-#include "GUI/StartGui.h"
-#include "Util/DebugWindow.h"
-#include "Util/GetInput.h"
-#include "Util/Os.h"
-
-
-
-
-
-
 
 
 #if defined WINDOWS
@@ -25,18 +7,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 int main()
 #endif
 {
-	Controller controller(700, 700, "Tank Battle");
-   /* Client* client = controller.startgui();
-    if (client==NULL)
-        return 0;*/
+    Client* client = Controller::startgui();
+	if (client==NULL && !StartGui::isOfflineMode())
+        return 0;
 
+	Controller controller(700, 700, "Tank Battle");
 	
     std::srand((unsigned)std::time(0));
 
     bool run = true;
 
-	/*sf::Thread thread(std::bind(&recieveFromClient, controller.getView(), client, run));
-    thread.launch();*/
+	sf::Thread* thread = NULL;
+
+	if (!StartGui::isOfflineMode()) {
+		thread = new sf::Thread(std::bind(&recieveFromClient, controller.getView(), client, run));
+		thread->launch();
+	}
 
     std::string console = "";
     sf::Text consoleText;
@@ -55,12 +41,17 @@ int main()
 				if (controller.getEvent().type == sf::Event::Closed)
                 {
                     run = false;
-                    /*thread.terminate();
-                    client->shutDown();*/
+					if (thread!=NULL) {
+						thread->terminate();
+						delete thread;
+						client->shutDown();
+					}
                 }
 
-                /*client->sendEventMessage(controller.getEvent());
-				wrt(client, controller.getWindow(), consoleText, console, controller.getEvent(), writeToConsole);*/
+				if(client!=NULL) {
+					client->sendEventMessage(controller.getEvent());
+					wrt(client, controller.getWindow(), consoleText, console, controller.getEvent(), writeToConsole);
+				}
 
             }
 
@@ -74,9 +65,9 @@ int main()
 
     }
 
-    /*if (client!=NULL) {
+    if (client!=NULL) {
         client->shutDown();
         delete client;
-    }*/
+    }
     return 0;
 }

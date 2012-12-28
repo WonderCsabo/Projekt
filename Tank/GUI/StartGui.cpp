@@ -1,4 +1,7 @@
 #include "StartGui.h"
+#include "../Util/DebugWindow.h"
+
+bool StartGui::offlineMode = false;
 
 StartGui::StartGui()
 {
@@ -12,6 +15,11 @@ StartGui::~StartGui()
 {
 	delete window;
 	delete panel;
+}
+
+bool StartGui::isOfflineMode()
+{
+	return StartGui::offlineMode;
 }
 
 Client* StartGui::getClient()
@@ -57,6 +65,18 @@ void StartGui::loop()
 					sf::Thread connectionThread(&StartGui::tryToConnect, this);//tryToConnect();
 					connectionThread.launch();
 				}
+				else if (clicked->getId()=="offline")
+				{
+					DebugWindow d;
+					std::cout << "offlinemode\n";
+					std::cout << client << std::endl;
+					//if (client!=NULL) {
+					//	delete client;
+					//}
+					client = NULL;
+					offlineMode = true;
+					isOK = true;
+				}
 			}
 			panel->type(event);
 		}
@@ -77,6 +97,8 @@ void StartGui::makeGui()
 	lNickname = new Label("lnickname", window, lnickcoord, "Nickname:");
 	Coord startcoord(10, 100);
 	start = new Button("start", window, startcoord, "Start client", 100, 25);
+	Coord offlinecoord(120, 100);
+	offline = new Button("offline", window, offlinecoord, "Offline mode", 100, 25);
 	Coord eportcoord(80, 10);
 	ePort = new EditBox("eport", window, eportcoord, "54322", 150, 25);
 	Coord eipcoord(80, 40);
@@ -87,6 +109,7 @@ void StartGui::makeGui()
 	panel->add(lIPAddress);
 	panel->add(lNickname);
 	panel->add(start);
+	panel->add(offline);
 	panel->add(ePort);
 	panel->add(eIPAddress);
 	panel->add(eNickname);
