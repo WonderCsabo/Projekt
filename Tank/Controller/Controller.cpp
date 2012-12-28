@@ -50,7 +50,7 @@ bool Controller::getEvent(sf::Event& ev)
     shutDown();
 	return false;
   }
-  if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+  if(ev.type == sf::Event::MouseButtonPressed && sf::Mouse::isButtonPressed(sf::Mouse::Left))
   {
 	  handleSelectedTank(getTankOnPosition(sf::Mouse::getPosition(*window).x,sf::Mouse::getPosition(*window).y));
 	  return false;
@@ -94,8 +94,8 @@ AbstractView* Controller::getView()
 
 void Controller::addTanks(AbstractView* v)
 {
-  for(int j = 0; j < 2; j++)//teams
-    for(int i = 0; i< 3 ; i++)//players in tank
+  for(int j = 0; j < 4; j++)//teams
+    for(int i = 0; i< 5 ; i++)//players in tank
       {
         CommonTankInfo* t = new CommonTankInfo(j);
         t->height = (float)(40);

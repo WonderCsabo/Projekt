@@ -7,10 +7,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 int main()
 #endif
 {
+	std::srand(std::time( NULL ));
     Client* client = Controller::startgui();
 	if (client==NULL && !StartGui::isOfflineMode())
         return 0;
-
 	Controller controller(700, 700, "Tank Battle");
 	
     std::srand((unsigned)std::time(0));
