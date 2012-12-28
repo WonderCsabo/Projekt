@@ -45,6 +45,12 @@
     <Filter Include="Source Files\Logic">
       <UniqueIdentifier>{ae1fafd5-9651-480f-bd49-1f76d6bd66da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{9bc61eab-ebb2-4d79-a66e-cf0fb57c9fa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controller">
+      <UniqueIdentifier>{11ad26bd-4951-46f1-a723-628d8b841237}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -125,8 +131,8 @@
     <ClCompile Include="Util\Utils.cpp">
       <Filter>Source Files\Util</Filter>
     </ClCompile>
-    <ClCompile Include="Controller.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Controller\Controller.cpp">
+      <Filter>Source Files\Controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,8 +214,8 @@
     <ClInclude Include="Util\Utils.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Controller\Controller.h">
+      <Filter>Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
