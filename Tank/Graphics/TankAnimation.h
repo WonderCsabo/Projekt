@@ -8,14 +8,16 @@
 class TankAnimation
 {
 private:
-	unsigned short state;
-	std::vector<sf::Sprite*> sprites;
-	CommonTankInfo* tankInfo;
+  unsigned short state;
+  std::vector<sf::Sprite*> sprites;
+  sf::Sprite* cannon;
+  CommonTankInfo* tankInfo;
 public:
-	TankAnimation(CommonTankInfo*,TextureHolder*, sf::Color);
-	bool isIt(CommonTankInfo*);
-	void setTank(CommonTankInfo*);
-	sf::Sprite* getSprite();
-	~TankAnimation(void);
+	TankAnimation(CommonTankInfo*,TextureHolder*, sf::Texture*,sf::Color);
+  bool isIt(CommonTankInfo*);
+  void setTank(CommonTankInfo*);
+  sf::Sprite* getTank();
+  sf::Sprite* getCannon();
+  ~TankAnimation(void);
 };
 

@@ -16,25 +16,24 @@
 
 class Controller
 {
-
 private:
-	std::vector<CommonTankInfo*> tanks;
-	sf::RenderWindow *window;
-	AbstractView *view;
-	sf::Event event;
+  std::vector<CommonTankInfo*> tanks;
+  sf::RenderWindow *window;
+  AbstractView *view;
+  sf::Event event;
 public:
-	Controller(short x, short y, std::string);
-	~Controller(void);
-	Client* startgui();
-	void addRandomBarrels(AbstractView* v);
-	void addTanks(AbstractView* v);
-	sf::RenderWindow* getWindow();
-	AbstractView* getView();
-	bool programRunning();
-	sf::Event getEvent();
-	bool pollEvent();
-	void addText(sf::Text);
-	void shutDown();
-	void refresh();
+  Controller(short x, short y, std::string);
+  ~Controller(void);
+  Client* startgui();
+  void addRandomBarrels(AbstractView* v);
+  void addTanks(AbstractView* v);
+  sf::RenderWindow* getWindow();
+  AbstractView* getView();
+  bool programRunning();
+  sf::Event getEvent();
+  bool pollEvent();
+  void addText(sf::Text);
+  void shutDown();
+  void refresh();
 };
 
