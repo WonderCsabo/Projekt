@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <functional>
+#include <list>
 #include "../Graphics/View.h"
 #include "../Graphics/AbstractView.h"
 #include "../Net/Client.h"
@@ -21,7 +22,10 @@ private:
 	std::vector<CommonTankInfo*> tanks;
 	sf::RenderWindow *window;
 	AbstractView *view;
-	sf::Event event;
+	std::list<sf::Event> events;
+	CommonTankInfo* getTankOnPosition(float, float);
+	void handleSelectedTank(CommonTankInfo*);
+	DebugWindow d;
 public:
 	Controller(short x, short y, std::string);
 	~Controller(void);
@@ -31,8 +35,8 @@ public:
 	sf::RenderWindow* getWindow();
 	AbstractView* getView();
 	bool programRunning();
-	sf::Event getEvent();
-	bool pollEvent();
+	bool getEvent(sf::Event&);
+	void recieveEvents();
 	void addText(sf::Text);
 	void shutDown();
 	void refresh();

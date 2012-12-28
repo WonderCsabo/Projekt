@@ -8,6 +8,7 @@ public:
   float height;
   float orientation;
   float cannonOrientation;
+  bool selected;
   unsigned short team;//kérlek, kérlek ne random szám legyen, hanem nullától növekedjen
   CommonTankInfo(void);
   ~CommonTankInfo(void);

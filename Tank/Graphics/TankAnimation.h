@@ -11,12 +11,15 @@ private:
   unsigned short state;
   std::vector<sf::Sprite*> sprites;
   sf::Sprite* cannon;
+  sf::Sprite* selection;
   CommonTankInfo* tankInfo;
 public:
-	TankAnimation(CommonTankInfo*,TextureHolder*, sf::Texture*,sf::Color);
+	TankAnimation(CommonTankInfo*,TextureHolder*, sf::Texture*,sf::Texture*,sf::Color);
   bool isIt(CommonTankInfo*);
+  bool isSelected();
   void setTank(CommonTankInfo*);
   sf::Sprite* getTank();
+  sf::Sprite* getSelection();
   sf::Sprite* getCannon();
   ~TankAnimation(void);
 };

@@ -13,6 +13,25 @@ Controller::Controller(short x, short y, std::string title)
   addTanks(view);
   addRandomBarrels(view);
 }
+CommonTankInfo* Controller::getTankOnPosition(float X, float Y)
+{
+	//std::cout<<"\nCliccked on: ("<<X<<","<<Y<<");";
+	std::vector<CommonTankInfo*>::iterator iter;
+	for(iter = tanks.begin();iter!=tanks.end();iter++)
+	{
+		float left = (*iter)->posX-(*iter)->width/2-10.f;
+		float right = (*iter)->posX+(*iter)->width/2+10.f;
+		float top = (*iter)->posY-(*iter)->height/2-10.f;
+		float bottom = (*iter)->posY+(*iter)->height/2+10.f;
+		if(left<X && right>X && top<Y && bottom>Y)
+			{
+		//		std::cout<<"\nTank on ("<<(*iter)->posX<<","<<(*iter)->posY<<") selected\n";
+				return *iter;
+			}
+	//	std::cout<<"\nTank bounds on ("<<top<<","<<right<<","<<bottom<<","<<left<<")";
+	}
+	return NULL;
+}
 bool Controller::programRunning()
 {
   return window->isOpen();
@@ -21,9 +40,23 @@ sf::RenderWindow* Controller::getWindow()
 {
   return window;
 }
-sf::Event Controller::getEvent()
+bool Controller::getEvent(sf::Event& ev)
 {
-  return event;
+	if(events.empty()) return false;
+	ev = *events.begin();
+	events.pop_front();
+  if(ev.type == sf::Event::Closed)
+    shutDown();
+  if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	  handleSelectedTank(getTankOnPosition(sf::Mouse::getPosition(*window).x,sf::Mouse::getPosition(*window).y));
+	
+	return true;
+}
+void Controller::handleSelectedTank(CommonTankInfo* tank)
+{
+	if (tank == NULL) return;
+	if(tank->selected) tank->selected= false;
+	else tank->selected = true;
 }
 void Controller::refresh()
 {
@@ -38,13 +71,15 @@ void Controller::addText(sf::Text text)
 {
   view->addText(text);
 }
-bool Controller::pollEvent()
+void Controller::recieveEvents()
 {
-  if(window->pollEvent(event) == false) return false;
-  if(event.type == sf::Event::Closed)
-    shutDown();
-  return true;
+  sf::Event ev;
+  while(window->pollEvent(ev)) 
+  {
+  events.push_back(ev);
+  }
 }
+
 
 AbstractView* Controller::getView()
 {
@@ -53,8 +88,8 @@ AbstractView* Controller::getView()
 
 void Controller::addTanks(AbstractView* v)
 {
-  for(int j = 0; j < 2; j++)
-    for(int i = 0; i< 3 ; i++)
+  for(int j = 0; j < 2; j++)//teams
+    for(int i = 0; i< 3 ; i++)//players in tank
       {
         CommonTankInfo* t = new CommonTankInfo();
         t->height = (float)(40);
@@ -64,6 +99,7 @@ void Controller::addTanks(AbstractView* v)
         t->posX = (float)(std::rand()%700);
         t->posY = (float)(std::rand()%700);
         t->team = j;
+		t->selected = false;
         tanks.push_back(t);
         v->addTank(t);
       }

@@ -31,6 +31,7 @@ private:
   std::vector<TankAnimation*> tanks;
   std::vector<sf::Text> texts;
   sf::Texture* cannonTexture;
+  sf::Texture* selection;
   //pointers
   std::vector<sf::Sprite*> barrels;//pipa
   TextureHolder *tankTextures;//pipa

@@ -46,6 +46,10 @@ void View::init()
   if (!cannonTexture->loadFromFile("resource/cannon.png"))
     std::cout<<"cannon could not be loaded";
 
+  selection = new sf::Texture();
+  if (!selection->loadFromFile("resource/selection.png"))
+    std::cout<<"cannon could not be loaded";
+
   barrelTextures.addTexture(texture1);
   barrelTextures.addTexture(texture2);
   barrelTextures.addTexture(texture3);
@@ -67,7 +71,7 @@ void View::addTank(CommonTankInfo* tank)
     }
   //TankAnimation(Tank*,TextureHolder*, sf::Color);
   //new TankAnimaton(tank, tankTextures, teamColors[t->team])
-  tanks.push_back((new TankAnimation(tank, tankTextures,cannonTexture, teamColors[tank->team])));
+  tanks.push_back((new TankAnimation(tank, tankTextures,cannonTexture,selection, teamColors[tank->team])));
   //tanks.push_back((new TankAnimation(tank, tankTextures, )));
 }
 void View::upDateTank(CommonTankInfo* from, CommonTankInfo* to)
@@ -99,6 +103,8 @@ void View::drawTank()
 {
   for(unsigned i = 0; i < tanks.size(); i++)
     {
+	  if(tanks[i]->isSelected())
+		  window->draw(*(tanks[i]->getSelection()));
       window->draw(*(tanks[i]->getTank()));
       window->draw(*(tanks[i]->getCannon()));
     }
@@ -122,7 +128,7 @@ void View::addBarrel(float posX, float posY, float dimX, float dimY)
   barrel->setOrigin(dimX/2, dimY/2);
   barrel->setRotation((float)(std::rand()%350));
   barrel->setColor(sf::Color(std::rand()%255,std::rand()%255,std::rand()%255));
-  std::cout<<"Barrel added on ("<<posX<<","<<posY<<") size:["<<dimX<<","<<dimY<<"]\n";
+  //std::cout<<"Barrel added on ("<<posX<<","<<posY<<") size:["<<dimX<<","<<dimY<<"]\n";
   barrels.push_back(barrel);
 }
 void View::drawTexts()
@@ -149,4 +155,5 @@ View::~View(void)
   barrelTextures.clear();
   delete tankTextures;
   delete cannonTexture;
+  delete selection;
 }
