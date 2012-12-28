@@ -45,11 +45,11 @@
     <Filter Include="Source Files\Logic">
       <UniqueIdentifier>{ae1fafd5-9651-480f-bd49-1f76d6bd66da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controller">
-      <UniqueIdentifier>{9bc61eab-ebb2-4d79-a66e-cf0fb57c9fa6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Controller">
       <UniqueIdentifier>{11ad26bd-4951-46f1-a723-628d8b841237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Controller">
+      <UniqueIdentifier>{9bc61eab-ebb2-4d79-a66e-cf0fb57c9fa6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +215,7 @@
       <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="Controller\Controller.h">
-      <Filter>Controller</Filter>
+      <Filter>Header Files\Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
