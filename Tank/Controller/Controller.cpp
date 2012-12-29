@@ -52,7 +52,7 @@ bool Controller::getEvent(sf::Event& ev)
   }
   if(ev.type == sf::Event::MouseButtonPressed && sf::Mouse::isButtonPressed(sf::Mouse::Left))
   {
-	  handleSelectedTank(getTankOnPosition(sf::Mouse::getPosition(*window).x,sf::Mouse::getPosition(*window).y));
+	  handleSelectedTank(getTankOnPosition((float)sf::Mouse::getPosition(*window).x,(float)sf::Mouse::getPosition(*window).y));
 	  return false;
   }
 	
@@ -94,16 +94,16 @@ AbstractView* Controller::getView()
 
 void Controller::addTanks(AbstractView* v)
 {
-  for(int j = 0; j < 4; j++)//teams
-    for(int i = 0; i< 5 ; i++)//players in tank
+  for(int j = 0; j < 2; j++)//teams
+    for(int i = 0; i< 3 ; i++)//players in tank
       {
         CommonTankInfo* t = new CommonTankInfo(j);
         t->height = (float)(40);
         t->width = (float)(30);
         t->cannonOrientation = (float)(std::rand()%359);
-        t->orientation = 0.0f;//(float)(std::rand()%359);
-        t->posX = (float)(std::rand()%700);
-        t->posY = (float)(std::rand()%700);
+        t->orientation = 0.0f;(float)(std::rand()%359);
+        t->posX = (float)(std::rand()%630)+30.0f;
+        t->posY = (float)(std::rand()%630)+30.0f;
 		t->selected = false;
         tanks.push_back(t);
         v->addTank(t);
@@ -112,9 +112,11 @@ void Controller::addTanks(AbstractView* v)
 
 void Controller::addRandomBarrels(AbstractView* v)
 {
-  for(int i = 0; i< 50 ; i++)
+  for(int i = 0; i< 10 ; i++)
     {
-      v->addBarrel((float)(std::rand()%700), (float)(std::rand()%700), (float)(std::rand()%10+30), (float)(std::rand()%10+30));
+      //v->addBarrel((float)(std::rand()%700), (float)(std::rand()%700), (float)(std::rand()%10+30), (float)(std::rand()%10+30));
+		v->addBarrel((float)(std::rand()%630+30), (float)(std::rand()%630+30), 35.0f, 35.0f);
+
     }
 }
 Controller::~Controller(void)
