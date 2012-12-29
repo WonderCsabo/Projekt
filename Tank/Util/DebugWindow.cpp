@@ -13,7 +13,13 @@ DebugWindow::DebugWindow() {
 
 DebugWindow::~DebugWindow() {
 #if defined WINDOWS
+	std::cout << "closing window";
 	FreeConsole();
 #endif
+
 }
-DebugWindow d;
+
+void DebugWindow::openDebugWindow() {
+
+	static DebugWindow window;
+}

@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-class DebugWindow {
-
-public:
+struct DebugWindow {
 
 	DebugWindow();
 	~DebugWindow();
+
+	static void openDebugWindow();
 };
