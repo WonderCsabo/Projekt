@@ -1,12 +1,13 @@
 #include "Controller.h"
 #include "../Util/Utils.h"
+#include <cmath>
 
 Client* Controller::startgui()
 {
   StartGui gui;
   return gui.getClient();
 }
-Controller::Controller(short x, short y, std::string title)
+Controller::Controller(short x, short y, std::string title, unsigned short myId) : myTeamId(myId)
 {
   window = new sf::RenderWindow(sf::VideoMode(x,y), title, sf::Style::Close);
   view = new View(window,true);
@@ -15,20 +16,23 @@ Controller::Controller(short x, short y, std::string title)
 }
 CommonTankInfo* Controller::getTankOnPosition(float X, float Y)
 {
-	//std::cout<<"\nCliccked on: ("<<X<<","<<Y<<");";
-	std::vector<CommonTankInfo*>::iterator iter;
-	for(iter = tanks.begin();iter!=tanks.end();iter++)
+	std::vector<CommonTeamInfo*>::iterator teamIter;
+	std::vector<CommonTankInfo*>::iterator tankIter;
+	for(teamIter = teams.begin();teamIter!=teams.end();teamIter++)
 	{
-		float left = (*iter)->posX-(*iter)->width/2-10.f;
-		float right = (*iter)->posX+(*iter)->width/2+10.f;
-		float top = (*iter)->posY-(*iter)->height/2-10.f;
-		float bottom = (*iter)->posY+(*iter)->height/2+10.f;
+		for(tankIter = (*teamIter)->getBegin(); tankIter != (*teamIter)->getEnd(); tankIter++)
+		{
+		float left = (*tankIter)->posX-(*tankIter)->width/2-10.f;
+		float right = (*tankIter)->posX+(*tankIter)->width/2+10.f;
+		float top = (*tankIter)->posY-(*tankIter)->height/2-10.f;
+		float bottom = (*tankIter)->posY+(*tankIter)->height/2+10.f;
 		if(left<X && right>X && top<Y && bottom>Y)
 			{
-		//		std::cout<<"\nTank on ("<<(*iter)->posX<<","<<(*iter)->posY<<") selected\n";
-				return *iter;
+				//std::cout<<"\nTank on ("<<(*tankIter)->posX<<","<<(*tankIter)->posY<<") selected\n";
+				return *tankIter;
 			}
-	//	std::cout<<"\nTank bounds on ("<<top<<","<<right<<","<<bottom<<","<<left<<")";
+		//std::cout<<"\nTank bounds on ("<<top<<","<<right<<","<<bottom<<","<<left<<")";
+		}
 	}
 	return NULL;
 }
@@ -40,6 +44,15 @@ sf::RenderWindow* Controller::getWindow()
 {
   return window;
 }
+float Controller::getAngleBetweenPoints(float x, float y, float a, float b)
+{
+	return std::atan2f(a-x,y-b)*180.0f/3.1412f;
+}
+void Controller::rotateCannonToPoint(float x, float y)
+{
+	teams[myTeamId]->getSelected()->cannonOrientation = getAngleBetweenPoints(teams[myTeamId]->getSelected()->posX,teams[myTeamId]->getSelected()->posY,x,y);
+	//std::cout<<"Rotated to: "<<teams[myTeamId]->getSelected()->cannonOrientation<<"\n-------------\n";
+}
 bool Controller::getEvent(sf::Event& ev)
 {
 	if(events.empty()) return false;
@@ -50,19 +63,39 @@ bool Controller::getEvent(sf::Event& ev)
     shutDown();
 	return false;
   }
-  if(ev.type == sf::Event::MouseButtonPressed && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+  rotateCannonToPoint((float)sf::Mouse::getPosition(*window).x,(float)sf::Mouse::getPosition(*window).y);
+
+  if(ev.type == sf::Event::MouseButtonPressed)
   {
 	  handleSelectedTank(getTankOnPosition((float)sf::Mouse::getPosition(*window).x,(float)sf::Mouse::getPosition(*window).y));
 	  return false;
   }
 	
+
 	return true;
 }
 void Controller::handleSelectedTank(CommonTankInfo* tank)
 {
 	if (tank == NULL) return;
-	if(tank->selected) tank->selected= false;
-	else tank->selected = true;
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && isOwnTeam(tank))//Bal katt, kiválasztás
+	selectionHandler(tank);
+	//else if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && (isOwnTeam(tank) || true)//Jobb katt, másikra esete. True teszt célból
+	
+}
+bool Controller::isOwnTeam(CommonTankInfo* tank)
+{
+	return tank->team() == myTeamId;
+}
+void Controller::selectionHandler(CommonTankInfo* tank)
+{
+	
+	std::vector<CommonTankInfo*>::iterator iter = teams[myTeamId]->getBegin();
+	for(;iter != teams[myTeamId]->getEnd();iter++)
+	{
+		(*iter)->selected = false;
+	}
+	tank->selected = true;
+	teams[myTeamId]->setSelected(tank);
 }
 void Controller::refresh()
 {
@@ -95,6 +128,8 @@ AbstractView* Controller::getView()
 void Controller::addTanks(AbstractView* v)
 {
   for(int j = 0; j < 2; j++)//teams
+  {
+	  teams.push_back(new CommonTeamInfo(j));
     for(int i = 0; i< 3 ; i++)//players in tank
       {
         CommonTankInfo* t = new CommonTankInfo(j);
@@ -105,9 +140,12 @@ void Controller::addTanks(AbstractView* v)
         t->posX = (float)(std::rand()%630)+30.0f;
         t->posY = (float)(std::rand()%630)+30.0f;
 		t->selected = false;
-        tanks.push_back(t);
+		if(i == 0 && j == myTeamId) t->selected = true;
+		t->motionTrigger = false;
+		teams[j]->addTank(t);
         v->addTank(t);
       }
+  }
 }
 
 void Controller::addRandomBarrels(AbstractView* v)
@@ -121,5 +159,5 @@ void Controller::addRandomBarrels(AbstractView* v)
 }
 Controller::~Controller(void)
 {
-  clearPointerContainer(tanks);
+	clearPointerContainer(teams);
 }

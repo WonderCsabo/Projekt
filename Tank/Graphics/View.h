@@ -1,7 +1,7 @@
 #pragma once
 #include "../Graphics/abstractview.h"
 #include "../Graphics/TextureHolder.h"
-#include "../Graphics/CommonTankInfo.h"
+#include "../Controller/CommonTankInfo.h"
 #include "../Graphics/TankAnimation.h"
 #include "../Util/DebugWindow.h"
 #include <string>
@@ -15,14 +15,15 @@ public:
   void addBarrel(float, float, float, float);
   void addTank(CommonTankInfo*);
   void addText(sf::Text);
-  void upDateTank(CommonTankInfo*, CommonTankInfo*);
   View(sf::RenderWindow *, bool);
   View(sf::RenderWindow *rw);
   ~View(void);
 private:
+  //DebugWindow d;
   void drawTank();
   void drawTexts();
   void drawBarrels();
+  void updateTanks();
   void init();
   TextureHolder barrelTextures;
   void drawDebug();
@@ -32,7 +33,11 @@ private:
   std::vector<sf::Text> texts;
   sf::Texture* cannonTexture;
   sf::Texture* selection;
+  sf::Texture mapTexture;//
+  sf::Sprite mapSprite;
+  //sf::Sprite *tankSprite;
   //pointers
+
   std::vector<sf::Sprite*> barrels;//pipa
   TextureHolder *tankTextures;//pipa
   sf::RectangleShape *debugBox;//pipa

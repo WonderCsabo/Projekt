@@ -125,13 +125,19 @@
     <ClCompile Include="Graphics\TankAnimation.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\CommonTankInfo.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Util\Utils.cpp">
       <Filter>Source Files\Util</Filter>
     </ClCompile>
     <ClCompile Include="Controller\Controller.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\RandomColor.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller\CommonTankInfo.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller\CommonTeamInfo.cpp">
       <Filter>Source Files\Controller</Filter>
     </ClCompile>
   </ItemGroup>
@@ -208,13 +214,19 @@
     <ClInclude Include="Graphics\TankAnimation.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\CommonTankInfo.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Util\Utils.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="Controller\Controller.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\RandomColor.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller\CommonTankInfo.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller\CommonTeamInfo.h">
       <Filter>Header Files\Controller</Filter>
     </ClInclude>
   </ItemGroup>

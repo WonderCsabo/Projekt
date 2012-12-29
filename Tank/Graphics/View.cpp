@@ -1,5 +1,6 @@
 #include "View.h"
 #include "../Util/Utils.h"
+#include "RandomColor.h"
 #include <exception>
 #include <cstdlib>
 #include <ctime>
@@ -44,11 +45,17 @@ void View::init()
 
   cannonTexture = new sf::Texture();
   if (!cannonTexture->loadFromFile("resource/cannon.png"))
-    std::cout<<"cannon could not be loaded";
+    std::cout<<"cannon cannon could not be loaded";
 
   selection = new sf::Texture();
   if (!selection->loadFromFile("resource/selection.png"))
-    std::cout<<"cannon could not be loaded";
+    std::cout<<"selection could not be loaded";
+
+  if (!mapTexture.loadFromFile("resource/map.jpg"))
+    std::cout<<"map cannon could not be loaded";
+  mapSprite.setTexture(mapTexture);
+  mapSprite.setPosition(0.0f,0.0f);
+
 
   barrelTextures.addTexture(texture1);
   barrelTextures.addTexture(texture2);
@@ -67,18 +74,18 @@ void View::addTank(CommonTankInfo* tank)
   if(!hasColor)
     {
       teamColors.resize(tank->team()+1);
-      teamColors[tank->team()] = sf::Color(std::rand()%255,std::rand()%255,std::rand()%255);
+      teamColors[tank->team()] = RandomColor::getRandomColor();
     }
   //TankAnimation(Tank*,TextureHolder*, sf::Color);
   //new TankAnimaton(tank, tankTextures, teamColors[t->team])
   tanks.push_back((new TankAnimation(tank, tankTextures,cannonTexture,selection, teamColors[tank->team()])));
   //tanks.push_back((new TankAnimation(tank, tankTextures, )));
 }
-void View::upDateTank(CommonTankInfo* from, CommonTankInfo* to)
+void View::updateTanks()
 {
   for(unsigned i = 0; i < tanks.size(); i++)
     {
-      if(tanks[i]->isIt(from)) tanks[i]->setTank(to);
+      tanks[i]->updateTank();
     }
 }
 void View::drawDebug()
@@ -112,6 +119,7 @@ void View::drawTank()
 void View::clearBackground()
 {
   window->clear();
+  window->draw(mapSprite);
 }
 void View::drawBarrels()
 {
@@ -138,6 +146,7 @@ void View::drawTexts()
 }
 void View::drawEverything()
 {
+  updateTanks();
   clearBackground();
   drawBarrels();
   drawTank();

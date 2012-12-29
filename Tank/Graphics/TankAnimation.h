@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "CommonTankInfo.h"
+#include "../Controller/CommonTankInfo.h"
 #include "TextureHolder.h"
 #include "../Util/DebugWindow.h"
 #include <vector>
@@ -16,9 +16,9 @@ private:
   CommonTankInfo* tankInfo;
 public:
 	TankAnimation(CommonTankInfo*,TextureHolder*, sf::Texture*,sf::Texture*,sf::Color);
-  bool isIt(CommonTankInfo*);
+  //bool isIt(CommonTankInfo*);
   bool isSelected();
-  void setTank(CommonTankInfo*);
+  void updateTank();
   sf::Sprite* getTank();
   sf::Sprite* getSelection();
   sf::Sprite* getCannon();

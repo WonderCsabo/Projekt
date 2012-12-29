@@ -1,5 +1,5 @@
 #pragma once
-#include "CommonTankInfo.h"
+#include "../Controller/CommonTankInfo.h"
 #include <SFML/Graphics.hpp>
 #include <list>
 
@@ -16,7 +16,6 @@ public:
   virtual void addBarrel(float, float, float, float) = 0;
   virtual void addTank(CommonTankInfo*) = 0;
   virtual void addText(sf::Text) = 0;
-  virtual void upDateTank(CommonTankInfo*, CommonTankInfo*) = 0;
 protected:
   std::list<std::string> debugMessages;
   sf::RenderWindow *window;

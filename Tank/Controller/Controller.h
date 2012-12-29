@@ -7,6 +7,8 @@
 #include <ctime>
 #include <functional>
 #include <list>
+#include "CommonTankInfo.h"
+#include "CommonTeamInfo.h"
 #include "../Graphics/View.h"
 #include "../Graphics/AbstractView.h"
 #include "../Net/Client.h"
@@ -19,15 +21,20 @@ class Controller
 {
 
 private:
-	std::vector<CommonTankInfo*> tanks;
+	const unsigned short myTeamId;
+	std::vector<CommonTeamInfo*> teams;
 	sf::RenderWindow *window;
 	AbstractView *view;
 	std::list<sf::Event> events;
 	CommonTankInfo* getTankOnPosition(float, float);
 	void handleSelectedTank(CommonTankInfo*);
-	DebugWindow d;
+	void selectionHandler(CommonTankInfo*);
+	void rotateCannonToPoint(float, float);
+	bool isOwnTeam(CommonTankInfo*);
+	float getAngleBetweenPoints(float,float,float,float);
+	//DebugWindow d;
 public:
-	Controller(short x, short y, std::string);
+	Controller(short x, short y, std::string, unsigned short);
 	~Controller(void);
 	static Client* startgui();
 	void addRandomBarrels(AbstractView* v);

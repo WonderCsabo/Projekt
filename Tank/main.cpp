@@ -11,7 +11,7 @@ int main()
     Client* client = Controller::startgui();
 	if (client==NULL && !StartGui::isOfflineMode())
         return 0;
-	Controller controller(700, 700, "Tank Battle");
+	Controller controller(700, 700, "Tank Battle",0);
 	
     std::srand((unsigned)std::time(0));
 

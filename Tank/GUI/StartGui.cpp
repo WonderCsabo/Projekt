@@ -67,7 +67,6 @@ void StartGui::loop()
 				}
 				else if (clicked->getId()=="offline")
 				{
-					DebugWindow d;
 					std::cout << "offlinemode\n";
 					std::cout << client << std::endl;
 					//if (client!=NULL) {

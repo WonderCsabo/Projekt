@@ -16,3 +16,4 @@ DebugWindow::~DebugWindow() {
 	FreeConsole();
 #endif
 }
+DebugWindow d;

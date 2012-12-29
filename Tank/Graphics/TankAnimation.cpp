@@ -17,7 +17,7 @@ TankAnimation::TankAnimation(CommonTankInfo *tank, TextureHolder* texture, sf::T
     }
   cannon = new sf::Sprite();
   cannon->setTexture(*cannonTexture);
-  cannon->setOrigin(23.0f, 27.0f);
+  cannon->setOrigin(25.0f, 25.0f);
   cannon->setColor(color);
   cannon->setPosition(tankInfo->posX,tankInfo->posY);
   cannon->setRotation(tankInfo->cannonOrientation);
@@ -40,17 +40,16 @@ sf::Sprite* TankAnimation::getCannon()
 {
   return cannon;
 }
-bool TankAnimation::isIt(CommonTankInfo* t)
-{
-  return t==tankInfo;
-}
+//bool TankAnimation::isIt(CommonTankInfo* t)
+//{
+//  return t==tankInfo;
+//}
 bool TankAnimation::isSelected()
 {
   return tankInfo->selected;
 }
-void TankAnimation::setTank(CommonTankInfo* t)
+void TankAnimation::updateTank()
 {
-  tankInfo = t;
   for(int i = 0; i<3; i++)
     {
       sprites[i]->setPosition(tankInfo->posX,tankInfo->posY);
@@ -59,6 +58,7 @@ void TankAnimation::setTank(CommonTankInfo* t)
     }
   cannon->setPosition(tankInfo->posX,tankInfo->posY);
   cannon->setRotation(tankInfo->cannonOrientation);
+  //std::cout<<"Cannon rotated to :"<<tankInfo->cannonOrientation<<"\n";
   selection->setPosition(tankInfo->posX,tankInfo->posY);
 }
 TankAnimation::~TankAnimation(void)

@@ -88,9 +88,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Controller\CommonTankInfo.cpp" />
+    <ClCompile Include="Controller\CommonTeamInfo.cpp" />
     <ClCompile Include="Controller\Controller.cpp" />
     <ClCompile Include="Graphics\AbstractView.cpp" />
-    <ClCompile Include="Graphics\CommonTankInfo.cpp" />
+    <ClCompile Include="Graphics\RandomColor.cpp" />
     <ClCompile Include="Graphics\TankAnimation.cpp" />
     <ClCompile Include="Graphics\TextureHolder.cpp" />
     <ClCompile Include="Graphics\View.cpp" />
@@ -117,9 +119,11 @@
     <ClCompile Include="Util\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Controller\CommonTankInfo.h" />
+    <ClInclude Include="Controller\CommonTeamInfo.h" />
     <ClInclude Include="Controller\Controller.h" />
     <ClInclude Include="Graphics\AbstractView.h" />
-    <ClInclude Include="Graphics\CommonTankInfo.h" />
+    <ClInclude Include="Graphics\RandomColor.h" />
     <ClInclude Include="Graphics\TankAnimation.h" />
     <ClInclude Include="Graphics\TextureHolder.h" />
     <ClInclude Include="Graphics\View.h" />
