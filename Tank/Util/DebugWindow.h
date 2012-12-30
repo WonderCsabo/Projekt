@@ -2,7 +2,8 @@
 
 #include <iostream>
 
-struct DebugWindow {
+struct DebugWindow
+{
 
 	DebugWindow();
 	~DebugWindow();

@@ -5,7 +5,8 @@
 #include "Block.h"
 #include "Player.h"
 
-class Map {
+class Map
+{
 
 	friend std::ostream& operator<<(std::ostream& o, const Map& map);
 	friend std::istream& operator>>(std::istream& i, Map& map);
@@ -23,7 +24,7 @@ public:
 
 	void add(const Block* const block);
 	void add(Player* const player);
-	
+
 private:
 
 	size_t sizeX, sizeY;

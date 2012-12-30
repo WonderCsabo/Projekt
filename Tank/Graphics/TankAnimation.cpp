@@ -3,43 +3,43 @@
 
 TankAnimation::TankAnimation(CommonTankInfo *tank, TextureHolder* texture, sf::Texture *cannonTexture,sf::Texture *selectTexture, sf::Color color)
 {
-  tankInfo = tank;
-  state = 0;
-  for(int i = 0; i<3; i++)
-    {
-      sprites.push_back(new sf::Sprite());
-      sprites[i]->setTexture(*(texture->returnIndex(i)));
-      sprites[i]->setColor(color);
-	  sprites[i]->setOrigin(18.0f,18.0f);
-      sprites[i]->setPosition(tankInfo->posX,tankInfo->posY);
-      sprites[i]->setRotation(tankInfo->orientation);
-      //sprites[i]->setScale(tankInfo->width/sprites[i]->getTexture()->getSize().x,tankInfo->height/sprites[i]->getTexture()->getSize().y);
-    }
-  cannon = new sf::Sprite();
-  cannon->setTexture(*cannonTexture);
-  cannon->setOrigin(25.0f, 25.0f);
-  cannon->setColor(color);
-  cannon->setPosition(tankInfo->posX,tankInfo->posY);
-  cannon->setRotation(tankInfo->cannonOrientation);
-  selection = new sf::Sprite();
-  selection->setTexture(*selectTexture);
-  selection->setOrigin(30.0f, 30.0f);
-  selection->setColor(color);
-  selection->setPosition(tankInfo->posX,tankInfo->posY);
+	tankInfo = tank;
+	state = 0;
+	for(int i = 0; i<3; i++)
+	{
+		sprites.push_back(new sf::Sprite());
+		sprites[i]->setTexture(*(texture->returnIndex(i)));
+		sprites[i]->setColor(color);
+		sprites[i]->setOrigin(18.0f,18.0f);
+		sprites[i]->setPosition(tankInfo->posX,tankInfo->posY);
+		sprites[i]->setRotation(tankInfo->orientation);
+		//sprites[i]->setScale(tankInfo->width/sprites[i]->getTexture()->getSize().x,tankInfo->height/sprites[i]->getTexture()->getSize().y);
+	}
+	cannon = new sf::Sprite();
+	cannon->setTexture(*cannonTexture);
+	cannon->setOrigin(25.0f, 25.0f);
+	cannon->setColor(color);
+	cannon->setPosition(tankInfo->posX,tankInfo->posY);
+	cannon->setRotation(tankInfo->cannonOrientation);
+	selection = new sf::Sprite();
+	selection->setTexture(*selectTexture);
+	selection->setOrigin(30.0f, 30.0f);
+	selection->setColor(color);
+	selection->setPosition(tankInfo->posX,tankInfo->posY);
 }
 sf::Sprite* TankAnimation::getTank()
 {
 	if(!tankInfo->motionTrigger) return sprites[0];
-  if(++state==sprites.size()) state = 0;
-  return sprites[state];
+	if(++state==sprites.size()) state = 0;
+	return sprites[state];
 }
 sf::Sprite* TankAnimation::getSelection()
 {
-  return selection;
+	return selection;
 }
 sf::Sprite* TankAnimation::getCannon()
 {
-  return cannon;
+	return cannon;
 }
 //bool TankAnimation::isIt(CommonTankInfo* t)
 //{
@@ -47,21 +47,21 @@ sf::Sprite* TankAnimation::getCannon()
 //}
 bool TankAnimation::isSelected()
 {
-  return tankInfo->selected;
+	return tankInfo->selected;
 }
 void TankAnimation::updateTank()
 {
-  for(int i = 0; i<3; i++)
-    {
-      sprites[i]->setPosition(tankInfo->posX,tankInfo->posY);
-      sprites[i]->setRotation(tankInfo->orientation);
-      sprites[i]->setScale(tankInfo->width/sprites[i]->getTexture()->getSize().x,tankInfo->height/sprites[i]->getTexture()->getSize().y);
-    }
-  cannon->setPosition(tankInfo->posX,tankInfo->posY);
-  cannon->setRotation(tankInfo->cannonOrientation);
-  selection->setPosition(tankInfo->posX,tankInfo->posY);
+	for(int i = 0; i<3; i++)
+	{
+		sprites[i]->setPosition(tankInfo->posX,tankInfo->posY);
+		sprites[i]->setRotation(tankInfo->orientation);
+		sprites[i]->setScale(tankInfo->width/sprites[i]->getTexture()->getSize().x,tankInfo->height/sprites[i]->getTexture()->getSize().y);
+	}
+	cannon->setPosition(tankInfo->posX,tankInfo->posY);
+	cannon->setRotation(tankInfo->cannonOrientation);
+	selection->setPosition(tankInfo->posX,tankInfo->posY);
 }
 TankAnimation::~TankAnimation(void)
 {
-  clearPointerContainer(sprites);
+	clearPointerContainer(sprites);
 }

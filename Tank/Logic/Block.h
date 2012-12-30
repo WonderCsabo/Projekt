@@ -3,7 +3,8 @@
 #include <iostream>
 #include "AbstractEntity.h"
 
-class Block : public AbstractEntity {
+class Block : public AbstractEntity
+{
 
 	friend std::ostream& operator<<(std::ostream& o, const Block& block);
 	friend std::istream& operator>>(std::istream& i, Block& block);

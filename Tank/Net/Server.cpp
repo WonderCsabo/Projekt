@@ -9,7 +9,7 @@ Server::Server(unsigned int port_) : port(port_)
 {
 	std::cout << "Server started\nListening on port " << port << std::endl;
 	std::cout << "public ip address: " << sf::IpAddress::getPublicAddress().toString() << std::endl
-			  << "local ip address " << sf::IpAddress::getLocalAddress() << std::endl;
+	          << "local ip address " << sf::IpAddress::getLocalAddress() << std::endl;
 	listener.listen(port);
 	selector.add(listener);
 	isRunning = true;
@@ -67,8 +67,9 @@ void Server::waitForClients()
 						sf::Packet packet;
 						sf::TcpSocket::Status status = client.receive(packet);
 						packet >> msg;
-						
-						if (status == sf::Socket::Done) {
+
+						if (status == sf::Socket::Done)
+						{
 							std::cout << "client> " << msg << std::endl;
 							sendAllExceptSender(msg, client);
 						}
@@ -81,7 +82,8 @@ void Server::waitForClients()
 						}
 					}
 				}
-				if (toRemove!=0) {
+				if (toRemove!=0)
+				{
 					clients.remove(toRemove);
 					delete toRemove;
 					cms.remove(managerToRemove);

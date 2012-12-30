@@ -5,22 +5,22 @@
 #include <ctime>
 void TextureHolder::addTexture(sf::Texture* t)
 {
-  textures.push_back(t);
+	textures.push_back(t);
 }
 sf::Texture* TextureHolder::returnRandom()
 {
-  return textures[std::rand()%textures.size()];
+	return textures[std::rand()%textures.size()];
 }
 sf::Texture* TextureHolder::returnIndex(int i)
 {
-  return textures[i];
+	return textures[i];
 }
 TextureHolder::~TextureHolder(void)
 {
-  this->clear();
+	this->clear();
 }
-TextureHolder::TextureHolder(void){}
+TextureHolder::TextureHolder(void) {}
 void TextureHolder::clear(void)
 {
-  clearPointerContainer(textures);
+	clearPointerContainer(textures);
 }

@@ -7,20 +7,20 @@ ami inicializáláskor állítodik be, egy vélelenszerûre. Ezért nincs hozzá setter*
 class CommonTankInfo
 {
 private:
-  const unsigned short teamValue;//kérlek, kérlek ne random szám legyen, hanem nullától növekedjen
+	const unsigned short teamValue;//kérlek, kérlek ne random szám legyen, hanem nullától növekedjen
 public:
-  unsigned short team();
-  float posX;
-  float posY;
-  float desX;
-  float desY;
-  float width;
-  float height;
-  float orientation;
-  float cannonOrientation;
-  bool motionTrigger;
-  bool selected;
-  CommonTankInfo(unsigned short);
-  ~CommonTankInfo(void);
+	unsigned short team();
+	float posX;
+	float posY;
+	float desX;
+	float desY;
+	float width;
+	float height;
+	float orientation;
+	float cannonOrientation;
+	bool motionTrigger;
+	bool selected;
+	CommonTankInfo(unsigned short);
+	~CommonTankInfo(void);
 };
 

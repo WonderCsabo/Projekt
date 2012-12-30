@@ -2,7 +2,8 @@
 
 #include "AbstractEntity.h"
 
-class Tank : public AbstractEntity {
+class Tank : public AbstractEntity
+{
 
 	friend std::ostream& operator<<(std::ostream& o, const Tank& tank);
 	friend std::istream& operator>>(std::istream& i, Tank& tank);

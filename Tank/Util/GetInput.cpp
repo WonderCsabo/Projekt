@@ -2,9 +2,11 @@
 
 void recieveFromClient(AbstractView* view, Client* client, bool& run)
 {
-	while (run) {
+	while (run)
+	{
 		MessageObject m = client->recieve();
-		if (m.type == MessageObject::CMD && m.message == "shut"){
+		if (m.type == MessageObject::CMD && m.message == "shut")
+		{
 			client->shutDown();
 			run = false;
 		}
@@ -15,8 +17,10 @@ void recieveFromClient(AbstractView* view, Client* client, bool& run)
 
 char getChar(sf::Event& ev)
 {
-	if (ev.type == ev.KeyPressed) {
-	if (ev.key.code>=0 && ev.key.code<=25) {
+	if (ev.type == ev.KeyPressed)
+	{
+		if (ev.key.code>=0 && ev.key.code<=25)
+		{
 			if (ev.key.shift==false)
 				return char(97+ev.key.code);
 			else
@@ -42,7 +46,8 @@ char getChar(sf::Event& ev)
 std::string wrt(Client* client, sf::RenderWindow* window, sf::Text& consoleText, std::string& console, sf::Event& event, bool& writeToConsole)
 {
 	std::string ret_str = "";
-	if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Num0 || event.key.code == sf::Keyboard::Numpad0)){
+	if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Num0 || event.key.code == sf::Keyboard::Numpad0))
+	{
 		writeToConsole = !writeToConsole;
 		if (writeToConsole) console="";
 	}
@@ -56,7 +61,8 @@ std::string wrt(Client* client, sf::RenderWindow* window, sf::Text& consoleText,
 			console = console.substr(1, console.length());
 		if (event.key.code==sf::Keyboard::Back && console.length()>1)
 			console = console.substr(0, console.length()-1);
-		if (event.key.code==sf::Keyboard::Return) {
+		if (event.key.code==sf::Keyboard::Return)
+		{
 			if (client!=NULL) client->send(console);
 			ret_str = console;
 			console = "";

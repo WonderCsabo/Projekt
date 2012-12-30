@@ -11,7 +11,8 @@ Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : 
 	isRunning(true)
 {
 	status = server.connect(address, port);
-	if (status == sf::Socket::Done) {
+	if (status == sf::Socket::Done)
+	{
 		MessageObject hi(MessageObject::CONN, nickname);
 		send(hi);
 	}
@@ -20,12 +21,13 @@ Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : 
 void Client::sendEventMessage(sf::Event& ev)
 {
 	std::stringstream ss;
-	if (ev.mouseButton.button == sf::Mouse::Left && ev.type == ev.MouseButtonPressed) {
+	if (ev.mouseButton.button == sf::Mouse::Left && ev.type == ev.MouseButtonPressed)
+	{
 		ss << ev.mouseButton.x << " " << ev.mouseButton.y;
 	}
 	if (ss.str()!="")
 		send(MessageObject::MVMNT, "user clicked at: " + ss.str());
-	
+
 }
 
 /**

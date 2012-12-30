@@ -3,40 +3,49 @@
 
 typedef std::string::size_type str_size_t;
 
-Player::Player() {
+Player::Player()
+{
 	addInitialTanks();
 }
 
-Player::Player(const std::string& name) : name(name) {
+Player::Player(const std::string& name) : name(name)
+{
 	addInitialTanks();
 }
 
-Player::~Player() {
-	
+Player::~Player()
+{
+
 	clearPointerContainer(tanks);
 }
 
-const std::string& Player::getName() const {
+const std::string& Player::getName() const
+{
 	return name;
 }
 
-const std::vector<Tank*>& Player::getTanks() const {
+const std::vector<Tank*>& Player::getTanks() const
+{
 	return tanks;
 }
 
-const Tank* const Player::getSelected() const {
+const Tank* const Player::getSelected() const
+{
 	return selected;
 }
 
-void Player::setSelected(Tank* const selected) {
+void Player::setSelected(Tank* const selected)
+{
 	this->selected = selected;
 }
 
-void Player::addTank(Tank* const tank) {
+void Player::addTank(Tank* const tank)
+{
 	tanks.push_back(tank);
 }
 
-void Player::addInitialTanks() {
+void Player::addInitialTanks()
+{
 
 	selected = 0;
 
@@ -46,7 +55,8 @@ void Player::addInitialTanks() {
 	tanks.push_back(new Tank(78, 0, 0, 99, 0));
 }
 
-std::ostream& operator<<(std::ostream& o, const Player& player) {
+std::ostream& operator<<(std::ostream& o, const Player& player)
+{
 	size_t stringSize = player.name.size();
 
 	o.write((char*) &stringSize, sizeof(str_size_t));
@@ -57,7 +67,8 @@ std::ostream& operator<<(std::ostream& o, const Player& player) {
 	return o;
 }
 
-std::istream& operator>>(std::istream& in, Player& player) {
+std::istream& operator>>(std::istream& in, Player& player)
+{
 
 	clearPointerContainer(player.tanks);
 	player.selected = 0;

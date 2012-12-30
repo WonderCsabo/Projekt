@@ -8,38 +8,38 @@
 #include <vector>
 #include <map>
 class View :
-  public AbstractView
+	public AbstractView
 {
 public:
-  void drawEverything();
-  void addBarrel(float, float, float, float);
-  void addTank(CommonTankInfo*);
-  void addText(sf::Text);
-  View(sf::RenderWindow *, bool);
-  View(sf::RenderWindow *rw);
-  ~View(void);
+	void drawEverything();
+	void addBarrel(float, float, float, float);
+	void addTank(CommonTankInfo*);
+	void addText(sf::Text);
+	View(sf::RenderWindow *, bool);
+	View(sf::RenderWindow *rw);
+	~View(void);
 private:
-  //DebugWindow d;
-  void drawTank();
-  void drawTexts();
-  void drawBarrels();
-  void updateTanks();
-  void init();
-  TextureHolder barrelTextures;
-  void drawDebug();
-  void clearBackground();
-  std::vector<sf::Color> teamColors;
-  std::vector<TankAnimation*> tanks;
-  std::vector<sf::Text> texts;
-  sf::Texture* cannonTexture;
-  sf::Texture* selection;
-  sf::Texture mapTexture;//
-  sf::Sprite mapSprite;
-  //sf::Sprite *tankSprite;
-  //pointers
+	//DebugWindow d;
+	void drawTank();
+	void drawTexts();
+	void drawBarrels();
+	void updateTanks();
+	void init();
+	TextureHolder barrelTextures;
+	void drawDebug();
+	void clearBackground();
+	std::vector<sf::Color> teamColors;
+	std::vector<TankAnimation*> tanks;
+	std::vector<sf::Text> texts;
+	sf::Texture* cannonTexture;
+	sf::Texture* selection;
+	sf::Texture mapTexture;//
+	sf::Sprite mapSprite;
+	//sf::Sprite *tankSprite;
+	//pointers
 
-  std::vector<sf::Sprite*> barrels;//pipa
-  TextureHolder *tankTextures;//pipa
-  sf::RectangleShape *debugBox;//pipa
-  sf::Text *debug;//pipa
+	std::vector<sf::Sprite*> barrels;//pipa
+	TextureHolder *tankTextures;//pipa
+	sf::RectangleShape *debugBox;//pipa
+	sf::Text *debug;//pipa
 };

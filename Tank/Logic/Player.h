@@ -4,7 +4,8 @@
 #include <vector>
 #include "Tank.h"
 
-class Player {
+class Player
+{
 
 	friend std::ostream& operator<<(std::ostream& o, const Player& player);
 	friend std::istream& operator>>(std::istream& i, Player& player);

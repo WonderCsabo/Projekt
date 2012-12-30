@@ -22,7 +22,8 @@ std::string Coord::toString() const
 	return ss.str();
 }
 
-std::ostream& operator<< (std::ostream& o, const Coord& coord) {
+std::ostream& operator<< (std::ostream& o, const Coord& coord)
+{
 	o << coord.x << ";" << coord.y;
 	return o;
 }

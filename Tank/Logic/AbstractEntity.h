@@ -3,7 +3,8 @@
 #include <cstddef>
 #include <iostream>
 
-class AbstractEntity {
+class AbstractEntity
+{
 
 	friend std::ostream& operator<<(std::ostream& o, const AbstractEntity& abstractEntity);
 	friend std::istream& operator>>(std::istream& i, AbstractEntity& abstractEntity);

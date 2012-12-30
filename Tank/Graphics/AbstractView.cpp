@@ -3,9 +3,9 @@
 
 AbstractView::AbstractView(sf::RenderWindow *rw, bool deb) : window(rw), debugMode(deb) {}
 AbstractView::AbstractView(sf::RenderWindow *rw) : window(rw), debugMode(false) {}
-AbstractView::~AbstractView(){}
+AbstractView::~AbstractView() {}
 void AbstractView::addDebugInfo(std::string s)
 {
-  if(debugMode==false) return;
-  debugMessages.push_back(s);
+	if(debugMode==false) return;
+	debugMessages.push_back(s);
 }

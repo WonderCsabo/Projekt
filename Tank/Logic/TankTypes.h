@@ -3,13 +3,15 @@
 #include <unordered_map>
 #include <cstddef>
 
-class TankTypes {
+class TankTypes
+{
 
 public:
 
 	static const TankTypes& getInstance();
 
-	struct TankType {
+	struct TankType
+	{
 
 		TankType();
 		TankType(const short& HP, const unsigned short& fireDamage);
@@ -24,7 +26,7 @@ private:
 
 	TankTypes();
 	TankTypes(const TankTypes&);
-    TankTypes& operator=(const TankTypes&);
+	TankTypes& operator=(const TankTypes&);
 
 	std::unordered_map<size_t, TankType> types;
 };

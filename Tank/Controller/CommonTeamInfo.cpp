@@ -24,7 +24,7 @@ CommonTankInfo* CommonTeamInfo::getSelected()
 }
 void CommonTeamInfo::setSelected(CommonTankInfo* tank)
 {
-	
+
 	selected = tank;
 }
 std::vector<CommonTankInfo *>::iterator CommonTeamInfo::getEnd()

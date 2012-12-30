@@ -22,7 +22,7 @@ int GuiElement::getType() const
 
 const std::string& GuiElement::getId() const
 {
-    return id;
+	return id;
 }
 
 void GuiElement::setText(std::string t)
@@ -39,8 +39,8 @@ Coord GuiElement::getPosition() const
 bool GuiElement::isMouseClicked(sf::Event ev)
 {
 	if (ev.mouseButton.x>position.x && ev.mouseButton.y>position.y &&
-		ev.mouseButton.x<position.x+width && ev.mouseButton.y<position.y+height &&
-		ev.type==sf::Event::MouseButtonPressed && ev.mouseButton.button==sf::Mouse::Left)
+	        ev.mouseButton.x<position.x+width && ev.mouseButton.y<position.y+height &&
+	        ev.type==sf::Event::MouseButtonPressed && ev.mouseButton.button==sf::Mouse::Left)
 		return true;
 	else
 		return false;

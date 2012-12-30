@@ -49,8 +49,10 @@ GuiElement* GuiContainer::isClicked(sf::Event& ev)
 			if ((**it).getType()==GuiElement::EDT)
 			{
 				EditBox* e = static_cast<EditBox*>(*it);
-				for (std::list<GuiElement*>::iterator it = elements.begin(); it!=elements.end(); it++) {
-					if ((**it).getType() == GuiElement::EDT) {
+				for (std::list<GuiElement*>::iterator it = elements.begin(); it!=elements.end(); it++)
+				{
+					if ((**it).getType() == GuiElement::EDT)
+					{
 						EditBox* tmp = static_cast<EditBox*>(*it);
 						tmp->setFocused(false);
 					}

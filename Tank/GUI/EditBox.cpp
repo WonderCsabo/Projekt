@@ -31,9 +31,11 @@ bool EditBox::isFocused()
 
 void EditBox::type(sf::Event& ev)
 {
-	if (ev.type == ev.KeyPressed) {
+	if (ev.type == ev.KeyPressed)
+	{
 		char* c = NULL;
-		if (ev.key.code>=0 && ev.key.code<=25) {
+		if (ev.key.code>=0 && ev.key.code<=25)
+		{
 
 			if (ev.key.shift==false)
 				c = new char(97+ev.key.code);

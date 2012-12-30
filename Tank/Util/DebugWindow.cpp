@@ -1,7 +1,8 @@
 #include "DebugWindow.h"
 #include "Os.h"
- 
-DebugWindow::DebugWindow() {
+
+DebugWindow::DebugWindow()
+{
 
 #if defined WINDOWS
 	AllocConsole();
@@ -11,14 +12,16 @@ DebugWindow::DebugWindow() {
 #endif
 }
 
-DebugWindow::~DebugWindow() {
+DebugWindow::~DebugWindow()
+{
 #if defined WINDOWS
 	FreeConsole();
 #endif
 
 }
 
-void DebugWindow::openDebugWindow() {
+void DebugWindow::openDebugWindow()
+{
 
 	static DebugWindow window;
 }

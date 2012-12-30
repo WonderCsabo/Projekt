@@ -1,7 +1,7 @@
 #include "ClientManager.h"
 
 ClientManager::ClientManager(sf::TcpSocket* client_, std::string nick) :
-	 nickname(nick), client(client_)
+	nickname(nick), client(client_)
 {
 
 }
