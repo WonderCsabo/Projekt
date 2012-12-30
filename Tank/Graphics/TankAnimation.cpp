@@ -29,6 +29,7 @@ TankAnimation::TankAnimation(CommonTankInfo *tank, TextureHolder* texture, sf::T
 }
 sf::Sprite* TankAnimation::getTank()
 {
+	if(!tankInfo->motionTrigger) return sprites[0];
   if(++state==sprites.size()) state = 0;
   return sprites[state];
 }
@@ -58,7 +59,6 @@ void TankAnimation::updateTank()
     }
   cannon->setPosition(tankInfo->posX,tankInfo->posY);
   cannon->setRotation(tankInfo->cannonOrientation);
-  //std::cout<<"Cannon rotated to :"<<tankInfo->cannonOrientation<<"\n";
   selection->setPosition(tankInfo->posX,tankInfo->posY);
 }
 TankAnimation::~TankAnimation(void)

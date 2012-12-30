@@ -11,6 +11,8 @@ Controller::Controller(short x, short y, std::string title, unsigned short myId)
 {
   window = new sf::RenderWindow(sf::VideoMode(x,y), title, sf::Style::Close);
   view = new View(window,true);
+  tankSpeed = 20.0f;
+  rotSpeed = 10.0f;
   addTanks(view);
   addRandomBarrels(view);
 }
@@ -51,7 +53,6 @@ float Controller::getAngleBetweenPoints(float x, float y, float a, float b)
 void Controller::rotateCannonToPoint(float x, float y)
 {
 	teams[myTeamId]->getSelected()->cannonOrientation = getAngleBetweenPoints(teams[myTeamId]->getSelected()->posX,teams[myTeamId]->getSelected()->posY,x,y);
-	//std::cout<<"Rotated to: "<<teams[myTeamId]->getSelected()->cannonOrientation<<"\n-------------\n";
 }
 bool Controller::getEvent(sf::Event& ev)
 {
@@ -67,20 +68,103 @@ bool Controller::getEvent(sf::Event& ev)
 
   if(ev.type == sf::Event::MouseButtonPressed)
   {
-	  handleSelectedTank(getTankOnPosition((float)sf::Mouse::getPosition(*window).x,(float)sf::Mouse::getPosition(*window).y));
+	  handleMouseClick(getTankOnPosition((float)sf::Mouse::getPosition(*window).x,(float)sf::Mouse::getPosition(*window).y));
 	  return false;
   }
-	
-
 	return true;
 }
-void Controller::handleSelectedTank(CommonTankInfo* tank)
+void Controller::handleMouseClick(CommonTankInfo* tank)
 {
-	if (tank == NULL) return;
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && isOwnTeam(tank))//Bal katt, kiválasztás
-	selectionHandler(tank);
+	if (tank == NULL && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	{
+		addMove(teams[myTeamId]->getSelected(), (float)sf::Mouse::getPosition(*window).x, (float)sf::Mouse::getPosition(*window).y);
+	}
+	else
+	{
+			if(sf::Mouse::isButtonPressed(sf::Mouse::Left))//Bal katt, kiválasztás
+			{
+				selectionHandler(tank);
+			}
+	}
 	//else if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && (isOwnTeam(tank) || true)//Jobb katt, másikra esete. True teszt célból
-	
+}
+void Controller::addMove(CommonTankInfo* tank, float x, float y)
+{
+	//std::cout<<"("<<x<<","<<y<<")\n";
+	tank->desX = x;
+	tank->desY = y;
+	tank->motionTrigger = true;
+}
+void Controller::tankMovements()
+{
+	std::vector<CommonTeamInfo*>::iterator teamIter;
+	std::vector<CommonTankInfo*>::iterator tankIter;
+	CommonTankInfo* tank;
+	for(teamIter = teams.begin();teamIter!=teams.end();teamIter++)
+	{
+		for(tankIter = (*teamIter)->getBegin(); tankIter != (*teamIter)->getEnd(); tankIter++)
+		{
+			tank = (*tankIter);
+			if(tank->motionTrigger) applyMove(tank);
+		}
+	}
+}
+void Controller::applyMove(CommonTankInfo* tank)
+{
+	if(tank->posX == tank->desX && tank->posY == tank->desY)
+	{
+		tank->motionTrigger = false;
+		return;
+	}
+	float desired = getAngleBetweenPoints(tank->posX, tank->posY, tank->desX, tank->desY);
+	if(std::floor(desired) != std::floor(tank->orientation))
+	{
+		float actual = tank->orientation;
+		if(desired<0) desired+=360;
+		if(actual<0) actual += 360;
+		if(desired>actual)
+		{
+			if(desired<180.0f+actual) actual += rotSpeed;
+			else actual -= rotSpeed;
+		}
+		else 
+		{
+			if(actual<180.0f+desired) actual -= rotSpeed;
+			else actual += rotSpeed;
+		}
+
+		
+
+		float difference = std::abs(actual-desired);
+		if(difference > 180.0f) difference = 360-difference;
+		//std::cout<<"|actual-desire|: "<<actual<<"-"<<desired<<"="<<difference<<"\n";
+		if(difference<rotSpeed)
+		{
+			
+			if(desired<0) desired = 360 +desired;
+			if(desired > 360) desired = desired-360;
+			if(desired>180) desired -= 360;
+			tank->orientation = desired;
+			return;
+		}
+		if(actual < 0) actual = 360 + actual;
+		if(actual > 360) actual = actual-360;
+		if(actual>180) actual -= 360;
+		
+		tank->orientation = actual;
+	}
+	else if(std::floorf(tank->desX)!=std::floorf(tank->posX) && std::floorf(tank->desY)!= std::floorf(tank->posY))
+	{
+		float a = std::floorf(tank->desX)-std::floorf(tank->posX);
+		float b = std::floorf(tank->desY)-std::floorf(tank->posY);
+		float c = std::sqrtf(a*a+b*b);
+		float i = a/c*tankSpeed;
+		float j = b/c*tankSpeed;
+		if(std::abs(a)<std::abs(i)) tank->posX = tank->desX;
+		else tank->posX += i;
+		if(std::abs(b)<std::abs(j)) tank->posY = tank->desY;
+		else tank->posY += j;
+	}
 }
 bool Controller::isOwnTeam(CommonTankInfo* tank)
 {
@@ -88,19 +172,31 @@ bool Controller::isOwnTeam(CommonTankInfo* tank)
 }
 void Controller::selectionHandler(CommonTankInfo* tank)
 {
-	
+	CommonTankInfo* temp = teams[myTeamId]->getSelected();
+	bool reselect = false;
+	if(tank == NULL) return;
 	std::vector<CommonTankInfo*>::iterator iter = teams[myTeamId]->getBegin();
 	for(;iter != teams[myTeamId]->getEnd();iter++)
 	{
 		(*iter)->selected = false;
+		if((*iter) == tank)
+		{
+			reselect = true;
+				tank->selected = true;
+				teams[myTeamId]->setSelected(tank);
+		}
 	}
-	tank->selected = true;
-	teams[myTeamId]->setSelected(tank);
+	if(!reselect)
+	{
+		temp->selected = true;
+		teams[myTeamId]->setSelected(temp);
+	}
 }
 void Controller::refresh()
 {
+  tankMovements();
   view->drawEverything();
-  sf::sleep(sf::milliseconds(70));
+  sf::sleep(sf::milliseconds(10));
 }
 void Controller::shutDown()
 {

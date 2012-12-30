@@ -12,6 +12,8 @@ public:
   unsigned short team();
   float posX;
   float posY;
+  float desX;
+  float desY;
   float width;
   float height;
   float orientation;
