@@ -4,7 +4,9 @@
 RandomColor::RandomColor(void)
 {
 }
-
+RandomColor::~RandomColor(void)
+{
+}
 sf::Color RandomColor::getRandomColor()
 {
 	switch(std::rand()%10)
@@ -33,8 +35,4 @@ sf::Color RandomColor::getRandomColor()
 		return sf::Color(0,255,78);
 	}
 	return sf::Color(0,255,0);
-}
-
-RandomColor::~RandomColor(void)
-{
 }

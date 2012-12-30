@@ -19,9 +19,9 @@ public:
 
 	enum TYPES
 	{
-	    BTN = 101, //button
-	    LBL = 100, //label
-	    EDT = 102  //editbox
+	  BTN = 101, //button
+	  LBL = 100, //label
+	  EDT = 102  //editbox
 	};
 
 protected:

@@ -3,6 +3,13 @@
 
 #include <cstdlib>
 #include <ctime>
+
+TextureHolder::TextureHolder(void) {}
+TextureHolder::~TextureHolder(void)
+{
+	clearPointerContainer(textures);
+}
+
 void TextureHolder::addTexture(sf::Texture* t)
 {
 	textures.push_back(t);
@@ -15,12 +22,4 @@ sf::Texture* TextureHolder::returnIndex(int i)
 {
 	return textures[i];
 }
-TextureHolder::~TextureHolder(void)
-{
-	this->clear();
-}
-TextureHolder::TextureHolder(void) {}
-void TextureHolder::clear(void)
-{
-	clearPointerContainer(textures);
-}
+

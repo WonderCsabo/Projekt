@@ -11,7 +11,7 @@ void recieveFromClient(AbstractView* view, Client* client, bool& run)
 			run = false;
 		}
 		else
-			view -> addDebugInfo(m.toString());
+			std::cout<<m.toString();
 	}
 }
 

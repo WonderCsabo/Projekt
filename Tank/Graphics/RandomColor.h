@@ -4,7 +4,7 @@ class RandomColor
 {
 public:
 	RandomColor(void);
-	static sf::Color getRandomColor();
 	~RandomColor(void);
+	static sf::Color getRandomColor();
 };
 

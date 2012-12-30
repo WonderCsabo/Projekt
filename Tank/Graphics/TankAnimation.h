@@ -8,20 +8,23 @@
 
 class TankAnimation
 {
-private:
-	unsigned short state;
-	std::vector<sf::Sprite*> sprites;
-	sf::Sprite* cannon;
-	sf::Sprite* selection;
-	CommonTankInfo* tankInfo;
 public:
 	TankAnimation(CommonTankInfo*,TextureHolder*, sf::Texture*,sf::Texture*,sf::Color);
-	//bool isIt(CommonTankInfo*);
-	bool isSelected();
+	~TankAnimation(void);
+
+
 	void updateTank();
+	bool isSelected();
+
 	sf::Sprite* getTank();
 	sf::Sprite* getSelection();
 	sf::Sprite* getCannon();
-	~TankAnimation(void);
+
+private:
+	unsigned short state;
+	std::vector<sf::Sprite*> sprites;//Handled
+	sf::Sprite* cannon;//Handled
+	sf::Sprite* selection;//Handled
+	CommonTankInfo* tankInfo;//Should be handled on highest level.
 };
 

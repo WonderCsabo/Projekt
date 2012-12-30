@@ -10,7 +10,7 @@ void CommonTeamInfo::addTank(CommonTankInfo* t)
 	if(myTanks.size() == 1)
 	{
 		selected = t;
-		myTanks[0]->selected;
+		selected->deSelect();
 	}
 }
 std::vector<CommonTankInfo *>::iterator CommonTeamInfo::getBegin()

@@ -7,7 +7,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 int main()
 #endif
 {
-	std::srand(std::time( NULL ));
+	std::srand(std::time( 0 ));
 	Client* client = Controller::startgui();
 	if (client==NULL && !StartGui::isOfflineMode())
 		return 0;
@@ -37,7 +37,6 @@ int main()
 	{
 		try
 		{
-			controller.recieveEvents();
 			sf::Event ev;
 			while (controller.getEvent(ev))
 			{
@@ -59,8 +58,6 @@ int main()
 				}
 
 			}
-
-			controller.addText(consoleText);
 			controller.refresh();
 		}
 		catch(std::exception e)

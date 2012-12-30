@@ -20,7 +20,6 @@
 
 class Controller
 {
-
 private:
 	const unsigned short myTeamId;
 	float tankSpeed;
@@ -29,27 +28,40 @@ private:
 	sf::RenderWindow *window;
 	AbstractView *view;
 	std::list<sf::Event> events;
-	CommonTankInfo* getTankOnPosition(float, float);
-	void addMove(CommonTankInfo*,float,float);
+	CommonTankInfo* getTankOnPosition(const sf::Vector2f&);
+	void addMove(CommonTankInfo*,const sf::Vector2f&);
 	void handleMouseClick(CommonTankInfo*);
 	void selectionHandler(CommonTankInfo*);
-	void rotateCannonToPoint(float, float);
+	void rotateCannonToPoint(const sf::Vector2f&);
 	void tankMovements();
 	void applyMove(CommonTankInfo*);
 	bool isOwnTeam(CommonTankInfo*);
-	float getAngleBetweenPoints(float,float,float,float);
+	float getAngleBetweenPoints(const sf::Vector2f&,const sf::Vector2f&);
 	void addRandomBarrels(AbstractView* v);
 	void addTanks(AbstractView* v);
+	void recieveEvents();
 public:
-	Controller(short x, short y, std::string, unsigned short);
+	/*
+	The Game window size x,y in short.
+	The Window title.
+	The own team id.
+	*/
+	Controller(short,short,std::string,unsigned short);
 	~Controller(void);
+
 	static Client* startgui();
+
 	sf::RenderWindow* getWindow();
 	AbstractView* getView();
+
+	/*Is the Window still open?*/
 	bool programRunning();
+
+	/*Pass the last sf::Event from the queue.
+	  Return false, is the querue is empty.*/
 	bool getEvent(sf::Event&);
-	void recieveEvents();
-	void addText(sf::Text);
+
+
 	void shutDown();
 	void refresh();
 };

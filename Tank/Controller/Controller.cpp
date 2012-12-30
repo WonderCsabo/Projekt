@@ -10,13 +10,13 @@ Client* Controller::startgui()
 Controller::Controller(short x, short y, std::string title, unsigned short myId) : myTeamId(myId)
 {
 	window = new sf::RenderWindow(sf::VideoMode(x,y), title, sf::Style::Close);
-	view = new View(window,true);
+	view = new View(window);
 	tankSpeed = 20.0f;
 	rotSpeed = 10.0f;
 	addTanks(view);
 	addRandomBarrels(view);
 }
-CommonTankInfo* Controller::getTankOnPosition(float X, float Y)
+CommonTankInfo* Controller::getTankOnPosition(const sf::Vector2f& position)
 {
 	std::vector<CommonTeamInfo*>::iterator teamIter;
 	std::vector<CommonTankInfo*>::iterator tankIter;
@@ -24,16 +24,14 @@ CommonTankInfo* Controller::getTankOnPosition(float X, float Y)
 	{
 		for(tankIter = (*teamIter)->getBegin(); tankIter != (*teamIter)->getEnd(); tankIter++)
 		{
-			float left = (*tankIter)->posX-(*tankIter)->width/2-10.f;
-			float right = (*tankIter)->posX+(*tankIter)->width/2+10.f;
-			float top = (*tankIter)->posY-(*tankIter)->height/2-10.f;
-			float bottom = (*tankIter)->posY+(*tankIter)->height/2+10.f;
-			if(left<X && right>X && top<Y && bottom>Y)
+			float left = (*tankIter)->getPosition().x-(*tankIter)->getSize().x/2-10.f;
+			float right = (*tankIter)->getPosition().x+(*tankIter)->getSize().x/2+10.f;
+			float top = (*tankIter)->getPosition().y-(*tankIter)->getSize().y/2-10.f;
+			float bottom = (*tankIter)->getPosition().y+(*tankIter)->getSize().y/2+10.f;
+			if(left<position.x && right>position.x && top<position.y && bottom>position.y)
 			{
-				//std::cout<<"\nTank on ("<<(*tankIter)->posX<<","<<(*tankIter)->posY<<") selected\n";
 				return *tankIter;
 			}
-			//std::cout<<"\nTank bounds on ("<<top<<","<<right<<","<<bottom<<","<<left<<")";
 		}
 	}
 	return NULL;
@@ -46,13 +44,13 @@ sf::RenderWindow* Controller::getWindow()
 {
 	return window;
 }
-float Controller::getAngleBetweenPoints(float x, float y, float a, float b)
+float Controller::getAngleBetweenPoints(const sf::Vector2f& A, const sf::Vector2f& B)
 {
-	return std::atan2f(a-x,y-b)*180.0f/3.1412f;
+	return std::atan2f(B.x-A.x,A.y-B.y)*180.0f/3.1412f;
 }
-void Controller::rotateCannonToPoint(float x, float y)
+void Controller::rotateCannonToPoint(const sf::Vector2f& A)
 {
-	teams[myTeamId]->getSelected()->cannonOrientation = getAngleBetweenPoints(teams[myTeamId]->getSelected()->posX,teams[myTeamId]->getSelected()->posY,x,y);
+	teams[myTeamId]->getSelected()->setCannonAngle(getAngleBetweenPoints(teams[myTeamId]->getSelected()->getPosition(),A));
 }
 bool Controller::getEvent(sf::Event& ev)
 {
@@ -64,11 +62,11 @@ bool Controller::getEvent(sf::Event& ev)
 		shutDown();
 		return false;
 	}
-	rotateCannonToPoint((float)sf::Mouse::getPosition(*window).x,(float)sf::Mouse::getPosition(*window).y);
+	rotateCannonToPoint(sf::Vector2f(sf::Mouse::getPosition(*window)));
 
 	if(ev.type == sf::Event::MouseButtonPressed)
 	{
-		handleMouseClick(getTankOnPosition((float)sf::Mouse::getPosition(*window).x,(float)sf::Mouse::getPosition(*window).y));
+		handleMouseClick(getTankOnPosition(sf::Vector2f(sf::Mouse::getPosition(*window))));
 		return false;
 	}
 	return true;
@@ -77,7 +75,7 @@ void Controller::handleMouseClick(CommonTankInfo* tank)
 {
 	if (tank == NULL && sf::Mouse::isButtonPressed(sf::Mouse::Right))
 	{
-		addMove(teams[myTeamId]->getSelected(), (float)sf::Mouse::getPosition(*window).x, (float)sf::Mouse::getPosition(*window).y);
+		addMove(teams[myTeamId]->getSelected(), sf::Vector2f(sf::Mouse::getPosition(*window)));
 	}
 	else
 	{
@@ -88,12 +86,11 @@ void Controller::handleMouseClick(CommonTankInfo* tank)
 	}
 	//else if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && (isOwnTeam(tank) || true)//Jobb katt, másikra esete. True teszt célból
 }
-void Controller::addMove(CommonTankInfo* tank, float x, float y)
+void Controller::addMove(CommonTankInfo* tank,const sf::Vector2f& destination)
 {
 	//std::cout<<"("<<x<<","<<y<<")\n";
-	tank->desX = x;
-	tank->desY = y;
-	tank->motionTrigger = true;
+	tank->setDestination(destination);
+	tank->startMotion();
 }
 void Controller::tankMovements()
 {
@@ -105,21 +102,21 @@ void Controller::tankMovements()
 		for(tankIter = (*teamIter)->getBegin(); tankIter != (*teamIter)->getEnd(); tankIter++)
 		{
 			tank = (*tankIter);
-			if(tank->motionTrigger) applyMove(tank);
+			if(tank->isInMotion()) applyMove(tank);
 		}
 	}
 }
 void Controller::applyMove(CommonTankInfo* tank)
 {
-	if(tank->posX == tank->desX && tank->posY == tank->desY)
+	if(tank->getPosition() == tank->getDestination())
 	{
-		tank->motionTrigger = false;
+		tank->stopMotion();
 		return;
 	}
-	float desired = getAngleBetweenPoints(tank->posX, tank->posY, tank->desX, tank->desY);
-	if(std::floor(desired) != std::floor(tank->orientation))
+	float desired = getAngleBetweenPoints(tank->getPosition(), tank->getDestination());
+	if(std::floor(desired) != std::floor(tank->getTankAngle()))
 	{
-		float actual = tank->orientation;
+		float actual = tank->getTankAngle();
 		if(desired<0) desired+=360;
 		if(actual<0) actual += 360;
 		if(desired>actual)
@@ -144,31 +141,29 @@ void Controller::applyMove(CommonTankInfo* tank)
 			if(desired<0) desired = 360 +desired;
 			if(desired > 360) desired = desired-360;
 			if(desired>180) desired -= 360;
-			tank->orientation = desired;
+			tank->setTankAngle(desired);
 			return;
 		}
 		if(actual < 0) actual = 360 + actual;
 		if(actual > 360) actual = actual-360;
 		if(actual>180) actual -= 360;
 
-		tank->orientation = actual;
+		tank->setTankAngle(actual);
 	}
-	else if(std::floorf(tank->desX)!=std::floorf(tank->posX) && std::floorf(tank->desY)!= std::floorf(tank->posY))
+	else if(std::floorf(tank->getDestination().x)!=std::floorf(tank->getPosition().x) && std::floorf(tank->getDestination().y)!= std::floorf(tank->getPosition().y))
 	{
-		float a = std::floorf(tank->desX)-std::floorf(tank->posX);
-		float b = std::floorf(tank->desY)-std::floorf(tank->posY);
+		float a = std::floorf(tank->getDestination().x)-std::floorf(tank->getPosition().x);
+		float b = std::floorf(tank->getDestination().y)-std::floorf(tank->getPosition().y);
 		float c = std::sqrtf(a*a+b*b);
 		float i = a/c*tankSpeed;
 		float j = b/c*tankSpeed;
-		if(std::abs(a)<std::abs(i)) tank->posX = tank->desX;
-		else tank->posX += i;
-		if(std::abs(b)<std::abs(j)) tank->posY = tank->desY;
-		else tank->posY += j;
+		if(std::abs(a)<std::abs(i) || std::abs(b)<std::abs(j)) tank->setPosition(tank->getDestination());
+		else tank->setPosition(tank->getPosition()+sf::Vector2f(i,j));
 	}
 }
 bool Controller::isOwnTeam(CommonTankInfo* tank)
 {
-	return tank->team() == myTeamId;
+	return tank->getTeamId() == myTeamId;
 }
 void Controller::selectionHandler(CommonTankInfo* tank)
 {
@@ -178,22 +173,23 @@ void Controller::selectionHandler(CommonTankInfo* tank)
 	std::vector<CommonTankInfo*>::iterator iter = teams[myTeamId]->getBegin();
 	for(; iter != teams[myTeamId]->getEnd(); iter++)
 	{
-		(*iter)->selected = false;
+		(*iter)->deSelect();
 		if((*iter) == tank)
 		{
 			reselect = true;
-			tank->selected = true;
+			tank->reSelect();
 			teams[myTeamId]->setSelected(tank);
 		}
 	}
 	if(!reselect)
 	{
-		temp->selected = true;
+		temp->reSelect();
 		teams[myTeamId]->setSelected(temp);
 	}
 }
 void Controller::refresh()
 {
+	recieveEvents();
 	tankMovements();
 	view->drawEverything();
 	sf::sleep(sf::milliseconds(10));
@@ -201,10 +197,6 @@ void Controller::refresh()
 void Controller::shutDown()
 {
 	window->close();
-}
-void Controller::addText(sf::Text text)
-{
-	view->addText(text);
 }
 void Controller::recieveEvents()
 {
@@ -223,22 +215,13 @@ AbstractView* Controller::getView()
 
 void Controller::addTanks(AbstractView* v)
 {
-	for(int j = 0; j < 2; j++)//teams
+	for(unsigned short j = 0; j < 2; j++)//teams
 	{
 		teams.push_back(new CommonTeamInfo(j));
-		for(int i = 0; i< 3 ; i++)//players in tank
+		for(unsigned short i = 0; i< 3 ; i++)//players in tank
 		{
-			CommonTankInfo* t = new CommonTankInfo(j);
-			t->height = (float)(40);
-			t->width = (float)(30);
-			t->cannonOrientation = (float)(std::rand()%359);
-			t->orientation = 0.0f;
-			(float)(std::rand()%359);
-			t->posX = (float)(std::rand()%630)+30.0f;
-			t->posY = (float)(std::rand()%630)+30.0f;
-			t->selected = false;
-			if(i == 0 && j == myTeamId) t->selected = true;
-			t->motionTrigger = false;
+			CommonTankInfo* t = new CommonTankInfo(j,i,sf::Vector2f((float)(std::rand()%630)+30.0f,(float)(std::rand()%630)+30.0f), sf::Vector2f(35.0f, 35.0f));
+			if(i == 0 && j == myTeamId) t->reSelect();
 			teams[j]->addTank(t);
 			v->addTank(t);
 		}
@@ -249,8 +232,7 @@ void Controller::addRandomBarrels(AbstractView* v)
 {
 	for(int i = 0; i< 10 ; i++)
 	{
-		//v->addBarrel((float)(std::rand()%700), (float)(std::rand()%700), (float)(std::rand()%10+30), (float)(std::rand()%10+30));
-		v->addBarrel((float)(std::rand()%630+30), (float)(std::rand()%630+30), 35.0f, 35.0f);
+		v->addBarrel(sf::Vector2f((float)(std::rand()%630+30), (float)(std::rand()%630+30)), sf::Vector2f(35.0f, 35.0f));
 
 	}
 }
