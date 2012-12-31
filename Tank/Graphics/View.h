@@ -30,18 +30,19 @@ private:
 	void drawTank();
 	void drawBarrels();
 	void clearBackground();
-
 	sf::Texture mapTexture;
 	sf::Sprite mapSprite;
 
 	TextureHolder barrelTextures;
 	std::vector<sf::Sprite*> barrels;//Handled
-
+	
 	TextureHolder *tankTextures;//Handled
+	TextureHolder *bummTextures;//Handled
 	std::vector<TankAnimation*> tanks;//Handled
 
 	sf::Texture* selection;//Handled
 	sf::Texture* cannonTexture;//Handled
-
+	sf::Texture* bulletTexture;//Handled
 	std::vector<sf::Color> teamColors;
+
 };

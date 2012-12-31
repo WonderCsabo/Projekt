@@ -23,7 +23,9 @@ class Controller
 private:
 	const unsigned short myTeamId;
 	float tankSpeed;
+	float bulletSpeed;
 	float rotSpeed;
+	int waitMs;
 	std::vector<CommonTeamInfo*> teams;
 	sf::RenderWindow *window;
 	AbstractView *view;
@@ -31,10 +33,14 @@ private:
 	CommonTankInfo* getTankOnPosition(const sf::Vector2f&);
 	void addMove(CommonTankInfo*,const sf::Vector2f&);
 	void handleMouseClick(CommonTankInfo*);
+	void detonate(CommonTankInfo*);
+	void handleShoot(const sf::Vector2f&);
 	void selectionHandler(CommonTankInfo*);
 	void rotateCannonToPoint(const sf::Vector2f&);
 	void tankMovements();
 	void applyMove(CommonTankInfo*);
+	void moveBullet(CommonTankInfo*);
+	void detonateAnimation(CommonTankInfo*);
 	bool isOwnTeam(CommonTankInfo*);
 	float getAngleBetweenPoints(const sf::Vector2f&,const sf::Vector2f&);
 	void addRandomBarrels(AbstractView* v);
@@ -48,7 +54,6 @@ public:
 	*/
 	Controller(short,short,std::string,unsigned short);
 	~Controller(void);
-
 	static Client* startgui();
 
 	sf::RenderWindow* getWindow();
@@ -60,7 +65,6 @@ public:
 	/*Pass the last sf::Event from the queue.
 	  Return false, is the querue is empty.*/
 	bool getEvent(sf::Event&);
-
 
 	void shutDown();
 	void refresh();

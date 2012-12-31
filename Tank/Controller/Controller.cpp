@@ -11,8 +11,10 @@ Controller::Controller(short x, short y, std::string title, unsigned short myId)
 {
 	window = new sf::RenderWindow(sf::VideoMode(x,y), title, sf::Style::Close);
 	view = new View(window);
-	tankSpeed = 20.0f;
-	rotSpeed = 10.0f;
+	tankSpeed = 15.0f;
+	rotSpeed = 30.0f;
+	bulletSpeed = 30.0f;
+	waitMs = 25;
 	addTanks(view);
 	addRandomBarrels(view);
 }
@@ -73,22 +75,33 @@ bool Controller::getEvent(sf::Event& ev)
 }
 void Controller::handleMouseClick(CommonTankInfo* tank)
 {
-	if (tank == NULL && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 	{
-		addMove(teams[myTeamId]->getSelected(), sf::Vector2f(sf::Mouse::getPosition(*window)));
+		if(tank == NULL)
+			addMove(teams[myTeamId]->getSelected(), sf::Vector2f(sf::Mouse::getPosition(*window)));
+		else
+			handleShoot(sf::Vector2f(sf::Mouse::getPosition(*window)));
 	}
 	else
 	{
-		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))//Bal katt, kiválasztás
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			selectionHandler(tank);
 		}
 	}
-	//else if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && (isOwnTeam(tank) || true)//Jobb katt, másikra esete. True teszt célból
+}
+void Controller::handleShoot(const sf::Vector2f& A)
+{
+	float a = std::floorf(A.x)-std::floorf(teams[myTeamId]->getSelected()->getPosition().x);
+	float b = std::floorf(A.y)-std::floorf(teams[myTeamId]->getSelected()->getPosition().y);
+	float c = std::sqrtf(a*a+b*b);
+	float i = a/c*bulletSpeed;
+	float j = b/c*bulletSpeed;
+	teams[myTeamId]->getSelected()->setBullet(new CommonBulletInfo(teams[myTeamId]->getSelected()->getPosition(),sf::Vector2f(i,j)));
+	teams[myTeamId]->getSelected()->startShoot();
 }
 void Controller::addMove(CommonTankInfo* tank,const sf::Vector2f& destination)
 {
-	//std::cout<<"("<<x<<","<<y<<")\n";
 	tank->setDestination(destination);
 	tank->startMotion();
 }
@@ -102,6 +115,7 @@ void Controller::tankMovements()
 		for(tankIter = (*teamIter)->getBegin(); tankIter != (*teamIter)->getEnd(); tankIter++)
 		{
 			tank = (*tankIter);
+			if(tank->isShoot() && tank->getBullet() != NULL) moveBullet(tank);
 			if(tank->isInMotion()) applyMove(tank);
 		}
 	}
@@ -161,6 +175,21 @@ void Controller::applyMove(CommonTankInfo* tank)
 		else tank->setPosition(tank->getPosition()+sf::Vector2f(i,j));
 	}
 }
+void Controller::moveBullet(CommonTankInfo* tank)
+{
+	CommonTankInfo* hit = getTankOnPosition(tank->getBullet()->getPosition());
+	if(hit == NULL || hit == tank)
+	{
+		tank->getBullet()->setPosition(tank->getBullet()->getPosition()+tank->getBullet()->getDestination());
+	}
+	else
+	{
+		tank->stopShoot();
+		tank->setBullet(NULL);
+		hit->destroy();
+		//hit->setPosition(sf::Vector2f(-100.0f,-100.0f));
+	}
+}
 bool Controller::isOwnTeam(CommonTankInfo* tank)
 {
 	return tank->getTeamId() == myTeamId;
@@ -192,7 +221,7 @@ void Controller::refresh()
 	recieveEvents();
 	tankMovements();
 	view->drawEverything();
-	sf::sleep(sf::milliseconds(10));
+	sf::sleep(sf::milliseconds(waitMs));
 }
 void Controller::shutDown()
 {
@@ -215,10 +244,10 @@ AbstractView* Controller::getView()
 
 void Controller::addTanks(AbstractView* v)
 {
-	for(unsigned short j = 0; j < 2; j++)//teams
+	for(unsigned short j = 0; j < 3; j++)//teams
 	{
 		teams.push_back(new CommonTeamInfo(j));
-		for(unsigned short i = 0; i< 3 ; i++)//players in tank
+		for(unsigned short i = 0; i< 7 ; i++)//players in tank
 		{
 			CommonTankInfo* t = new CommonTankInfo(j,i,sf::Vector2f((float)(std::rand()%630)+30.0f,(float)(std::rand()%630)+30.0f), sf::Vector2f(35.0f, 35.0f));
 			if(i == 0 && j == myTeamId) t->reSelect();
@@ -236,6 +265,7 @@ void Controller::addRandomBarrels(AbstractView* v)
 
 	}
 }
+
 Controller::~Controller(void)
 {
 	clearPointerContainer(teams);

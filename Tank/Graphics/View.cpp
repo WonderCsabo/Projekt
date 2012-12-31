@@ -15,6 +15,8 @@ View::~View(void)
 	delete tankTextures;
 	delete cannonTexture;
 	delete selection;
+	delete bulletTexture;
+	delete bummTextures;
 }
 
 void View::addBarrel(const sf::Vector2f& position,const sf::Vector2f& dimension)
@@ -41,7 +43,7 @@ void View::addTank(CommonTankInfo* tank)
 		teamColors.resize(tank->getTeamId()+1);
 		teamColors[tank->getTeamId()] = RandomColor::getRandomColor();
 	}
-	tanks.push_back((new TankAnimation(tank, tankTextures,cannonTexture,selection, teamColors[tank->getTeamId()])));
+	tanks.push_back((new TankAnimation(tank, tankTextures,bummTextures,cannonTexture,selection,bulletTexture, teamColors[tank->getTeamId()])));
 }
 void View::drawEverything()
 {
@@ -62,10 +64,25 @@ void View::drawTank()
 {
 	for(unsigned i = 0; i < tanks.size(); i++)
 	{
+		if(tanks[i]==NULL) continue;
+		if(tanks[i]->isDestroyed())
+		{
+			sf::Sprite *sprite = tanks[i]->getBumm();
+			if(sprite != NULL)
+				window->draw(*sprite);
+			else
+				{
+					delete tanks[i];
+					tanks.erase(tanks.begin()+i);
+				}
+			continue;
+		}
 		if(tanks[i]->isSelected())
 			window->draw(*(tanks[i]->getSelection()));
+		window->draw(*tanks[i]->getBullet());
 		window->draw(*(tanks[i]->getTank()));
 		window->draw(*(tanks[i]->getCannon()));
+
 	}
 }
 void View::drawBarrels()
@@ -110,11 +127,29 @@ void View::init()
 	if (!selection->loadFromFile("resource/selection.png"))
 		std::cout<<"selection could not be loaded";
 
+	bulletTexture = new sf::Texture();
+	if (!bulletTexture->loadFromFile("resource/bullet.png"))
+		std::cout<<"bullet could not be loaded";
+	else std::cout<<"pedig betöltöm";
+
 	if (!mapTexture.loadFromFile("resource/map.jpg"))
 		std::cout<<"map cannon could not be loaded";
 	mapSprite.setTexture(mapTexture);
 	mapSprite.setPosition(0.0f,0.0f);
 
+		bummTextures = new TextureHolder();
+	sf::Texture *bumm1 = new sf::Texture();
+	if (!bumm1->loadFromFile("resource/bumm1.png"))
+		std::cout<<"bumm1 could not be loaded";
+	sf::Texture *bumm2 = new sf::Texture();
+	if (!bumm2->loadFromFile("resource/bumm2.png"))
+		std::cout<<"bumm2 could not be loaded";
+	sf::Texture *bumm3 = new sf::Texture();
+	if (!bumm3->loadFromFile("resource/bumm3.png"))
+		std::cout<<"bumm3 could not be loaded";
+	sf::Texture *bumm4 = new sf::Texture();
+	if (!bumm4->loadFromFile("resource/bumm4.png"))
+		std::cout<<"bumm4 could not be loaded";
 
 	barrelTextures.addTexture(texture1);
 	barrelTextures.addTexture(texture2);
@@ -122,4 +157,8 @@ void View::init()
 	tankTextures->addTexture(texture4);
 	tankTextures->addTexture(texture5);
 	tankTextures->addTexture(texture6);
+	bummTextures->addTexture(bumm1);
+	bummTextures->addTexture(bumm2);
+	bummTextures->addTexture(bumm3);
+	bummTextures->addTexture(bumm4);
 }
