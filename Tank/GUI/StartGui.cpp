@@ -104,7 +104,7 @@ void StartGui::makeGui()
 	Coord eportcoord(80, 10);
 	ePort = new EditBox("eport", window, eportcoord, "54322", 150, 25);
 	Coord eipcoord(80, 40);
-	eIPAddress = new EditBox("eipaddress", window, eipcoord, "81.182.236.37", 150, 25);
+	eIPAddress = new EditBox("eipaddress", window, eipcoord, "81.182.86.242", 150, 25);
 	Coord enickcoord(80, 70);
 	eNickname = new EditBox("enickname", window, enickcoord, "client0", 150, 25);
 	panel->add(lPort);
