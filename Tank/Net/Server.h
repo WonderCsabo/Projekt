@@ -1,9 +1,12 @@
-#pragma once
+#ifndef SERVER_H
+#define SERVER_H
 
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
 #include <list>
 #include <iostream>
+#include <map>
+#include <deque>
 #include "MessageObject.h"
 #include "Client.h"
 #include "ClientManager.h"
@@ -18,19 +21,23 @@ public:
 private:
 	unsigned int port;
 	sf::TcpListener listener;
-	sf::TcpSocket client;
+	//sf::TcpSocket client;
 	sf::SocketSelector selector;
 	bool isRunning;
 
 	void waitForClients();
-	std::list<sf::TcpSocket*> clients;
+	//std::list<sf::TcpSocket*> clients;
+	//std::map<std::string, std::deque<MessageObject>>* messages;
 	std::list<ClientManager*> cms;
 	void getInput();
 	void shutDown();
 	void launch();
-	void send(std::string, sf::TcpSocket&);
-	void send(unsigned short, std::string, sf::TcpSocket&);
-	void send(MessageObject m, sf::TcpSocket&);
+	sf::Socket::Status send(std::string, sf::TcpSocket&);
+	sf::Socket::Status send(unsigned short, std::string, sf::TcpSocket&);
+	sf::Socket::Status send(MessageObject m, sf::TcpSocket&);
 	void sendAll(MessageObject);
 	void sendAllExceptSender(MessageObject, sf::TcpSocket&);
+	//void recieveTank(sf::TcpSocket&);
 };
+
+#endif //SERVER_H

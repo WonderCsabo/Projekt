@@ -7,15 +7,21 @@
 * @param unsigned int port
 * @param IpAddress IP address
 */
-Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : address(addr_), port(port_),
-	isRunning(true)
+Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : address(addr_), port(port_)
 {
 	status = server.connect(address, port);
 	if (status == sf::Socket::Done)
 	{
 		MessageObject hi(MessageObject::CONN, nickname);
 		send(hi);
+		launch();
 	}
+}
+
+void Client::launch()
+{
+	manager = new sf::Thread(&Client::manageClient, this);
+	manager->launch();
 }
 
 void Client::sendEventMessage(sf::Event& ev)
@@ -143,4 +149,5 @@ Client::~Client()
 {
 	if (isRunning)
 		shutDown();
+	delete manager;
 }

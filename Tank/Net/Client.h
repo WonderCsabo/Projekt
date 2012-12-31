@@ -31,4 +31,6 @@ private:
 
 	void manageClient();
 	void getInput();
+	void launch();
+	sf::Thread* manager;
 };
