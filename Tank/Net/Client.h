@@ -3,6 +3,7 @@
 #include <SFML/Network.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <deque>
 #include "MessageObject.h"
 
 class Client
@@ -17,6 +18,7 @@ public:
 	void shutDown();
 	void send(std::string);
 	MessageObject recieve();
+	MessageObject getLastMessage();
 	bool isConnected();
 
 private:
@@ -33,4 +35,6 @@ private:
 	void getInput();
 	void launch();
 	sf::Thread* manager;
+	std::deque<MessageObject> messages;
+
 };

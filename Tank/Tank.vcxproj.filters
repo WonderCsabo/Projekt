@@ -140,6 +140,9 @@
     <ClCompile Include="Controller\CommonTeamInfo.cpp">
       <Filter>Source Files\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="Controller\CommonBulletInfo.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\AbstractView.h">
@@ -227,6 +230,9 @@
       <Filter>Header Files\Controller</Filter>
     </ClInclude>
     <ClInclude Include="Controller\CommonTeamInfo.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller\CommonBulletInfo.h">
       <Filter>Header Files\Controller</Filter>
     </ClInclude>
   </ItemGroup>

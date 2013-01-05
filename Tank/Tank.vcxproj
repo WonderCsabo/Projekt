@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Controller\CommonBulletInfo.cpp" />
     <ClCompile Include="Controller\CommonTankInfo.cpp" />
     <ClCompile Include="Controller\CommonTeamInfo.cpp" />
     <ClCompile Include="Controller\Controller.cpp" />
@@ -119,6 +120,7 @@
     <ClCompile Include="Util\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Controller\CommonBulletInfo.h" />
     <ClInclude Include="Controller\CommonTankInfo.h" />
     <ClInclude Include="Controller\CommonTeamInfo.h" />
     <ClInclude Include="Controller\Controller.h" />

@@ -25,6 +25,7 @@ int main()
 		thread->launch();
 	}
 
+	DebugWindow d;
 	std::string console = "";
 	sf::Text consoleText;
 	consoleText.setCharacterSize(10);

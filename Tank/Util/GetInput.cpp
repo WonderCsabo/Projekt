@@ -1,17 +1,23 @@
 #include "GetInput.h"
+#include "../Util/DebugWindow.h"
 
 void recieveFromClient(AbstractView* view, Client* client, bool& run)
 {
+	DebugWindow d;
 	while (run)
 	{
-		MessageObject m = client->recieve();
+		sf::sleep(sf::milliseconds(10));
+		MessageObject m = client->getLastMessage();
 		if (m.type == MessageObject::CMD && m.message == "shut")
 		{
 			client->shutDown();
 			run = false;
 		}
 		else
-			std::cout<<m.toString();
+		{
+			if (m.message != "null")
+				std::cout << m << std::endl;
+		}
 	}
 }
 

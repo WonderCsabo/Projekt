@@ -12,6 +12,7 @@ struct MessageObject
 	GNRL  = 100, //general message
 	CONN  = 101, //connect, should send nickname in this message
 	MVMNT = 200, //movement message
+	ACTION= 400, //action message
 	CMD   = 300, //command message
 	DISC  = 301, //disconnect
 	ERR   = 500  //general error message
