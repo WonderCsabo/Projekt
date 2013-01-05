@@ -8,7 +8,7 @@
 * @param unsigned int port
 * @param IpAddress IP address
 */
-Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : address(addr_), port(port_)
+Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : address(addr_), port(port_), isRunning(true)
 {
 	status = server.connect(address, port);
 	if (status == sf::Socket::Done)
@@ -20,12 +20,19 @@ Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : 
 	}
 }
 
+/**
+* launches the servers main thread
+*/
 void Client::launch()
 {
 	manager = new sf::Thread(&Client::manageClient, this);
 	manager->launch();
 }
 
+/**
+* sends a message event (eg: action) to the server, its type depends on the event actions
+* @param the current event
+*/
 void Client::sendEventMessage(sf::Event& ev)
 {
 	std::stringstream ss;
@@ -45,7 +52,7 @@ void Client::sendEventMessage(sf::Event& ev)
 }
 
 /**
-* manages the client, recieves and displays the messages from the server
+* manages the client, recieves the messages from the server and pushes them to the message queue
 */
 void Client::manageClient()
 {
@@ -62,46 +69,19 @@ void Client::manageClient()
 	}
 }
 
-MessageObject Client::getLastMessage()
-{
-	if (messages.size()!=0)
-	{
-		MessageObject m = messages.front();
-		messages.pop_front();
-		return m;
-	}
-	else
-	{
-		MessageObject m;
-		return m;
-	}
-}
-
 /**
-* gets input from console, and sends it to the server
-* this method runs in its own thread
+* true, if the connection to the server was successful, else false
+* @retrun bool
 */
-void Client::getInput()
-{
-	while (isRunning)
-	{
-		std::string in;
-		getline(std::cin, in);
-		if (in=="quit")
-			shutDown();
-		else if (in!="")
-		{
-			MessageObject m(100, in);
-			send(m);
-		}
-	}
-}
-
 bool Client::isConnected()
 {
 	return (status==sf::Socket::Done);
 }
 
+/**
+* returns the client's socket
+* @return TcpSocket
+*/
 sf::TcpSocket* Client::getSocket()
 {
 	return &server;
@@ -150,6 +130,25 @@ MessageObject Client::recieve()
 	server.receive(packet);
 	packet >> m;
 	return m;
+}
+
+/**
+* gets the last message from the message queue
+* @return MessageObject
+*/
+MessageObject Client::getLastMessage()
+{
+	if (messages.size()!=0)
+	{
+		MessageObject m = messages.front();
+		messages.pop_front();
+		return m;
+	}
+	else
+	{
+		MessageObject m;
+		return m;
+	}
 }
 
 /**

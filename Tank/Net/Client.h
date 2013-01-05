@@ -17,7 +17,6 @@ public:
 
 	void shutDown();
 	void send(std::string);
-	MessageObject recieve();
 	MessageObject getLastMessage();
 	bool isConnected();
 
@@ -30,6 +29,7 @@ private:
 
 	void send(MessageObject);
 	void send(unsigned short, std::string);
+	MessageObject recieve();
 
 	void manageClient();
 	void getInput();
