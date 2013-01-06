@@ -8,7 +8,7 @@
 * @param unsigned int port
 * @param IpAddress IP address
 */
-Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname) : address(addr_), port(port_), isRunning(true)
+Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname_) : address(addr_), port(port_), isRunning(true), nickname(nickname_)
 {
 	status = server.connect(address, port);
 	if (status == sf::Socket::Done)
@@ -76,6 +76,14 @@ void Client::manageClient()
 bool Client::isConnected()
 {
 	return (status==sf::Socket::Done);
+}
+
+/**
+* @return the nickname
+*/
+std::string Client::getNickname()
+{
+	return nickname;
 }
 
 /**

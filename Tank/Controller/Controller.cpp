@@ -49,7 +49,7 @@ void Controller::wrt(const sf::Event &event)
 	if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Num0 || event.key.code == sf::Keyboard::Numpad0))
 	{
 		writeToConsole = !writeToConsole;
-		if (writeToConsole) console="You: ";
+		if (writeToConsole) console = client->getNickname() + ": ";
 		view->addInputChat(console);
 		return;
 	}

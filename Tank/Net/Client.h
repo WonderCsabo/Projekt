@@ -19,6 +19,7 @@ public:
 	void send(std::string);
 	MessageObject getLastMessage();
 	bool isConnected();
+	std::string getNickname();
 
 private:
 	sf::TcpSocket server;
@@ -26,6 +27,7 @@ private:
 	unsigned int port;
 	bool isRunning;
 	sf::Socket::Status status;
+	std::string nickname;
 
 	void send(MessageObject);
 	void send(unsigned short, std::string);
