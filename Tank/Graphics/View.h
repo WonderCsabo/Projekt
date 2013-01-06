@@ -23,12 +23,15 @@ public:
 
 	/*Refreshes the screen.*/
 	void drawEverything();
+	
 
 private:
 	void init();
 	void updateTanks();
 	void drawTank();
 	void drawBarrels();
+	void drawInputChat();
+	void drawOutputChat();
 	void clearBackground();
 	sf::Texture mapTexture;
 	sf::Sprite mapSprite;
@@ -44,5 +47,10 @@ private:
 	sf::Texture* cannonTexture;//Handled
 	sf::Texture* bulletTexture;//Handled
 	std::vector<sf::Color> teamColors;
+	
+	sf::RectangleShape inputChatBackground;
+	sf::RectangleShape outputChatBackground;
+	sf::Text inputChatText;
+	sf::Text outputChatText;
 
 };

@@ -31,6 +31,7 @@ void View::addBarrel(const sf::Vector2f& position,const sf::Vector2f& dimension)
 	barrel->setColor(sf::Color(std::rand()%255,std::rand()%255,std::rand()%255));
 	barrels.push_back(barrel);
 }
+
 void View::addTank(CommonTankInfo* tank)
 {
 	bool hasColor = false;
@@ -51,6 +52,8 @@ void View::drawEverything()
 	clearBackground();
 	drawBarrels();
 	drawTank();
+	drawInputChat();
+	drawOutputChat();
 	window->display();
 }
 void View::updateTanks()
@@ -90,6 +93,24 @@ void View::drawBarrels()
 	for(unsigned i = 0; i< barrels.size(); i++)
 		window->draw(*barrels[i]);
 }
+void View::drawInputChat()
+{
+	window->draw(inputChatBackground);
+	inputChatText.setString(inputText);
+	window->draw(inputChatText);
+}
+void View::drawOutputChat()
+{
+	outputChatBackground.setSize(sf::Vector2f(200.0f,8+12.0f*(float)outputText.size()));
+	//if(outputText.size() == 0) return;
+
+	std::string message = "";
+	for(std::list<std::string>::iterator iter = outputText.begin(); iter != outputText.end();iter++)
+		message += (*iter) + "\n";
+	outputChatText.setString(message);
+	window->draw(outputChatBackground);
+	window->draw(outputChatText);
+}
 void View::clearBackground()
 {
 	window->clear();
@@ -97,6 +118,17 @@ void View::clearBackground()
 }
 void View::init()
 {
+	outputChatBackground.setPosition(sf::Vector2f(500.0f, 0.0f));
+	outputChatBackground.setFillColor(sf::Color(40,40,40,128));
+	outputChatText.setPosition(sf::Vector2f(510.0f, 8.0f));
+	outputChatText.setCharacterSize(10);
+	outputChatText.setColor(sf::Color::White);
+	inputChatBackground.setPosition(sf::Vector2f(0.0f, 0.0f));
+	inputChatBackground.setFillColor(sf::Color(40,40,40,128));
+	inputChatBackground.setSize(sf::Vector2f(200.0f, 28.0f));
+	inputChatText.setPosition(sf::Vector2f(10.0f, 8.0f));
+	inputChatText.setColor(sf::Color::White);
+	inputChatText.setCharacterSize(10);
 	tankTextures = new TextureHolder();
 	sf::Texture *texture1 = new sf::Texture();
 	if (!texture1->loadFromFile("resource/barrel1.png"))

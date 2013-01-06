@@ -2,13 +2,100 @@
 #include "../Util/Utils.h"
 #include <cmath>
 
-Client* Controller::startgui()
+int Controller::run()
+{
+	std::srand((unsigned)std::time( 0 ));
+	if (client==NULL && !StartGui::isOfflineMode())
+		return 1; //return with error
+	if (!StartGui::isOfflineMode()) startChat();
+	while(programRunning())//runs by the main thread
+	{
+		sf::Event ev;
+		while(getEvent(ev))
+		{
+			if(client!= NULL)
+			{
+				client->sendEventMessage(ev);
+			}
+			if(ev.type == sf::Event::Closed)
+			{
+				shutdown();
+				return 0;
+			}
+		}
+		refresh();
+	}
+	return 0;
+}
+void Controller::recieveFromClient()//runs in separate thread
+{
+	while (programRunning())
+	{
+		sf::sleep(sf::milliseconds(10));
+		MessageObject m = client->getLastMessage();
+		if (m.type == MessageObject::CMD && m.message == "shut")
+		{
+			shutdown();
+		}
+		else
+		{
+			if (m.message != "null")
+				view->addOutputChat(m.message);
+		}
+	}
+}
+void Controller::wrt(const sf::Event &event)
+{ 
+	if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Num0 || event.key.code == sf::Keyboard::Numpad0))
+	{
+		writeToConsole = !writeToConsole;
+		if (writeToConsole) console="You: ";
+		view->addInputChat(console);
+		return;
+	}
+
+	if (writeToConsole && event.type == sf::Event::KeyPressed)
+	{
+		char c = getChar(event);
+		if (c!=0)
+			console+=c;
+		if (console[0] == '0' && console.length()>1)
+			console = console.substr(1, console.length());
+		if (event.key.code==sf::Keyboard::Back && console.length()>5)
+			console = console.substr(0, console.length()-1);
+		if (event.key.code==sf::Keyboard::Return)
+		{
+			if (client!=NULL) client->send(console);
+			console = "";
+			writeToConsole = false;
+		}
+		view->addInputChat(console);
+	}
+}
+Client* Controller::startGui()
 {
 	StartGui gui;
 	return gui.getClient();
 }
+void Controller::startChat()
+{
+	thread = new sf::Thread(&Controller::recieveFromClient,this);
+	thread->launch();
+}
+void Controller::stopChat()
+{
+	if(thread != NULL)
+	{
+		thread->terminate();
+		delete thread;
+	}
+}
 Controller::Controller(short x, short y, std::string title, unsigned short myId) : myTeamId(myId)
 {
+	client = startGui();
+	thread = NULL;
+	console = "";
+	writeToConsole = false;
 	window = new sf::RenderWindow(sf::VideoMode(x,y), title, sf::Style::Close);
 	view = new View(window);
 	tankSpeed = 15.0f;
@@ -17,6 +104,34 @@ Controller::Controller(short x, short y, std::string title, unsigned short myId)
 	waitMs = 25;
 	addTanks(view);
 	addRandomBarrels(view);
+
+}
+char Controller::getChar(const sf::Event &ev)
+{
+	if (ev.type == ev.KeyPressed)
+	{
+		if (ev.key.code>=0 && ev.key.code<=25)
+		{
+			if (ev.key.shift==false)
+				return char(97+ev.key.code);
+			else
+				return char(65+ev.key.code);
+		}
+		else if (ev.key.code==sf::Keyboard::Space)
+			return ' ';
+		else if (ev.key.code>=26 && ev.key.code<=35)
+		{
+			return char(48+ev.key.code-26);
+		}
+		else if (ev.key.code>=75 && ev.key.code<=84)
+		{
+			return char(48+ev.key.code-75);
+		}
+		else if (ev.key.code == sf::Keyboard::Period)
+			return '.';
+		else return 0;
+	}
+	else return 0;
 }
 CommonTankInfo* Controller::getTankOnPosition(const sf::Vector2f& position)
 {
@@ -40,6 +155,7 @@ CommonTankInfo* Controller::getTankOnPosition(const sf::Vector2f& position)
 }
 bool Controller::programRunning()
 {
+	if(window == NULL) return false;
 	return window->isOpen();
 }
 sf::RenderWindow* Controller::getWindow()
@@ -59,11 +175,6 @@ bool Controller::getEvent(sf::Event& ev)
 	if(events.empty()) return false;
 	ev = *events.begin();
 	events.pop_front();
-	if(ev.type == sf::Event::Closed)
-	{
-		shutDown();
-		return false;
-	}
 	rotateCannonToPoint(sf::Vector2f(sf::Mouse::getPosition(*window)));
 
 	if(ev.type == sf::Event::MouseButtonPressed)
@@ -71,6 +182,7 @@ bool Controller::getEvent(sf::Event& ev)
 		handleMouseClick(getTankOnPosition(sf::Vector2f(sf::Mouse::getPosition(*window))));
 		return false;
 	}
+	else wrt(ev);
 	return true;
 }
 void Controller::handleMouseClick(CommonTankInfo* tank)
@@ -97,6 +209,7 @@ void Controller::handleShoot(const sf::Vector2f& A)
 	float c = std::sqrtf(a*a+b*b);
 	float i = a/c*bulletSpeed;
 	float j = b/c*bulletSpeed;
+	if(teams[myTeamId]->getSelected()->isShoot()) return;
 	teams[myTeamId]->getSelected()->setBullet(new CommonBulletInfo(teams[myTeamId]->getSelected()->getPosition(),sf::Vector2f(i,j)));
 	teams[myTeamId]->getSelected()->startShoot();
 }
@@ -178,7 +291,12 @@ void Controller::applyMove(CommonTankInfo* tank)
 void Controller::moveBullet(CommonTankInfo* tank)
 {
 	CommonTankInfo* hit = getTankOnPosition(tank->getBullet()->getPosition());
-	if(hit == NULL || hit == tank)
+	if(tank->getBullet()->getPosition().x < 0 || tank->getBullet()->getPosition().x > 700 || tank->getBullet()->getPosition().y<0 || tank->getBullet()->getPosition().y > 700)
+	{
+		tank->stopShoot();
+		tank->setBullet(NULL);
+	}
+	else if(hit == NULL || hit == tank)
 	{
 		tank->getBullet()->setPosition(tank->getBullet()->getPosition()+tank->getBullet()->getDestination());
 	}
@@ -223,9 +341,13 @@ void Controller::refresh()
 	view->drawEverything();
 	sf::sleep(sf::milliseconds(waitMs));
 }
-void Controller::shutDown()
+void Controller::shutdown()
 {
-	window->close();
+	stopChat();
+	if(client != NULL)	client->shutDown();
+	if(window != NULL && window->isOpen())  window->close();
+	delete client;
+	delete window;
 }
 void Controller::recieveEvents()
 {

@@ -104,9 +104,6 @@
     <ClCompile Include="Net\MessageObject.cpp">
       <Filter>Source Files\Net</Filter>
     </ClCompile>
-    <ClCompile Include="Util\GetInput.cpp">
-      <Filter>Source Files\Util</Filter>
-    </ClCompile>
     <ClCompile Include="Logic\Block.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
@@ -186,9 +183,6 @@
     </ClInclude>
     <ClInclude Include="GUI\GuiContainer.h">
       <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Util\GetInput.h">
-      <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="Net\MessageObject.h">
       <Filter>Header Files\Net</Filter>

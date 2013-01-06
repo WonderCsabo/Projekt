@@ -15,12 +15,12 @@
 #include "../Net/Client.h"
 #include "../GUI/StartGui.h"
 #include "../Util/DebugWindow.h"
-#include "../Util/GetInput.h"
 #include "../Util/Os.h"
 
 class Controller
 {
 private:
+	Client* client;
 	const unsigned short myTeamId;
 	float tankSpeed;
 	float bulletSpeed;
@@ -30,6 +30,7 @@ private:
 	sf::RenderWindow *window;
 	AbstractView *view;
 	std::list<sf::Event> events;
+	void shutdown();
 	CommonTankInfo* getTankOnPosition(const sf::Vector2f&);
 	void addMove(CommonTankInfo*,const sf::Vector2f&);
 	void handleMouseClick(CommonTankInfo*);
@@ -46,6 +47,16 @@ private:
 	void addRandomBarrels(AbstractView* v);
 	void addTanks(AbstractView* v);
 	void recieveEvents();
+	static Client* startGui();
+	sf::Thread* thread;
+	void startChat();
+	void stopChat();
+	std::string console;
+	char getChar(const sf::Event &);
+	bool writeToConsole;
+	void wrt(const sf::Event &);
+	void recieveFromClient();
+	bool programRunning();
 public:
 	/*
 	The Game window size x,y in short.
@@ -54,19 +65,15 @@ public:
 	*/
 	Controller(short,short,std::string,unsigned short);
 	~Controller(void);
-	static Client* startgui();
-
+	int run();
 	sf::RenderWindow* getWindow();
 	AbstractView* getView();
 
-	/*Is the Window still open?*/
-	bool programRunning();
 
 	/*Pass the last sf::Event from the queue.
 	  Return false, is the querue is empty.*/
 	bool getEvent(sf::Event&);
 
-	void shutDown();
 	void refresh();
 };
 

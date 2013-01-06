@@ -116,7 +116,6 @@
     <ClCompile Include="Net\MessageObject.cpp" />
     <ClCompile Include="Net\Server.cpp" />
     <ClCompile Include="Util\DebugWindow.cpp" />
-    <ClCompile Include="Util\GetInput.cpp" />
     <ClCompile Include="Util\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -147,7 +146,6 @@
     <ClInclude Include="Net\MessageObject.h" />
     <ClInclude Include="Net\Server.h" />
     <ClInclude Include="Util\DebugWindow.h" />
-    <ClInclude Include="Util\GetInput.h" />
     <ClInclude Include="Util\Os.h" />
     <ClInclude Include="Util\Utils.h" />
   </ItemGroup>
