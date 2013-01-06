@@ -3,20 +3,20 @@
 TankTypes::TankTypes()
 {
 
-	/// TODO: feltölteni ezeket
-	types[0] = TankType(100, 10);
+    /// TODO: feltölteni ezeket
+    types[0] = TankType(100, 10);
 }
 
 const TankTypes& TankTypes::getInstance()
 {
-	static TankTypes instance;
+    static TankTypes instance;
 
-	return instance;
+    return instance;
 }
 
 const std::unordered_map<size_t, TankTypes::TankType>& TankTypes::getTypes() const
 {
-	return types;
+    return types;
 }
 
 
