@@ -38,5 +38,6 @@ private:
 	void launch();
 	sf::Thread* manager;
 	std::deque<MessageObject> messages;
+	std::deque<MessageObject> sysmsg;
 
 };

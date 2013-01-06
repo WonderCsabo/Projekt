@@ -60,7 +60,10 @@ void Client::manageClient()
 	{
 		sf::sleep(sf::milliseconds(10));
 		MessageObject m = recieve();
-		messages.push_back(m);
+		if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
+			messages.push_back(m);
+		else
+			sysmsg.push_back(m);
 		if (m.type == MessageObject::CMD && m.message == "shut")
 		{
 			isRunning = false;

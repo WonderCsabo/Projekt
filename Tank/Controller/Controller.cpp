@@ -61,11 +61,18 @@ void Controller::wrt(const sf::Event &event)
 			console+=c;
 		if (console[0] == '0' && console.length()>1)
 			console = console.substr(1, console.length());
-		if (event.key.code==sf::Keyboard::Back && console.length()>5)
+		if (event.key.code==sf::Keyboard::Back && console.length()>client->getNickname().length()+2)
 			console = console.substr(0, console.length()-1);
 		if (event.key.code==sf::Keyboard::Return)
 		{
-			if (client!=NULL) client->send(console);
+			if (client!=NULL)
+			{
+				if (console!=client->getNickname()+": ")
+				{
+					console = console.substr(client->getNickname().length()+2, console.length());
+					client->send(console);
+				}
+			}
 			console = "";
 			writeToConsole = false;
 		}
