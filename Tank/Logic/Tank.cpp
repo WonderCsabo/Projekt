@@ -6,7 +6,7 @@ Tank::Tank() : dirX(0), dirY(0)
     init();
 }
 
-Tank::Tank(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY, const size_t& typeID)
+Tank::Tank(const short& posX, const short& posY, const short& sizeX, const short& sizeY, const short& typeID)
     : AbstractEntity(posX, posY, sizeX, sizeY), typeID(typeID), dirX(0), dirY(0)
 {
 
@@ -37,17 +37,17 @@ const short& Tank::getHP() const
     return HP;
 }
 
-const size_t& Tank::getTypeID() const
+const short& Tank::getTypeID() const
 {
     return typeID;
 }
 
-const size_t& Tank::getDirX() const
+const short& Tank::getDirX() const
 {
     return dirX;
 }
 
-const size_t& Tank::getDirY() const
+const short& Tank::getDirY() const
 {
     return dirY;
 }
@@ -74,33 +74,33 @@ void Tank::setHP(const short& HP)
     changed = true;
 }
 
-void Tank::setDirX(const size_t& dirX)
+void Tank::setDirX(const short& dirX)
 {
     this->dirX = dirX;
     changed = true;
 }
 
-void  Tank::setDirY(const size_t& dirY)
+void  Tank::setDirY(const short& dirY)
 {
     this->dirY = dirY;
     changed = true;
 }
 
-void Tank::move(const int& dirX, const int& dirY)
+void Tank::move(const short& dirX, const short& dirY)
 {
     this->posX += dirX;
     this->posY += dirY;
     changed = true;
 }
 
-void Tank::fire(int& dirX, int& dirY, size_t& damage) const
+void Tank::fire(short& dirX, short& dirY, short& damage) const
 {
     dirX = this->dirX;
     dirY = this->dirY;
     damage = this->fireDamage;
 }
 
-bool Tank::hit(const size_t& damage)
+bool Tank::hit(const short& damage)
 {
     changed = true;
     this->HP -= damage;
@@ -114,9 +114,9 @@ std::ostream& operator<<(std::ostream& o, Tank& tank)
 
     o << dynamic_cast<const AbstractEntity&>(tank);
 
-    o.write((char*) &tank.dirX, sizeof(size_t));
-    o.write((char*) &tank.dirY, sizeof(size_t));
-    o.write((char*) &tank.typeID, sizeof(size_t));
+    o.write((char*) &tank.dirX, sizeof(short));
+    o.write((char*) &tank.dirY, sizeof(short));
+    o.write((char*) &tank.typeID, sizeof(short));
 
     return o;
 }
@@ -125,9 +125,9 @@ std::istream& operator>>(std::istream& i, Tank& tank)
 {
     i >> dynamic_cast<AbstractEntity&>(tank);
 
-    i.read((char*) &tank.dirX, sizeof(size_t));
-    i.read((char*) &tank.dirY, sizeof(size_t));
-    i.read((char*) &tank.typeID, sizeof(size_t));
+    i.read((char*) &tank.dirX, sizeof(short));
+    i.read((char*) &tank.dirY, sizeof(short));
+    i.read((char*) &tank.typeID, sizeof(short));
 
     tank.init();
 

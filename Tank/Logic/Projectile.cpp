@@ -2,7 +2,7 @@
 
 Projectile::Projectile() : firingTank(0) { }
 
-Projectile::Projectile(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY, const Tank* const firingTank)
+Projectile::Projectile(const short& posX, const short& posY, const short& sizeX, const short& sizeY, const Tank* const firingTank)
     : AbstractEntity(posX, posY, sizeX, sizeY), firingTank(firingTank) { }
 
 const Tank* const Projectile::getFiringTank() const

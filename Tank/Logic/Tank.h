@@ -11,35 +11,35 @@ class Tank : public AbstractEntity
 public:
 
     Tank();
-    Tank(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY, const size_t& typeID);
+    Tank(const short& posX, const short& posY, const short& sizeX, const short& sizeY, const short& typeID);
 
     bool isSelected() const;
     bool isChanged() const;
     const short& getHP() const;
-    const size_t& getTypeID() const;
-    const size_t& getDirX() const;
-    const size_t& getDirY() const;
+    const short& getTypeID() const;
+    const short& getDirX() const;
+    const short& getDirY() const;
     const unsigned short& getFireDamage() const;
 
     void setSelected(const bool& selected);
     void setChanged(const bool& changed);
     void setHP(const short& HP);
 
-    void setDirX(const size_t& dirX);
-    void setDirY(const size_t& dirY);
+    void setDirX(const short& dirX);
+    void setDirY(const short& dirY);
 
-    void move(const int& dirX, const int& dirY);
-    void fire(int& dirX, int& dirY, size_t& damage) const;
-    bool hit(const size_t& damage);
+    void move(const short& dirX, const short& dirY);
+    void fire(short& dirX, short& dirY, short& damage) const;
+    bool hit(const short& damage);
 
 private:
 
     void init();
 
-    size_t typeID;
+    short typeID;
     bool selected;
     bool changed;
-    size_t dirX, dirY;
+    short dirX, dirY;
     short HP;
     unsigned short fireDamage;
 };

@@ -20,7 +20,7 @@ public:
         unsigned short fireDamage;
     };
 
-    const std::unordered_map<size_t, TankType>& getTypes() const;
+    const std::unordered_map<short, TankType>& getTypes() const;
 
 private:
 
@@ -28,5 +28,5 @@ private:
     TankTypes(const TankTypes&);
     TankTypes& operator=(const TankTypes&);
 
-    std::unordered_map<size_t, TankType> types;
+    std::unordered_map<short, TankType> types;
 };

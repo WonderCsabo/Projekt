@@ -9,7 +9,7 @@ class Projectile : public AbstractEntity
 public:
 
     Projectile();
-    Projectile(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY, const Tank* const firingTank);
+    Projectile(const short& posX, const short& posY, const short& sizeX, const short& sizeY, const Tank* const firingTank);
 
     const Tank* const getFiringTank() const;
     unsigned short getFireDamage() const;

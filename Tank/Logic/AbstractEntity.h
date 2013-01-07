@@ -12,35 +12,35 @@ class AbstractEntity
 protected:
 
     AbstractEntity();
-    AbstractEntity(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY);
+    AbstractEntity(const short& posX, const short& posY, const short& sizeX, const short& sizeY);
     virtual ~AbstractEntity();
 
     virtual void init();
 
 public:
 
-    const size_t& getPosX() const;
-    const size_t& getPosY() const;
-    const size_t& getSizeX() const;
-    const size_t& getSizeY() const;
+    const short& getPosX() const;
+    const short& getPosY() const;
+    const short& getSizeX() const;
+    const short& getSizeY() const;
 
-    void setPosX(const size_t& posX);
-    void setPosY(const size_t& posY);
-    void setSizeX(const size_t& sizeX);
-    void setSizeY(const size_t& sizeY);
+    void setPosX(const short& posX);
+    void setPosY(const short& posY);
+    void setSizeX(const short& sizeX);
+    void setSizeY(const short& sizeY);
 
-    const size_t& getID() const;
+    const short& getID() const;
 
-    static const size_t& getEntityCount();
+    static const short& getEntityCount();
 
 protected:
 
-    size_t posX, posY;
-    size_t sizeX, sizeY;
+    short posX, posY;
+    short sizeX, sizeY;
 
-    size_t ID;
+    short ID;
 
-    static size_t entityCount, IDCount;
+    static short entityCount, IDCount;
 };
 
 

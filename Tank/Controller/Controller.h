@@ -13,6 +13,7 @@
 #include "../Graphics/View.h"
 #include "../Graphics/AbstractView.h"
 #include "../Net/Client.h"
+#include "../Logic/Map.h"
 #include "../GUI/StartGui.h"
 #include "../Util/DebugWindow.h"
 #include "../Util/Os.h"
@@ -26,12 +27,18 @@ private:
 	float bulletSpeed;
 	float rotSpeed;
 	int waitMs;
+	sf::Clock clock;
 	std::vector<CommonTeamInfo*> teams;
 	sf::RenderWindow *window;
 	AbstractView *view;
 	std::list<sf::Event> events;
+
+	Map *map;
+
 	void shutdown();
-	CommonTankInfo* getTankOnPosition(const sf::Vector2f&);
+	CommonTankInfo* getTankOnPosition(const sf::Vector2f&, CommonTankInfo* = 0);
+	CommonTankInfo* getOtherTankOnPosition(CommonTankInfo*, const sf::Vector2f&);
+	CommonTankInfo* isTankOnNewPosition(CommonTankInfo*, const sf::Vector2f& , const sf::Vector2f& , const float&);
 	void addMove(CommonTankInfo*,const sf::Vector2f&);
 	void handleMouseClick(CommonTankInfo*);
 	void detonate(CommonTankInfo*);

@@ -5,7 +5,7 @@ AbstractEntity::AbstractEntity()
     init();
 }
 
-AbstractEntity::AbstractEntity(const size_t& posX, const size_t& posY, const size_t& sizeX, const size_t& sizeY)
+AbstractEntity::AbstractEntity(const short& posX, const short& posY, const short& sizeX, const short& sizeY)
     : posX(posX), posY(posY), sizeX(sizeX), sizeY(sizeY)
 {
 
@@ -17,47 +17,47 @@ AbstractEntity::~AbstractEntity()
     --entityCount;
 }
 
-const size_t& AbstractEntity::getPosX() const
+const short& AbstractEntity::getPosX() const
 {
     return posX;
 }
 
-const size_t& AbstractEntity::getPosY() const
+const short& AbstractEntity::getPosY() const
 {
     return posY;
 }
 
-const size_t& AbstractEntity::getSizeX() const
+const short& AbstractEntity::getSizeX() const
 {
     return sizeX;
 }
 
-const size_t& AbstractEntity::getSizeY() const
+const short& AbstractEntity::getSizeY() const
 {
     return sizeY;
 }
 
-void AbstractEntity::setPosX(const size_t& posX)
+void AbstractEntity::setPosX(const short& posX)
 {
     this->posX = posX;
 }
 
-void AbstractEntity::setPosY(const size_t& posY)
+void AbstractEntity::setPosY(const short& posY)
 {
     this->posY = posY;
 }
 
-void AbstractEntity::setSizeX(const size_t& sizeX)
+void AbstractEntity::setSizeX(const short& sizeX)
 {
     this->sizeX = sizeX;
 }
 
-void AbstractEntity::setSizeY(const size_t& sizeY)
+void AbstractEntity::setSizeY(const short& sizeY)
 {
     this->sizeY = sizeY;
 }
 
-const size_t& AbstractEntity::getEntityCount()
+const short& AbstractEntity::getEntityCount()
 {
     return entityCount;
 }
@@ -69,27 +69,27 @@ void AbstractEntity::init()
     ID = IDCount;
 }
 
-size_t AbstractEntity::entityCount = 0;
-size_t AbstractEntity::IDCount = 0;
+short AbstractEntity::entityCount = 0;
+short AbstractEntity::IDCount = 0;
 
 std::ostream& operator<<(std::ostream& o, const AbstractEntity& abstractEntity)
 {
-    o.write((char*) &abstractEntity.ID, sizeof(size_t));
-    o.write((char*) &abstractEntity.posX, sizeof(size_t));
-    o.write((char*) &abstractEntity.posY, sizeof(size_t));
-    o.write((char*) &abstractEntity.sizeX, sizeof(size_t));
-    o.write((char*) &abstractEntity.sizeY, sizeof(size_t));
+    o.write((char*) &abstractEntity.ID, sizeof(short));
+    o.write((char*) &abstractEntity.posX, sizeof(short));
+    o.write((char*) &abstractEntity.posY, sizeof(short));
+    o.write((char*) &abstractEntity.sizeX, sizeof(short));
+    o.write((char*) &abstractEntity.sizeY, sizeof(short));
 
     return o;
 }
 
 std::istream& operator>>(std::istream& i, AbstractEntity& abstractEntity)
 {
-    i.read((char*) &abstractEntity.ID, sizeof(size_t));
-    i.read((char*) &abstractEntity.posX, sizeof(size_t));
-    i.read((char*) &abstractEntity.posY, sizeof(size_t));
-    i.read((char*) &abstractEntity.sizeX, sizeof(size_t));
-    i.read((char*) &abstractEntity.sizeY, sizeof(size_t));
+    i.read((char*) &abstractEntity.ID, sizeof(short));
+    i.read((char*) &abstractEntity.posX, sizeof(short));
+    i.read((char*) &abstractEntity.posY, sizeof(short));
+    i.read((char*) &abstractEntity.sizeX, sizeof(short));
+    i.read((char*) &abstractEntity.sizeY, sizeof(short));
 
     return i;
 }

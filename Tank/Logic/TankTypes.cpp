@@ -14,7 +14,7 @@ const TankTypes& TankTypes::getInstance()
     return instance;
 }
 
-const std::unordered_map<size_t, TankTypes::TankType>& TankTypes::getTypes() const
+const std::unordered_map<short, TankTypes::TankType>& TankTypes::getTypes() const
 {
     return types;
 }
