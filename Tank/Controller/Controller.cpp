@@ -4,7 +4,6 @@
 
 int Controller::run()
 {
-	std::srand((unsigned)std::time( 0 ));
 	if (client==NULL && !StartGui::isOfflineMode())
 		return 1; //return with error
 	if (!StartGui::isOfflineMode()) startChat();
@@ -149,7 +148,7 @@ CommonTankInfo* Controller::getTankOnPosition(const sf::Vector2f& position, Comm
 	{
 		for(tankIter = (*teamIter)->getBegin(); tankIter != (*teamIter)->getEnd(); tankIter++)
 		{
-			if(thisTank != *tankIter && isTankOnNewPosition(*tankIter, (*tankIter)->getPosition(), position, 10.f))
+			if(thisTank != *tankIter && isTankOnNewPosition(*tankIter, (*tankIter)->getPosition(), position, 20.f))
 				return *tankIter;
 		}
 	}
@@ -413,7 +412,12 @@ void Controller::addTanks(AbstractView* v)
 		teams.push_back(new CommonTeamInfo(j));
 		for(unsigned short i = 0; i< 7 ; i++)//players in tank
 		{
-			Tank* tank = new Tank(std::rand() % 630 + 30, std::rand() % 630 + 30, 35, 35, i, 0);
+			sf::Vector2f pos((float)(std::rand()%630+30),(float)(std::rand()%630+30));
+			while(getTankOnPosition(pos, NULL) != NULL)
+			{
+				pos = sf::Vector2f((float)(std::rand()%630+30),(float)(std::rand()%630+30));
+			}
+			Tank* tank = new Tank((short)pos.x, (short)pos.y, 35, 35, i, 0);
 			CommonTankInfo* t = new CommonTankInfo(j, tank);
 			if(i == 0 && j == myTeamId) t->reSelect();
 			teams[j]->addTank(t);
