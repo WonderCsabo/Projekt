@@ -235,6 +235,9 @@
     <ClInclude Include="Controller\CommonBulletInfo.h">
       <Filter>Header Files\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="Util\Convert.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\barrel1.png">

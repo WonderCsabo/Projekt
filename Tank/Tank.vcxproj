@@ -147,6 +147,7 @@
     <ClInclude Include="Net\ClientManager.h" />
     <ClInclude Include="Net\MessageObject.h" />
     <ClInclude Include="Net\Server.h" />
+    <ClInclude Include="Util\Convert.h" />
     <ClInclude Include="Util\DebugWindow.h" />
     <ClInclude Include="Util\Os.h" />
     <ClInclude Include="Util\Utils.h" />
