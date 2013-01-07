@@ -1,5 +1,6 @@
 #include "CommonTankInfo.h"
-CommonTankInfo::CommonTankInfo(unsigned short team, unsigned short id,const sf::Vector2f& pos,const sf::Vector2f& s):teamId(team), tankId(id), position(pos), destination(pos), size(s), tankAngle(0.0f), cannonAngle(0.0f), motionTrigger(false), selected(false)
+
+CommonTankInfo::CommonTankInfo(unsigned short team, Tank* tank): teamId(team), tankLogic(tank), motionTrigger(false)
 {
 bullet = false;
 destroyed = false;
@@ -13,19 +14,19 @@ unsigned short CommonTankInfo::getTeamId()
 }
 unsigned short CommonTankInfo::getTankId()
 {
-	return tankId;
+	return tankLogic->getID();
 }
-const sf::Vector2f& CommonTankInfo::getPosition()
+sf::Vector2f CommonTankInfo::getPosition()
 {
-	return position;
+	return sf::Vector2f(tankLogic->getPosX(), tankLogic->getPosY());
 }
-const sf::Vector2f& CommonTankInfo::getDestination()
+sf::Vector2f CommonTankInfo::getDestination()
 {
-	return destination;
+	return sf::Vector2f(tankLogic->getDestinationX(), tankLogic->getDestinationY());
 }
-const sf::Vector2f& CommonTankInfo::getSize()
+sf::Vector2f CommonTankInfo::getSize()
 {
-	return size;
+	return sf::Vector2f(tankLogic->getSizeX(), tankLogic->getSizeY());
 }
 CommonBulletInfo* CommonTankInfo::getBullet()
 {
@@ -33,11 +34,11 @@ CommonBulletInfo* CommonTankInfo::getBullet()
 }
 const float& CommonTankInfo::getTankAngle()
 {
-	return tankAngle;
+	return tankLogic->getTankAngle();
 }
 const float& CommonTankInfo::getCannonAngle()
 {
-	return cannonAngle;
+	return tankLogic->getCannonAngle();
 }
 bool CommonTankInfo::isInMotion()
 {
@@ -45,36 +46,45 @@ bool CommonTankInfo::isInMotion()
 }
 bool CommonTankInfo::isSelected()
 {
-	return selected;
+	return tankLogic->isSelected();
 }
 bool CommonTankInfo::isShoot()
 {
-	return shootTrigger;
+	return tankLogic->isFiring();
 }
 bool CommonTankInfo::isDestroyed()
 {
 	return destroyed;
 }
-void CommonTankInfo::setPosition(const sf::Vector2f& foo)
+void CommonTankInfo::setPosition(const sf::Vector2f& pos)
 {
-	position = foo;
+	tankLogic->setPosX((short) pos.x);
+	tankLogic->setPosY((short) pos.y);
 }
-void CommonTankInfo::setDestination(const sf::Vector2f& foo)
+void CommonTankInfo::setDestination(const sf::Vector2f& dest)
 {
-	destination = foo;
+	tankLogic->setDestinationX((short) dest.x);
+	tankLogic->setDestinationY((short) dest.y);
 }
-void CommonTankInfo::setTankAngle(const float& foo)
+void CommonTankInfo::setTankAngle(const float& angle)
 {
-	tankAngle = foo;
+	tankLogic->setTankAngle(angle);
 }
-void CommonTankInfo::setCannonAngle(const float& foo)
+void CommonTankInfo::setCannonAngle(const float& angle)
 {
-	cannonAngle = foo;
+	tankLogic->setCannonAngle(angle);
 }
 void CommonTankInfo::setBullet(CommonBulletInfo* foo)
 {
 	bullet = foo;
 }
+
+void CommonTankInfo::updateLogic(Tank* updated)
+{
+	tankLogic = updated;
+	startMotion();
+}
+
 void CommonTankInfo::startMotion()
 {
 	motionTrigger = true;
@@ -82,22 +92,23 @@ void CommonTankInfo::startMotion()
 void CommonTankInfo::stopMotion()
 {
 	motionTrigger = false;
+	setDestination(getPosition());
 }
 void CommonTankInfo::startShoot()
 {
-	shootTrigger = true;
+	tankLogic->setFiring(true);
 }
 void CommonTankInfo::stopShoot()
 {
-	shootTrigger = false;
+	tankLogic->setFiring(false);
 }
 void CommonTankInfo::reSelect()
 {
-	selected = true;
+	tankLogic->setSelected(true);
 }
 void CommonTankInfo::deSelect()
 {
-	selected = false;
+	tankLogic->setSelected(false);
 }
 void CommonTankInfo::destroy()
 {

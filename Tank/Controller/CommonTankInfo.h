@@ -1,40 +1,30 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "CommonBulletInfo.h"
+#include "../Logic/Tank.h"
 /*This is the adapter of the game logic used in the graphic.*/
 class CommonTankInfo
 {
 private:
+	Tank* tankLogic;
 	const unsigned short teamId;
-	const unsigned short tankId;
 
-	sf::Vector2f position;
-	sf::Vector2f destination;
-	sf::Vector2f size;
-	float tankAngle;
-	float cannonAngle;
 	bool motionTrigger;
-	bool shootTrigger;
 	bool destroyed;
-	bool selected;
 	CommonBulletInfo* bullet;
-
-
+	
 public:
 	/*
 	Team id in unsigned short
-	Tank id in unsigned short
-	Tank position in sf::Vector2f
-	Tank size in sf::Vector2f
 	*/
-	CommonTankInfo(unsigned short, unsigned short,const sf::Vector2f&,const sf::Vector2f&);
+	CommonTankInfo(unsigned short, Tank* tank);
 	~CommonTankInfo(void);
 
 	unsigned short getTeamId();
 	unsigned short getTankId();
-	const sf::Vector2f& getPosition();
-	const sf::Vector2f& getDestination();
-	const sf::Vector2f& getSize();
+	sf::Vector2f getPosition();
+	sf::Vector2f getDestination();
+	sf::Vector2f getSize();
 	CommonBulletInfo* getBullet();
 	const float& getTankAngle();
 	const float& getCannonAngle();
@@ -47,6 +37,7 @@ public:
 	void setTankAngle(const float&);
 	void setCannonAngle(const float&);
 	void setBullet(CommonBulletInfo*);
+	void updateLogic(Tank* updated);
 	
 	void startMotion();
 	void stopMotion();

@@ -373,14 +373,13 @@ void Controller::selectionHandler(CommonTankInfo* tank)
 }
 void Controller::refresh()
 {
+	clock.restart();
 	recieveEvents();
 	tankMovements();
 	view->drawEverything();
 
 	if(clock.getElapsedTime().asMilliseconds() <= waitMs)
 		sf::sleep(sf::milliseconds(waitMs - clock.getElapsedTime().asMilliseconds()));
-
-	clock.restart();
 
 	//sf::sleep(sf::milliseconds(waitMs));
 }
@@ -414,7 +413,8 @@ void Controller::addTanks(AbstractView* v)
 		teams.push_back(new CommonTeamInfo(j));
 		for(unsigned short i = 0; i< 7 ; i++)//players in tank
 		{
-			CommonTankInfo* t = new CommonTankInfo(j,i,sf::Vector2f((float)(std::rand()%630)+30.0f,(float)(std::rand()%630)+30.0f), sf::Vector2f(35.0f, 35.0f));
+			Tank* tank = new Tank(std::rand() % 630 + 30, std::rand() % 630 + 30, 35, 35, i, 0);
+			CommonTankInfo* t = new CommonTankInfo(j, tank);
 			if(i == 0 && j == myTeamId) t->reSelect();
 			teams[j]->addTank(t);
 			v->addTank(t);

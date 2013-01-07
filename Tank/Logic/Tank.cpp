@@ -7,7 +7,8 @@ Tank::Tank() : destinationX(0), destinationY(0)
 }
 
 Tank::Tank(const short& posX, const short& posY, const short& sizeX, const short& sizeY, const short& ID, const short& typeID)
-	: AbstractEntity(posX, posY, sizeX, sizeY), typeID(typeID), destinationX(0), destinationY(0)
+	: AbstractEntity(posX, posY, sizeX, sizeY), typeID(typeID), destinationX(0), destinationY(0), tankAngle(0), cannonAngle(0),
+	selected(0), firing(0), changed(0)
 {
 	this->ID = ID;
     init();
@@ -30,6 +31,11 @@ bool Tank::isSelected() const
 bool Tank::isChanged() const
 {
     return changed;
+}
+
+bool Tank::isFiring() const
+{
+	return firing;
 }
 
 const short& Tank::getHP() const
@@ -84,6 +90,11 @@ void Tank::setHP(const short& HP)
     changed = true;
 }
 
+void Tank::setFiring(const bool& firing)
+{
+	this->firing = firing;
+}
+
 void Tank::setDestinationX(const short& destinationX)
 {
 	this->destinationX = destinationX;
@@ -114,13 +125,6 @@ void Tank::move(const short& destinationX, const short& destinationY)
     changed = true;
 }
 
-void Tank::fire(short& destinationX, short& destinationY, short& damage) const
-{
-    destinationX = this->destinationX;
-    destinationY = this->destinationY;
-    damage = this->fireDamage;
-}
-
 bool Tank::hit(const short& damage)
 {
     changed = true;
@@ -140,6 +144,7 @@ std::ostream& operator<<(std::ostream& o, Tank& tank)
     o.write((char*) &tank.typeID, sizeof(short));
 	o.write((char*) &tank.tankAngle, sizeof(float));
 	o.write((char*) &tank.cannonAngle, sizeof(float));
+	o.write((char*) &tank.firing, sizeof(bool));
 
     return o;
 }
@@ -153,6 +158,7 @@ std::istream& operator>>(std::istream& i, Tank& tank)
     i.read((char*) &tank.typeID, sizeof(short));
 	i.read((char*) &tank.tankAngle, sizeof(float));
 	i.read((char*) &tank.cannonAngle, sizeof(float));
+	i.read((char*) &tank.firing, sizeof(bool));
 
     tank.init();
 

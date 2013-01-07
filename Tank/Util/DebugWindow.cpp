@@ -22,6 +22,5 @@ DebugWindow::~DebugWindow()
 
 void DebugWindow::openDebugWindow()
 {
-
 	static DebugWindow window;
 }

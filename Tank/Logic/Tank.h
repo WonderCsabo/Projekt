@@ -15,6 +15,7 @@ public:
 
     bool isSelected() const;
     bool isChanged() const;
+	bool isFiring() const;
     const short& getHP() const;
     const short& getTypeID() const;
     const short& getDestinationX() const;
@@ -26,6 +27,7 @@ public:
     void setSelected(const bool& selected);
     void setChanged(const bool& changed);
     void setHP(const short& HP);
+	void setFiring(const bool& firing);
 
     void setDestinationX(const short& dirX);
     void setDestinationY(const short& dirY);
@@ -34,7 +36,6 @@ public:
     void setCannonAngle(const float& angle);
 
     void move(const short& dirX, const short& dirY);
-    void fire(short& dirX, short& dirY, short& damage) const;
     bool hit(const short& damage);
 
 private:
@@ -44,6 +45,7 @@ private:
     short typeID;
     bool selected;
     bool changed;
+	bool firing;
     short destinationX, destinationY;
 	float tankAngle, cannonAngle;
     short HP;

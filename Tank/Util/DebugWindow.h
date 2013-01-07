@@ -2,11 +2,14 @@
 
 #include <iostream>
 
-struct DebugWindow
+class DebugWindow
 {
+private:
 
-	DebugWindow();
-	~DebugWindow();
+		DebugWindow();
+
+public:
+		~DebugWindow();
 
 	static void openDebugWindow();
 };
