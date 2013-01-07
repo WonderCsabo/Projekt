@@ -9,9 +9,9 @@
 #include "MessageObject.h"
 #include "Client.h"
 #include "ClientManager.h"
-#include "Convert.h"
-#include "Logic\Map.h"
-#include "Util\Utils.h"
+#include "../Util/Convert.h"
+#include "../Logic/Map.h"
+#include "../Util/Utils.h"
 
 class Server
 {
