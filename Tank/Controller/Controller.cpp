@@ -430,10 +430,14 @@ void Controller::addRandomBarrels(AbstractView* v)
 {
 	for(int i = 0; i< 10 ; i++)
 	{
-		short randX = std::rand()%630+30, randY = std::rand()%630+30;
-
-		v->addBarrel(sf::Vector2f((float)randX, (float)randY), sf::Vector2f(35.0f, 35.0f));
-		map->add(new Block(randX, randY, 35, 35));
+		
+		sf::Vector2f pos((float)(std::rand()%630+30),(float)(std::rand()%630+30));
+		while(getTankOnPosition(pos, NULL) != NULL)
+		{
+			pos = sf::Vector2f((float)(std::rand()%630+30),(float)(std::rand()%630+30));
+		}
+		v->addBarrel(pos, sf::Vector2f(35.0f, 35.0f));
+		map->add(new Block((short)pos.x, (short)pos.y, 35, 35));
 	}
 }
 
