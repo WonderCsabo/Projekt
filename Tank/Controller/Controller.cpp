@@ -419,11 +419,17 @@ void Controller::addTanks(AbstractView* v)
 			}
 			Tank* tank = new Tank((short)pos.x, (short)pos.y, 35, 35, i, 0);
 			CommonTankInfo* t = new CommonTankInfo(j, tank);
-			if(i == 0 && j == myTeamId) t->reSelect();
+			if(j == myTeamId)
+				{
+					t->reSelect();
+					teams[myTeamId]->setSelected(t);
+					selectionHandler(t);
+				}
 			teams[j]->addTank(t);
 			v->addTank(t);
 		}
 	}
+
 }
 
 void Controller::addRandomBarrels(AbstractView* v)

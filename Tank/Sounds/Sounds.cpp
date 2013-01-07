@@ -2,7 +2,7 @@
 
 Sounds::Sounds(void)
 {
-	addBackground("resource/backgroundmusic.wav");
+	addBackground("resource/background.ogg");
 	addBumm("resource/bumm1.wav");
 	addBumm("resource/bumm2.wav");
 	addBumm("resource/bumm3.wav");
