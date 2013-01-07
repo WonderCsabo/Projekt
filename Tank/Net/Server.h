@@ -27,6 +27,8 @@ private:
 	bool canConnect;
 	std::list<ClientManager*> cms;
 	Map* map;
+	//sf::Mutex mutex;
+	Player* player;
 
 	void initGameProtocol(sf::TcpSocket*);
 	void updatePlayers();

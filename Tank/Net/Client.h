@@ -23,6 +23,8 @@ public:
 	std::string getNickname();
 	void shutDown();
 	
+	void sendChanged();
+
 	void send(std::string);
 	MessageObject getLastMessage();
 	void sendEventMessage(sf::Event&);	
@@ -37,6 +39,8 @@ private:
 	sf::Thread* manager;
 	std::deque<MessageObject> messages;
 	std::deque<MessageObject> sysmsg;
+	Player* temp;
+	//sf::Mutex mutex;
 	
 	void send(MessageObject);
 	void send(unsigned short, std::string);

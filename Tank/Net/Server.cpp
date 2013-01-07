@@ -16,6 +16,7 @@ Server::Server(unsigned int port_) : port(port_)
 	isRunning = true;
 	canConnect = true;
 	map = new Map(700, 700);
+	player = new Player();
 	launch();
 }
 
@@ -48,15 +49,29 @@ void Server::manageClientMessages()
 					std::cout << "no more player\n";
 					canConnect = false;
 				}
-				if (msg.type == MessageObject::PLAYER)
+				if (msg.type == MessageObject::PLAYER && msg.message == "player")
 				{
-
+					sf::Mutex mutex;
+					mutex.lock();
+					sf::Packet packet;
+					client->receive(packet);
+					std::stringstream ss;
+					ss.write((char*)packet.getData(), packet.getDataSize());
+					//Player* player = getFromPacket<Player>(packet);
+					//Player player;
+					ss >> *player;
+					map->updatePlayer(player);
 					updatePlayers();
+					mutex.unlock();
 				}
 				else
 				{
+					sf::Mutex mutex;
+					mutex.lock();
 					cm->appendMessage(msg);
-					sendAllExceptSender(msg, *client);
+					//sendAllExceptSender(msg, *client);
+					sendAll(msg);
+					mutex.unlock();
 				}
 			}
 			else if (status == sf::Socket::Disconnected)
@@ -148,10 +163,9 @@ void Server::waitForClients()
 
 void Server::updatePlayers()
 {
-	sf::Packet players = putPointerContainerToPacket(map->getPlayers());//putToPacket(map->getPlayers());
 	MessageObject update(MessageObject::UPD, "update");
 	sendAll(update);
-	sendPacketAll(players);
+	sendPacketAll(putToPacket(player));
 }
 
 /**
@@ -182,6 +196,21 @@ void Server::getInput()
 		{
 			isRunning = false;
 			shutDown();
+		}
+		else if (in == "unlock")
+		{
+			sf::Mutex m;
+			m.lock();
+			canConnect = true;
+			m.unlock();
+		}
+		else if (in == "newgame")
+		{
+			canConnect = true;
+			delete map;
+			map = new Map(700, 700);
+			MessageObject m(MessageObject::CMD, "shut");
+			sendAll(m);
 		}
 		else if (in == "player")
 		{
@@ -318,5 +347,6 @@ Server::~Server()
 	if (isRunning)
 		shutDown();
 	delete map;
+	delete player;
 	std::cout << "server has been closed\n";
 }

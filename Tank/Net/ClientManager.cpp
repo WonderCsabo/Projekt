@@ -68,6 +68,8 @@ bool ClientManager::running()
 */
 void ClientManager::appendMessage(const MessageObject& m)
 {
+	sf::Mutex mutex;
+	sf::Lock lock(mutex);
 	msgs.push_back(m);
 }
 
@@ -77,6 +79,8 @@ void ClientManager::appendMessage(const MessageObject& m)
 MessageObject ClientManager::getMessage()
 {
 	if (!msgs.empty()) {
+		sf::Mutex mutex;
+		sf::Lock lock(mutex);
 		MessageObject ret = msgs.front();
 		msgs.pop_front();
 		std::cout << "mgr " << nickname << "> " << ret << std::endl;

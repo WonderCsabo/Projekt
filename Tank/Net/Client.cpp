@@ -22,6 +22,17 @@ Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname_) :
 	}
 }
 
+void Client::sendChanged()
+{
+	MessageObject m(MessageObject::PLAYER, "player");
+	send(m);
+	std::stringstream ss;
+	player->serializeChanged(ss);
+	sf::Packet packet;
+	packet.append(ss.str().c_str(), ss.str().size());
+	server.send(putToPacket(*player));
+}
+
 void Client::initGameProtocol()
 {
 	//recieving map
@@ -51,6 +62,10 @@ void Client::launch()
 void Client::sendEventMessage(sf::Event& ev)
 {
 	std::stringstream ss;
+	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::End)
+	{
+		sendChanged();
+	}
 	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Home)
 	{
 		MessageObject m(MessageObject::START, "start");
@@ -82,7 +97,14 @@ void Client::manageClient()
 		MessageObject m = recieve();
 		if (m.type == MessageObject::UPD && m.message == "update")
 		{
-
+			sf::Mutex mutex;
+			mutex.lock();
+			sf::Packet packet;
+			server.receive(packet);
+			temp = getFromPacket<Player>(packet);
+			map->updatePlayer(temp);
+			//map->updatePlayer(getFromPacket<Player>(packet));
+			mutex.unlock();
 		}
 		else if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
 			messages.push_back(m);
@@ -175,8 +197,11 @@ MessageObject Client::getLastMessage()
 {
 	if (messages.size()!=0)
 	{
+		sf::Mutex mutex;
+		mutex.lock();
 		MessageObject m = messages.front();
 		messages.pop_front();
+		mutex.unlock();
 		return m;
 	}
 	else
@@ -210,4 +235,5 @@ Client::~Client()
 		delete map;
 	}
 	//delete player;
+	delete temp;
 }
