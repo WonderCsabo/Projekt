@@ -51,6 +51,12 @@
     <Filter Include="Header Files\Controller">
       <UniqueIdentifier>{9bc61eab-ebb2-4d79-a66e-cf0fb57c9fa6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Sounds">
+      <UniqueIdentifier>{7433236f-3375-441c-bfe1-4b00bb4edd31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sounds">
+      <UniqueIdentifier>{1e1b5857-4f12-42be-b401-4e7a1af351ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -142,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="Controller\CommonBulletInfo.cpp">
       <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Sounds\Sounds.cpp">
+      <Filter>Source Files\Sounds</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +246,9 @@
     </ClInclude>
     <ClInclude Include="Util\Convert.h">
       <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Sounds\Sounds.h">
+      <Filter>Header Files\Sounds</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

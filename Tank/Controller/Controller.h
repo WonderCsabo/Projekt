@@ -1,4 +1,4 @@
-#pragma once
+	#pragma once
 
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
@@ -17,11 +17,13 @@
 #include "../GUI/StartGui.h"
 #include "../Util/DebugWindow.h"
 #include "../Util/Os.h"
+#include "../Sounds/Sounds.h"
 
 class Controller
 {
 private:
 	Client* client;
+	Sounds sounds;
 	const unsigned short myTeamId;
 	float tankSpeed;
 	float bulletSpeed;

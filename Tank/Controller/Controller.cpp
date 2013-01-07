@@ -342,7 +342,7 @@ void Controller::moveBullet(CommonTankInfo* tank)
 		tank->stopShoot();
 		tank->setBullet(NULL);
 		hit->destroy();
-		//hit->setPosition(sf::Vector2f(-100.0f,-100.0f));
+		sounds.playBumm();
 	}
 }
 bool Controller::isOwnTeam(CommonTankInfo* tank)

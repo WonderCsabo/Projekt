@@ -116,6 +116,7 @@
     <ClCompile Include="Net\ClientManager.cpp" />
     <ClCompile Include="Net\MessageObject.cpp" />
     <ClCompile Include="Net\Server.cpp" />
+    <ClCompile Include="Sounds\Sounds.cpp" />
     <ClCompile Include="Util\DebugWindow.cpp" />
     <ClCompile Include="Util\Utils.cpp" />
   </ItemGroup>
@@ -147,6 +148,7 @@
     <ClInclude Include="Net\ClientManager.h" />
     <ClInclude Include="Net\MessageObject.h" />
     <ClInclude Include="Net\Server.h" />
+    <ClInclude Include="Sounds\Sounds.h" />
     <ClInclude Include="Util\Convert.h" />
     <ClInclude Include="Util\DebugWindow.h" />
     <ClInclude Include="Util\Os.h" />
