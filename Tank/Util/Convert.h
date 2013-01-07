@@ -1,6 +1,4 @@
 #pragma once
-#ifndef CONVERT_H
-#define CONVERT_H
 
 #include <sstream>
 #include <SFML/Network.hpp>
@@ -60,5 +58,3 @@ T getFromStream(std::stringstream& ss)
 }
 
 int strtoint(std::string s);
-
-#endif //CONVERT_H
