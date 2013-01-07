@@ -160,7 +160,5 @@ std::istream& operator>>(std::istream& i, Tank& tank)
 	i.read((char*) &tank.cannonAngle, sizeof(float));
 	i.read((char*) &tank.firing, sizeof(bool));
 
-    tank.init();
-
     return i;
 }

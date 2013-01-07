@@ -55,6 +55,8 @@ void Map::updatePlayer(Player* const player)
 			for(unsigned int j = 0; j < player->getTanks().size(); ++j)
 			{
 				Tank* updatedTank = player->getTanks()[j];
+				std::cout << "id " << updatedTank->getID() << " ";
+				
 				delete thisPlayer->getTanks()[updatedTank->getID()];
 				thisPlayer->getTanks()[player->getTanks()[j]->getID()] = updatedTank;
 			}

@@ -27,8 +27,12 @@ void serializePointerContainer(Iterator begin, Iterator end, std::ostream& o)
 template<typename Iterator, typename Predicate>
 void serializePointerContainer(Iterator begin, Iterator end, std::ostream& o, Predicate& predicate)
 {
+	std::iterator_traits<Iterator>::difference_type distance = 0;
 
-	auto distance = std::distance(begin, end);
+	for(auto it = begin; it != end; ++it)
+		if(predicate(**it))
+			++distance;
+
 	o.write((char*) &distance, sizeof(distance));
 
 	for(; begin != end; ++begin)

@@ -1,11 +1,10 @@
 #include "CommonTankInfo.h"
 
-CommonTankInfo::CommonTankInfo(unsigned short team, Tank* tank): teamId(team), tankLogic(tank), motionTrigger(false)
+CommonTankInfo::CommonTankInfo(unsigned short team, Tank* tank): teamId(team), tankLogic(tank), motionTrigger(false), bullet(false), destroyed(false)
 {
-bullet = false;
-destroyed = false;
-stopShoot();
+	stopShoot();
 }
+
 CommonTankInfo::~CommonTankInfo(void) {}
 
 unsigned short CommonTankInfo::getTeamId()
