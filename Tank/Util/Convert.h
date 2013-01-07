@@ -16,12 +16,12 @@ sf::Packet putToPacket(T& t)
 }
 
 template <class T>
-T getFromPacket(sf::Packet& packet)
+T* getFromPacket(sf::Packet& packet)
 {
 	std::stringstream ss;
 	ss.write((char*)packet.getData(), packet.getDataSize());
-	T t;
-	ss >> t;
+	T* t = new T();
+	ss >> *t;
 	return t;
 }
 
@@ -58,5 +58,7 @@ T getFromStream(std::stringstream& ss)
 	ss >> t;
 	return t;
 }
+
+int strtoint(std::string s);
 
 #endif //CONVERT_H

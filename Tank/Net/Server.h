@@ -5,11 +5,13 @@
 #include <SFML/System.hpp>
 #include <list>
 #include <iostream>
-#include <map>
 #include <deque>
 #include "MessageObject.h"
 #include "Client.h"
 #include "ClientManager.h"
+#include "Convert.h"
+#include "Logic\Map.h"
+#include "Util\Utils.h"
 
 class Server
 {
@@ -21,14 +23,18 @@ public:
 private:
 	unsigned int port;
 	sf::TcpListener listener;
-	//sf::TcpSocket client;
 	sf::SocketSelector selector;
 	bool isRunning;
+	bool canConnect;
+	std::list<ClientManager*> cms;
+	Map* map;
+
+	void initGameProtocol(sf::TcpSocket*);
+	void updatePlayers();
+	void connectNewClient(sf::TcpSocket*);
+	void manageClientMessages();
 
 	void waitForClients();
-	//std::list<sf::TcpSocket*> clients;
-	//std::map<std::string, std::deque<MessageObject>>* messages;
-	std::list<ClientManager*> cms;
 	void getInput();
 	void shutDown();
 	void launch();
@@ -36,8 +42,9 @@ private:
 	sf::Socket::Status send(unsigned short, std::string, sf::TcpSocket&);
 	sf::Socket::Status send(MessageObject m, sf::TcpSocket&);
 	void sendAll(MessageObject);
+	void sendPacketAll(sf::Packet&);
 	void sendAllExceptSender(MessageObject, sf::TcpSocket&);
-	//void recieveTank(sf::TcpSocket&);
+	void sendCurrentClients(sf::TcpSocket&);
 };
 
 #endif //SERVER_H

@@ -1,4 +1,6 @@
 #pragma once
+#ifndef CLIENTMANAGER_H
+#define CLIENTMANAGER_H
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
@@ -30,3 +32,5 @@ private:
 
 	void process();
 };
+
+#endif //CLIENTMANAGER_H
