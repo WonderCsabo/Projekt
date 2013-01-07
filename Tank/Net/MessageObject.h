@@ -11,9 +11,13 @@ struct MessageObject
 	{
 	GNRL  = 100, //general message
 	CONN  = 101, //connect, should send nickname in this message
+	START = 102, //start the game
 	MVMNT = 200, //movement message
-	ACTION= 400, //action message
 	CMD   = 300, //command message
+	UPD   = 301, //update
+	PLAYER= 305, //player object
+	MAP   = 306, //map object
+	ACTION= 400, //action message
 	DISC  = 301, //disconnect
 	ERR   = 500  //general error message
 	};

@@ -1,5 +1,4 @@
 #include "Client.h"
-#include "../Util/DebugWindow.h"
 
 /**
 * constructs a client with the given port and ip address,
@@ -8,16 +7,32 @@
 * @param unsigned int port
 * @param IpAddress IP address
 */
-Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname_) : address(addr_), port(port_), isRunning(true), nickname(nickname_)
+Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname_) : address(addr_), port(port_),
+	isRunning(true), nickname(nickname_)
 {
 	status = server.connect(address, port);
 	if (status == sf::Socket::Done)
 	{
 		MessageObject hi(MessageObject::CONN, nickname);
 		send(hi);
-		std::cout << hi;
+		
+		initGameProtocol();
+
 		launch();
 	}
+}
+
+void Client::initGameProtocol()
+{
+	//recieving map
+	sf::Packet packet;
+	server.receive(packet);
+	map = getFromPacket<Map>(packet);
+
+	//create and send player
+	player = new Player(nickname);
+	server.send(putToPacket(*player));
+	map->add(player);
 }
 
 /**
@@ -36,6 +51,11 @@ void Client::launch()
 void Client::sendEventMessage(sf::Event& ev)
 {
 	std::stringstream ss;
+	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Home)
+	{
+		MessageObject m(MessageObject::START, "start");
+		send(m);
+	}
 	if (ev.type == ev.MouseButtonReleased)
 	{
 		ss << ev.mouseButton.x << " " << ev.mouseButton.y;
@@ -60,7 +80,11 @@ void Client::manageClient()
 	{
 		sf::sleep(sf::milliseconds(10));
 		MessageObject m = recieve();
-		if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
+		if (m.type == MessageObject::UPD && m.message == "update")
+		{
+
+		}
+		else if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
 			messages.push_back(m);
 		else
 			sysmsg.push_back(m);
@@ -180,5 +204,10 @@ Client::~Client()
 {
 	if (isRunning)
 		shutDown();
-	delete manager;
+	if (status==sf::Socket::Done)
+	{
+		delete manager;
+		delete map;
+	}
+	//delete player;
 }

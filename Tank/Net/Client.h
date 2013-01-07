@@ -5,6 +5,9 @@
 #include <iostream>
 #include <deque>
 #include "MessageObject.h"
+#include "../Logic/Player.h"
+#include "../Logic/Map.h"
+#include "../Util/Convert.h"
 
 class Client
 {
@@ -12,14 +15,17 @@ public:
 	Client(unsigned int, sf::IpAddress, std::string);
 	~Client();
 
-	sf::TcpSocket* getSocket();
-	void sendEventMessage(sf::Event&);
+	Player* player;
+	Map* map;
 
-	void shutDown();
-	void send(std::string);
-	MessageObject getLastMessage();
+	sf::TcpSocket* getSocket();
 	bool isConnected();
 	std::string getNickname();
+	void shutDown();
+	
+	void send(std::string);
+	MessageObject getLastMessage();
+	void sendEventMessage(sf::Event&);	
 
 private:
 	sf::TcpSocket server;
@@ -28,16 +34,16 @@ private:
 	bool isRunning;
 	sf::Socket::Status status;
 	std::string nickname;
-
+	sf::Thread* manager;
+	std::deque<MessageObject> messages;
+	std::deque<MessageObject> sysmsg;
+	
 	void send(MessageObject);
 	void send(unsigned short, std::string);
 	MessageObject recieve();
 
+	void initGameProtocol();
 	void manageClient();
 	void getInput();
 	void launch();
-	sf::Thread* manager;
-	std::deque<MessageObject> messages;
-	std::deque<MessageObject> sysmsg;
-
 };
