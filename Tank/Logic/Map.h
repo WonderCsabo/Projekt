@@ -24,6 +24,7 @@ public:
 
     void add(const Block* const block);
     void add(Player* const player);
+	void updatePlayer(Player* const player);
 
 private:
 

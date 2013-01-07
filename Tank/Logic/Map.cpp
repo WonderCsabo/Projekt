@@ -44,6 +44,26 @@ void Map::add(Player* const player)
     players.push_back(player);
 }
 
+void Map::updatePlayer(Player* const player)
+{
+	for(unsigned int i = 0; i < players.size(); ++i)
+	{
+		if(player->getName() == players[i]->getName())
+		{
+			Player* thisPlayer = players[i];
+
+			for(unsigned int j = 0; j < player->getTanks().size(); ++j)
+			{
+				Tank* updatedTank = player->getTanks()[j];
+				delete thisPlayer->getTanks()[updatedTank->getID()];
+				thisPlayer->getTanks()[player->getTanks()[j]->getID()] = updatedTank;
+			}
+
+			return;
+		}
+	}
+}
+
 void Map::initBlocks()
 {
 

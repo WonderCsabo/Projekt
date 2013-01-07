@@ -17,7 +17,7 @@ public:
     ~Player();
 
     const std::string& getName() const;
-    const std::vector<Tank*>& getTanks() const;
+    std::vector<Tank*>& getTanks();
     const Tank* const getSelected() const;
 
     void setSelected(Tank* const selected);

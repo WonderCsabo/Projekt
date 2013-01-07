@@ -1,15 +1,15 @@
 #include "Tank.h"
 #include "TankTypes.h"
 
-Tank::Tank() : dirX(0), dirY(0)
+Tank::Tank() : destinationX(0), destinationY(0)
 {
     init();
 }
 
-Tank::Tank(const short& posX, const short& posY, const short& sizeX, const short& sizeY, const short& typeID)
-    : AbstractEntity(posX, posY, sizeX, sizeY), typeID(typeID), dirX(0), dirY(0)
+Tank::Tank(const short& posX, const short& posY, const short& sizeX, const short& sizeY, const short& ID, const short& typeID)
+	: AbstractEntity(posX, posY, sizeX, sizeY), typeID(typeID), destinationX(0), destinationY(0)
 {
-
+	this->ID = ID;
     init();
 }
 
@@ -42,14 +42,24 @@ const short& Tank::getTypeID() const
     return typeID;
 }
 
-const short& Tank::getDirX() const
+const short& Tank::getDestinationX() const
 {
-    return dirX;
+	return destinationX;
 }
 
-const short& Tank::getDirY() const
+const short& Tank::getDestinationY() const
 {
-    return dirY;
+	return destinationY;
+}
+
+const float& Tank::getTankAngle() const
+{
+	return tankAngle;
+}
+
+const float& Tank::getCannonAngle() const
+{
+	return cannonAngle;
 }
 
 const unsigned short& Tank::getFireDamage() const
@@ -74,29 +84,40 @@ void Tank::setHP(const short& HP)
     changed = true;
 }
 
-void Tank::setDirX(const short& dirX)
+void Tank::setDestinationX(const short& destinationX)
 {
-    this->dirX = dirX;
+	this->destinationX = destinationX;
     changed = true;
 }
 
-void  Tank::setDirY(const short& dirY)
+void  Tank::setDestinationY(const short& destinationY)
 {
-    this->dirY = dirY;
+    this->destinationY = destinationY;
     changed = true;
 }
 
-void Tank::move(const short& dirX, const short& dirY)
+void Tank::setTankAngle(const float& angle)
 {
-    this->posX += dirX;
-    this->posY += dirY;
+	tankAngle = angle;
+	changed = true;
+}
+void Tank::setCannonAngle(const float& angle)
+{
+	cannonAngle = angle;
+	changed = true;
+}
+
+void Tank::move(const short& destinationX, const short& destinationY)
+{
+    this->posX += destinationX;
+    this->posY += destinationY;
     changed = true;
 }
 
-void Tank::fire(short& dirX, short& dirY, short& damage) const
+void Tank::fire(short& destinationX, short& destinationY, short& damage) const
 {
-    dirX = this->dirX;
-    dirY = this->dirY;
+    destinationX = this->destinationX;
+    destinationY = this->destinationY;
     damage = this->fireDamage;
 }
 
@@ -114,9 +135,11 @@ std::ostream& operator<<(std::ostream& o, Tank& tank)
 
     o << dynamic_cast<const AbstractEntity&>(tank);
 
-    o.write((char*) &tank.dirX, sizeof(short));
-    o.write((char*) &tank.dirY, sizeof(short));
+    o.write((char*) &tank.destinationX, sizeof(short));
+    o.write((char*) &tank.destinationY, sizeof(short));
     o.write((char*) &tank.typeID, sizeof(short));
+	o.write((char*) &tank.tankAngle, sizeof(float));
+	o.write((char*) &tank.cannonAngle, sizeof(float));
 
     return o;
 }
@@ -125,9 +148,11 @@ std::istream& operator>>(std::istream& i, Tank& tank)
 {
     i >> dynamic_cast<AbstractEntity&>(tank);
 
-    i.read((char*) &tank.dirX, sizeof(short));
-    i.read((char*) &tank.dirY, sizeof(short));
+    i.read((char*) &tank.destinationX, sizeof(short));
+    i.read((char*) &tank.destinationY, sizeof(short));
     i.read((char*) &tank.typeID, sizeof(short));
+	i.read((char*) &tank.tankAngle, sizeof(float));
+	i.read((char*) &tank.cannonAngle, sizeof(float));
 
     tank.init();
 
