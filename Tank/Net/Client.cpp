@@ -82,6 +82,7 @@ void Client::sendEventMessage(sf::Event& ev)
 		MessageObject m(MessageObject::START, "start");
 		send(m);
 	}
+	/*
 	if (ev.type == ev.MouseButtonReleased)
 	{
 		ss << ev.mouseButton.x << " " << ev.mouseButton.y;
@@ -94,6 +95,7 @@ void Client::sendEventMessage(sf::Event& ev)
 			send(MessageObject::MVMNT, "user clicked at: " + ss.str());
 		}
 	}
+	*/
 
 }
 

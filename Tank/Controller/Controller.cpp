@@ -235,14 +235,17 @@ void Controller::handleMouseClick(CommonTankInfo* tank)
 
 void Controller::handleShoot(const sf::Vector2f& A, CommonTankInfo* tank)
 {
-	teams[myTeamId]->setFirePos(A);
-	float a = std::floorf(A.x)-std::floorf(teams[myTeamId]->getSelected()->getPosition().x);
-	float b = std::floorf(A.y)-std::floorf(teams[myTeamId]->getSelected()->getPosition().y);
+	std::cout << A.x << " " << A.y << std::endl;
+
+	if(tank->getTeamId() == myTeamId)
+		teams[myTeamId]->setFirePos(A);
+	float a = std::floorf(A.x)-std::floorf(tank->getPosition().x);
+	float b = std::floorf(A.y)-std::floorf(tank->getPosition().y);
 	float c = std::sqrtf(a*a+b*b);
 	float i = a/c*bulletSpeed;	
 	float j = b/c*bulletSpeed;
-	if(tank->isShoot()) return;
-	tank->setBullet(new CommonBulletInfo(teams[myTeamId]->getSelected()->getPosition(),sf::Vector2f(i,j)));
+	if(tank->getBullet()) return;
+	tank->setBullet(new CommonBulletInfo(tank->getPosition(),sf::Vector2f(i,j)));
 	tank->startShoot();
 }
 
@@ -261,6 +264,7 @@ void Controller::tankMovements()
 		for(tankIter = (*teamIter)->getBegin(); tankIter != (*teamIter)->getEnd(); tankIter++)
 		{
 			tank = (*tankIter);
+
 			if(tank->isShoot() && tank->getBullet() != NULL) moveBullet(tank);
 			if(tank->isShoot() && tank->getBullet() == NULL)
 				handleShoot((*teamIter)->getFirePos(), *tankIter);
@@ -427,7 +431,7 @@ void Controller::addTanks(AbstractView* v)
 		for(unsigned short j = 0; j < 3; j++)//teams
 		{
 			currentPlayer = new Player("offline player");
-			map->add(currentPlayer);
+			map->addNewPlayer(currentPlayer);
 			addCurrentPlayerTanks(v, currentPlayer, j);
 		}
 	}
