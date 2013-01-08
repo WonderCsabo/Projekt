@@ -12,6 +12,7 @@ struct MessageObject
 	GNRL  = 100, //general message
 	CONN  = 101, //connect, should send nickname in this message
 	START = 102, //start the game
+	ALLCT = 102, //all client
 	MVMNT = 200, //movement message
 	CMD   = 300, //command message
 	UPD   = 301, //update
