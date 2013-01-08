@@ -1,7 +1,7 @@
 #include "CommonTeamInfo.h"
 #include "../Util/Utils.h"
 
-CommonTeamInfo::CommonTeamInfo(unsigned short tId) : teamId(tId)
+CommonTeamInfo::CommonTeamInfo(unsigned short tId, Player* player) : teamId(tId), player(player)
 {
 }
 void CommonTeamInfo::addTank(CommonTankInfo* t)
@@ -12,6 +12,8 @@ void CommonTeamInfo::addTank(CommonTankInfo* t)
 		selected = t;
 		selected->deSelect();
 	}
+
+	player->addTank(t->getLogic());
 }
 std::vector<CommonTankInfo *>::iterator CommonTeamInfo::getBegin()
 {
@@ -24,8 +26,8 @@ CommonTankInfo* CommonTeamInfo::getSelected()
 }
 void CommonTeamInfo::setSelected(CommonTankInfo* tank)
 {
-
 	selected = tank;
+	player->setSelected(selected->getLogic());
 }
 std::vector<CommonTankInfo *>::iterator CommonTeamInfo::getEnd()
 {

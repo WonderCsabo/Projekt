@@ -28,6 +28,7 @@ public:
 	CommonBulletInfo* getBullet();
 	const float& getTankAngle();
 	const float& getCannonAngle();
+	Tank* getLogic();
 	bool isInMotion();
 	bool isSelected();
 	bool isShoot();

@@ -39,6 +39,11 @@ const float& CommonTankInfo::getCannonAngle()
 {
 	return tankLogic->getCannonAngle();
 }
+
+Tank* CommonTankInfo::getLogic()
+{
+	return tankLogic;
+}
 bool CommonTankInfo::isInMotion()
 {
 	return motionTrigger;

@@ -172,18 +172,22 @@ bool Controller::programRunning()
 	if(window == NULL) return false;
 	return window->isOpen();
 }
+
 sf::RenderWindow* Controller::getWindow()
 {
 	return window;
 }
+
 float Controller::getAngleBetweenPoints(const sf::Vector2f& A, const sf::Vector2f& B)
 {
 	return std::atan2f(B.x-A.x,A.y-B.y)*180.0f/3.1412f;
 }
+
 void Controller::rotateCannonToPoint(const sf::Vector2f& A)
 {
 	teams[myTeamId]->getSelected()->setCannonAngle(getAngleBetweenPoints(teams[myTeamId]->getSelected()->getPosition(),A));
 }
+
 bool Controller::getEvent(sf::Event& ev)
 {
 	if(events.empty()) return false;
@@ -217,6 +221,7 @@ void Controller::handleMouseClick(CommonTankInfo* tank)
 		}
 	}
 }
+
 void Controller::handleShoot(const sf::Vector2f& A)
 {
 	float a = std::floorf(A.x)-std::floorf(teams[myTeamId]->getSelected()->getPosition().x);
@@ -228,6 +233,7 @@ void Controller::handleShoot(const sf::Vector2f& A)
 	teams[myTeamId]->getSelected()->setBullet(new CommonBulletInfo(teams[myTeamId]->getSelected()->getPosition(),sf::Vector2f(i,j)));
 	teams[myTeamId]->getSelected()->startShoot();
 }
+
 void Controller::addMove(CommonTankInfo* tank,const sf::Vector2f& destination)
 {
 	tank->setDestination(destination);
@@ -409,7 +415,8 @@ void Controller::addTanks(AbstractView* v)
 {
 	for(unsigned short j = 0; j < 3; j++)//teams
 	{
-		teams.push_back(new CommonTeamInfo(j));
+		Player * currentPlayer = new Player("jozsi");
+		teams.push_back(new CommonTeamInfo(j, currentPlayer));
 		for(unsigned short i = 0; i< 7 ; i++)//players in tank
 		{
 			sf::Vector2f pos((float)(std::rand()%630+30),(float)(std::rand()%630+30));
@@ -428,6 +435,8 @@ void Controller::addTanks(AbstractView* v)
 			teams[j]->addTank(t);
 			v->addTank(t);
 		}
+
+		map->add(currentPlayer);
 	}
 
 }

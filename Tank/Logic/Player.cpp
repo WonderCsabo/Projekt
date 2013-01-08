@@ -5,12 +5,12 @@ typedef std::string::size_type str_size_t;
 
 Player::Player()
 {
-    addInitialTanks();
+    //addInitialTanks();
 }
 
 Player::Player(const std::string& name) : name(name)
 {
-    addInitialTanks();
+    //addInitialTanks();
 }
 
 Player::~Player()

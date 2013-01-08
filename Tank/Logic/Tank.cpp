@@ -93,6 +93,7 @@ void Tank::setHP(const short& HP)
 void Tank::setFiring(const bool& firing)
 {
 	this->firing = firing;
+	changed = true;
 }
 
 void Tank::setDestinationX(const short& destinationX)
