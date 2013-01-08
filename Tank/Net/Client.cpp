@@ -108,9 +108,12 @@ void Client::manageClient()
 		}
 		else if (m.type == MessageObject::NEWPL && m.message == "newplayer")
 		{
+			sf::Mutex mutex;
+			mutex.lock();
 			sf::Packet packet; server.receive(packet);
 			Player* player = getFromPacket<Player>(packet);
 			map->add(player);
+			mutex.unlock();
 		}
 		else if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
 			messages.push_back(m);
