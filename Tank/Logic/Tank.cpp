@@ -1,14 +1,14 @@
 #include "Tank.h"
 #include "TankTypes.h"
 
-Tank::Tank() : destinationX(0), destinationY(0)
+Tank::Tank() : destinationX(0), destinationY(0), motion(true)
 {
     init();
 }
 
 Tank::Tank(const short& posX, const short& posY, const short& sizeX, const short& sizeY, const short& ID, const short& typeID)
 	: AbstractEntity(posX, posY, sizeX, sizeY), typeID(typeID), destinationX(0), destinationY(0), tankAngle(0), cannonAngle(0),
-	selected(0), firing(0), changed(0)
+	selected(0), firing(0), changed(0), motion(false)
 {
 	this->ID = ID;
     init();
@@ -36,6 +36,11 @@ bool Tank::isChanged() const
 bool Tank::isFiring() const
 {
 	return firing;
+}
+
+bool Tank::isMotion() const
+{
+	return motion;
 }
 
 const short& Tank::getHP() const
@@ -93,6 +98,12 @@ void Tank::setHP(const short& HP)
 void Tank::setFiring(const bool& firing)
 {
 	this->firing = firing;
+	changed = true;
+}
+
+void Tank::setMotion(const bool& motion)
+{
+	this->motion = motion;
 	changed = true;
 }
 

@@ -1,6 +1,6 @@
 #include "CommonTankInfo.h"
 
-CommonTankInfo::CommonTankInfo(unsigned short team, Tank* tank): teamId(team), tankLogic(tank), motionTrigger(false), bullet(false), destroyed(false)
+CommonTankInfo::CommonTankInfo(unsigned short team, Tank* tank): teamId(team), tankLogic(tank), bullet(false), destroyed(false)
 {
 	stopShoot();
 }
@@ -46,7 +46,7 @@ Tank* CommonTankInfo::getLogic()
 }
 bool CommonTankInfo::isInMotion()
 {
-	return motionTrigger;
+	return tankLogic->isMotion();
 }
 bool CommonTankInfo::isSelected()
 {
@@ -91,11 +91,11 @@ void CommonTankInfo::updateLogic(Tank* updated)
 
 void CommonTankInfo::startMotion()
 {
-	motionTrigger = true;
+	tankLogic->setMotion(true);
 }
 void CommonTankInfo::stopMotion()
 {
-	motionTrigger = false;
+	tankLogic->setMotion(false);
 	setDestination(getPosition());
 }
 void CommonTankInfo::startShoot()

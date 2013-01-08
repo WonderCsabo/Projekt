@@ -52,6 +52,7 @@ void Controller::recieveFromClient()//runs in separate thread
 		}
 	}
 }
+
 void Controller::wrt(const sf::Event &event)
 { 
 	if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Num0 || event.key.code == sf::Keyboard::Numpad0))
@@ -218,6 +219,9 @@ void Controller::handleMouseClick(CommonTankInfo* tank)
 			addMove(teams[myTeamId]->getSelected(), sf::Vector2f(sf::Mouse::getPosition(*window)));
 		else
 			handleShoot(sf::Vector2f(sf::Mouse::getPosition(*window)));
+
+		if(!StartGui::isOfflineMode())
+			client->sendChanged();
 	}
 	else
 	{
@@ -425,6 +429,11 @@ void Controller::addTanks(AbstractView* v)
 	}
 	else
 	{
+		for(unsigned int i = 0; i < map->getPlayers().size(); ++i)
+		{
+			addCurrentPlayerTanks(v, map->getPlayers()[i], i);
+		}
+
 		currentPlayer = new Player(client->getNickname());
 		map->add(currentPlayer);
 		addCurrentPlayerTanks(v, currentPlayer, map->getPlayers().size() - 1);

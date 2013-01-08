@@ -16,7 +16,6 @@ Player::Player(const std::string& name) : name(name)
 
 Player::~Player()
 {
-
     clearPointerContainer(tanks);
 }
 

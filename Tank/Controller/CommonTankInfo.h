@@ -9,7 +9,6 @@ private:
 	Tank* tankLogic;
 	const unsigned short teamId;
 
-	bool motionTrigger;
 	bool destroyed;
 	CommonBulletInfo* bullet;
 	
