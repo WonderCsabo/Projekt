@@ -5,6 +5,7 @@ AbstractEntity::AbstractEntity()
     init();
 }
 
+
 AbstractEntity::AbstractEntity(const short& posX, const short& posY, const short& sizeX, const short& sizeY)
     : posX(posX), posY(posY), sizeX(sizeX), sizeY(sizeY)
 {

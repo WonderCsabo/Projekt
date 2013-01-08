@@ -81,7 +81,6 @@ std::ostream& operator<<(std::ostream& o, const Player& player)
 std::istream& operator>>(std::istream& in, Player& player)
 {
     clearPointerContainer(player.tanks);
-    player.selected = 0;
 
     str_size_t stringSize;
 
