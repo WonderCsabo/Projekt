@@ -79,8 +79,8 @@ std::ostream& Player::serializeChanged(std::ostream& o)
 
     o.write((char*) &stringSize, sizeof(str_size_t));
     o.write(name.c_str(), name.size());
-	o.write((char*) firePosX, sizeof(short));
-	o.write((char*) firePosY, sizeof(short));
+	o.write((char*) &firePosX, sizeof(short));
+	o.write((char*) &firePosY, sizeof(short));
 
     serializePointerContainer(tanks.cbegin(), tanks.cend(), o, TankChangedPredicate());
 

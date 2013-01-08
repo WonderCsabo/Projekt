@@ -31,8 +31,8 @@ sf::Vector2f CommonTeamInfo::getFirePos() const
 
 void CommonTeamInfo::setFirePos(const sf::Vector2f& pos)
 {
-	player->setFirePosX((short) pos.x));
-	player->setFirePosY((short) pos.y)); 
+	player->setFirePosX((short) pos.x);
+	player->setFirePosY((short) pos.y); 
 }
 
 std::vector<CommonTankInfo *>::iterator CommonTeamInfo::getEnd()
