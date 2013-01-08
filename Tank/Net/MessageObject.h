@@ -15,6 +15,7 @@ struct MessageObject
 	MVMNT = 200, //movement message
 	CMD   = 300, //command message
 	UPD   = 301, //update
+	NEWPL = 304, //new player connects
 	PLAYER= 305, //player object
 	MAP   = 306, //map object
 	ACTION= 400, //action message

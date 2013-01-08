@@ -17,7 +17,7 @@ Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname_) :
 		send(hi);
 		
 		initGameProtocol();
-
+		temp = 0;
 		launch();
 	}
 }
@@ -105,6 +105,12 @@ void Client::manageClient()
 			map->updatePlayer(temp);
 			//map->updatePlayer(getFromPacket<Player>(packet));
 			mutex.unlock();
+		}
+		else if (m.type == MessageObject::NEWPL && m.message == "newplayer")
+		{
+			sf::Packet packet; server.receive(packet);
+			Player* player = getFromPacket<Player>(packet);
+			map->add(player);
 		}
 		else if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
 			messages.push_back(m);
@@ -235,5 +241,6 @@ Client::~Client()
 		delete map;
 	}
 	//delete player;
-	delete temp;
+	if (temp!=0)
+		delete temp;
 }
