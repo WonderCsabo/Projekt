@@ -7,7 +7,7 @@
 #include <ctime>
 #include <functional>
 #include <list>
-#include <map>
+#include <unordered_map>
 #include "CommonTankInfo.h"
 #include "CommonTeamInfo.h"
 #include "../Graphics/View.h"
@@ -38,6 +38,8 @@ private:
 
 	Map *map;
 
+	std::unordered_map<Tank*, CommonTankInfo*> getCTanks;
+
 	void shutdown();
 	CommonTankInfo* getTankOnPosition(const sf::Vector2f&, CommonTankInfo* = 0);
 	CommonTankInfo* getOtherTankOnPosition(CommonTankInfo*, const sf::Vector2f&);
@@ -56,6 +58,7 @@ private:
 	float getAngleBetweenPoints(const sf::Vector2f&,const sf::Vector2f&);
 	void addRandomBarrels(AbstractView* v);
 	void addTanks(AbstractView* v);
+	void addCurrentPlayerTanks(AbstractView* v, Player* player, const short& playerID);
 	void recieveEvents();
 	static Client* startGui();
 	sf::Thread* thread;

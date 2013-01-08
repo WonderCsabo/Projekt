@@ -2,6 +2,7 @@
 #include "../Util/Utils.h"
 
 typedef std::string::size_type str_size_t;
+short Player::PLAYER_TANKS_COUNT = 7;
 
 Player::Player()
 {

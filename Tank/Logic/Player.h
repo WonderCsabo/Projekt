@@ -30,6 +30,8 @@ public:
 
     std::ostream& serializeChanged(std::ostream& o);
 
+	static short PLAYER_TANKS_COUNT;
+
 private:
 
     std::string name;

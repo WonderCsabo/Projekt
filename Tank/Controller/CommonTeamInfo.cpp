@@ -13,7 +13,7 @@ void CommonTeamInfo::addTank(CommonTankInfo* t)
 		selected->deSelect();
 	}
 
-	player->addTank(t->getLogic());
+	//player->addTank(t->getLogic());
 }
 std::vector<CommonTankInfo *>::iterator CommonTeamInfo::getBegin()
 {

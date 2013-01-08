@@ -7,7 +7,7 @@ int Controller::run()
 	if (client==NULL && !StartGui::isOfflineMode())
 		return 1; //return with error
 	if (!StartGui::isOfflineMode()) startChat();
-	isGameStarted = false;
+	isGameStarted = StartGui::isOfflineMode();
 	while(programRunning())//runs by the main thread
 	{
 		sf::Event ev;
@@ -101,8 +101,7 @@ void Controller::stopChat()
 		delete thread;
 	}
 }
-Controller::Controller(short x, short y, std::string title, unsigned short myId) : myTeamId(myId), 
-	map(new Map(x, y))
+Controller::Controller(short x, short y, std::string title, unsigned short myId) : myTeamId(myId)
 {
 	client = startGui();
 	thread = NULL;
@@ -114,8 +113,15 @@ Controller::Controller(short x, short y, std::string title, unsigned short myId)
 	rotSpeed = 30.0f;
 	bulletSpeed = 30.0f;
 	waitMs = 25;
+
+	if(client)
+		map = client->getMap();
+	else
+		map = new Map(700, 700);
+
 	addTanks(view);
 	addRandomBarrels(view);
+	
 }
 char Controller::getChar(const sf::Event &ev)
 {
@@ -147,27 +153,16 @@ char Controller::getChar(const sf::Event &ev)
 
 CommonTankInfo* Controller::getTankOnPosition(const sf::Vector2f& position, CommonTankInfo* thisTank)
 {
-	std::vector<CommonTeamInfo*>::iterator teamIter;
-	std::vector<CommonTankInfo*>::iterator tankIter;
-	for(teamIter = teams.begin(); teamIter!=teams.end(); teamIter++)
-	{
-		for(tankIter = (*teamIter)->getBegin(); tankIter != (*teamIter)->getEnd(); tankIter++)
-		{
-			if(thisTank != *tankIter && isTankOnNewPosition(*tankIter, (*tankIter)->getPosition(), position, 20.f))
-				return *tankIter;
-		}
-	}
-	return NULL;
+	Tank* tank = map->getTankOnPosition((short) position.x, (short) position.y, thisTank ? thisTank->getLogic() : 0);
+
+	if(tank)
+		return getCTanks[tank];
+	return 0;
 }
 
 CommonTankInfo* Controller::isTankOnNewPosition(CommonTankInfo* tank, const sf::Vector2f& newPosition, const sf::Vector2f& position, const float& bounds)
 {
-	float left = newPosition.x - tank->getSize().x / 2 - bounds;
-	float right = newPosition.x + tank->getSize().x / 2 + bounds;
-	float top = newPosition.y - tank->getSize().y / 2 - bounds;
-	float bottom = newPosition.y + tank->getSize().y / 2 + bounds;
-
-	if(left < position.x && right > position.x && top < position.y && bottom > position.y)
+	if(map->isEntityOnPosition(tank->getLogic(), (short) newPosition.x, (short) newPosition.y, (short) position.x, (short) position.y, (short) bounds))
 		return tank;
 	return 0;
 }
@@ -198,7 +193,9 @@ bool Controller::getEvent(sf::Event& ev)
 	if(events.empty()) return false;
 	ev = *events.begin();
 	events.pop_front();
-	rotateCannonToPoint(sf::Vector2f(sf::Mouse::getPosition(*window)));
+
+	if(isGameStarted)
+		rotateCannonToPoint(sf::Vector2f(sf::Mouse::getPosition(*window)));
 
 	if(isGameStarted && ev.type == sf::Event::MouseButtonPressed)
 	{
@@ -316,16 +313,7 @@ void Controller::applyMove(CommonTankInfo* tank)
 		if(std::abs(a)<std::abs(i) || std::abs(b)<std::abs(j)) newPosition = tank->getDestination();
 		else newPosition = tank->getPosition()+sf::Vector2f(i,j);
 
-		for(auto it = map->getBlocks().cbegin(); it != map->getBlocks().cend(); ++it)
-		{
-			if(isTankOnNewPosition(tank, newPosition, sf::Vector2f((*it)->getPosX(), (*it)->getPosY()), 17.f))
-			{
-				tank->stopMotion();
-				return;
-			}
-		}
-
-		if(getTankOnPosition(newPosition, tank))
+		if(map->getBlockOnPosition((short) newPosition.x, (short) newPosition.y) || getTankOnPosition(newPosition, tank))
 		{
 			tank->stopMotion();
 			return;
@@ -418,47 +406,42 @@ AbstractView* Controller::getView()
 
 void Controller::addTanks(AbstractView* v)
 {
-	for(unsigned short j = 0; j < 3; j++)//teams
+	Player * currentPlayer;
+
+	if(StartGui::isOfflineMode())
 	{
-		Player * currentPlayer = new Player("jozsi");
-		teams.push_back(new CommonTeamInfo(j, currentPlayer));
-		for(unsigned short i = 0; i< 7 ; i++)//players in tank
+		for(unsigned short j = 0; j < 3; j++)//teams
 		{
-			sf::Vector2f pos((float)(std::rand()%630+30),(float)(std::rand()%630+30));
-			while(getTankOnPosition(pos, NULL) != NULL)
-			{
-				pos = sf::Vector2f((float)(std::rand()%630+30),(float)(std::rand()%630+30));
-			}
-			Tank* tank = new Tank((short)pos.x, (short)pos.y, 35, 35, i, 0);
-			CommonTankInfo* t = new CommonTankInfo(j, tank);
-			if(j == myTeamId)
-				{
-					t->reSelect();
-					teams[myTeamId]->setSelected(t);
-					selectionHandler(t);
-				}
-			teams[j]->addTank(t);
-			v->addTank(t);
+			currentPlayer = new Player("offline player");
+			map->add(currentPlayer);
+			addCurrentPlayerTanks(v, currentPlayer, j);
 		}
-
-		map->add(currentPlayer);
 	}
+	else
+	{
+		currentPlayer = new Player(client->getNickname());
+		map->add(currentPlayer);
+		addCurrentPlayerTanks(v, currentPlayer, map->getPlayers().size() - 1);
+	}
+}
 
+void Controller::addCurrentPlayerTanks(AbstractView* v, Player* player, const short& playerID)
+{
+	teams.push_back(new CommonTeamInfo(playerID, player));
+
+	for(auto it = player->getTanks().cbegin(); it != player->getTanks().cend(); ++it)
+	{
+		CommonTankInfo* currentCommonTank = new CommonTankInfo(playerID, *it);
+		teams[playerID]->addTank(currentCommonTank);
+		getCTanks[*it] = currentCommonTank;
+		v->addTank(currentCommonTank);
+	}
 }
 
 void Controller::addRandomBarrels(AbstractView* v)
 {
-	for(int i = 0; i< 10 ; i++)
-	{
-		
-		sf::Vector2f pos((float)(std::rand()%630+30),(float)(std::rand()%630+30));
-		while(getTankOnPosition(pos, NULL) != NULL)
-		{
-			pos = sf::Vector2f((float)(std::rand()%630+30),(float)(std::rand()%630+30));
-		}
-		v->addBarrel(pos, sf::Vector2f(35.0f, 35.0f));
-		map->add(new Block((short)pos.x, (short)pos.y, 35, 35));
-	}
+	for(auto it = map->getBlocks().cbegin(); it != map->getBlocks().cend(); ++it)
+		v->addBarrel(sf::Vector2f((*it)->getPosX(), (*it)->getPosY()), sf::Vector2f((*it)->getSizeX(), (*it)->getSizeY()));
 }
 
 Controller::~Controller(void)
