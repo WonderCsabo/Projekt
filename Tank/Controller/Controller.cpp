@@ -219,7 +219,7 @@ void Controller::handleMouseClick(CommonTankInfo* tank)
 		if(tank == NULL)
 			addMove(teams[myTeamId]->getSelected(), sf::Vector2f(sf::Mouse::getPosition(*window)));
 		else
-			handleShoot(sf::Vector2f(sf::Mouse::getPosition(*window)));
+			handleShoot(sf::Vector2f(sf::Mouse::getPosition(*window)), teams[myTeamId]->getSelected());
 
 		if(!StartGui::isOfflineMode())
 			client->sendChanged();
@@ -233,16 +233,17 @@ void Controller::handleMouseClick(CommonTankInfo* tank)
 	}
 }
 
-void Controller::handleShoot(const sf::Vector2f& A)
+void Controller::handleShoot(const sf::Vector2f& A, CommonTankInfo* tank)
 {
+	teams[myTeamId]->setFirePos(A);
 	float a = std::floorf(A.x)-std::floorf(teams[myTeamId]->getSelected()->getPosition().x);
 	float b = std::floorf(A.y)-std::floorf(teams[myTeamId]->getSelected()->getPosition().y);
 	float c = std::sqrtf(a*a+b*b);
-	float i = a/c*bulletSpeed;
+	float i = a/c*bulletSpeed;	
 	float j = b/c*bulletSpeed;
-	if(teams[myTeamId]->getSelected()->isShoot()) return;
-	teams[myTeamId]->getSelected()->setBullet(new CommonBulletInfo(teams[myTeamId]->getSelected()->getPosition(),sf::Vector2f(i,j)));
-	teams[myTeamId]->getSelected()->startShoot();
+	if(tank->isShoot()) return;
+	tank->setBullet(new CommonBulletInfo(teams[myTeamId]->getSelected()->getPosition(),sf::Vector2f(i,j)));
+	tank->startShoot();
 }
 
 void Controller::addMove(CommonTankInfo* tank,const sf::Vector2f& destination)
@@ -256,11 +257,13 @@ void Controller::tankMovements()
 	std::vector<CommonTankInfo*>::iterator tankIter;
 	CommonTankInfo* tank;
 	for(teamIter = teams.begin(); teamIter!=teams.end(); teamIter++)
-	{
+	{	
 		for(tankIter = (*teamIter)->getBegin(); tankIter != (*teamIter)->getEnd(); tankIter++)
 		{
 			tank = (*tankIter);
 			if(tank->isShoot() && tank->getBullet() != NULL) moveBullet(tank);
+			if(tank->isShoot() && tank->getBullet() == NULL)
+				handleShoot((*teamIter)->getFirePos(), *tankIter);
 			if(tank->isInMotion()) applyMove(tank);
 		}
 	}

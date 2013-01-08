@@ -47,7 +47,7 @@ private:
 	void addMove(CommonTankInfo*,const sf::Vector2f&);
 	void handleMouseClick(CommonTankInfo*);
 	void detonate(CommonTankInfo*);
-	void handleShoot(const sf::Vector2f&);
+	void handleShoot(const sf::Vector2f&, CommonTankInfo* tank);
 	void selectionHandler(CommonTankInfo*);
 	void rotateCannonToPoint(const sf::Vector2f&);
 	void tankMovements();

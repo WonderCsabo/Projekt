@@ -19,9 +19,14 @@ public:
     const std::string& getName() const;
     std::vector<Tank*>& getTanks();
     const Tank* const getSelected() const;
+	const short& getFirePosX() const;
+	const short& getFirePosY() const;
 
     void setSelected(Tank* const selected);
     void addTank(Tank* const tank);
+
+	void setFirePosX(const short& posX);
+	void setFirePosY(const short& posY);
 
     struct TankChangedPredicate
     {
@@ -37,6 +42,7 @@ private:
     std::string name;
     std::vector<Tank*> tanks;
     Tank* selected;
+	short firePosX, firePosY;
 
     void addInitialTanks();
 };

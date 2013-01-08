@@ -16,6 +16,8 @@ public:
 	CommonTankInfo* getSelected();
 	void setSelected(CommonTankInfo*);
 	void addTank(CommonTankInfo*);
+	sf::Vector2f getFirePos() const;
+	void setFirePos(const sf::Vector2f&);
 	CommonTeamInfo(unsigned short, Player*);
 	~CommonTeamInfo(void);
 };
