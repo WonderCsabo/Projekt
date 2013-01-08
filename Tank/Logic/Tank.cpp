@@ -157,6 +157,7 @@ std::ostream& operator<<(std::ostream& o, Tank& tank)
 	o.write((char*) &tank.tankAngle, sizeof(float));
 	o.write((char*) &tank.cannonAngle, sizeof(float));
 	o.write((char*) &tank.firing, sizeof(bool));
+	o.write((char*) &tank.motion, sizeof(bool));
 
     return o;
 }
@@ -171,6 +172,7 @@ std::istream& operator>>(std::istream& i, Tank& tank)
 	i.read((char*) &tank.tankAngle, sizeof(float));
 	i.read((char*) &tank.cannonAngle, sizeof(float));
 	i.read((char*) &tank.firing, sizeof(bool));
+	i.read((char*) &tank.motion, sizeof(bool));
 
     return i;
 }
