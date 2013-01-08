@@ -36,6 +36,7 @@ void Controller::recieveFromClient()//runs in separate thread
 		if (m.type == MessageObject::START && m.message == "start")
 		{
 			isGameStarted = true;
+			view->addOutputChat("GAME STARTED");
 		}
 		else if (m.type == MessageObject::CMD && m.message == "shut")
 		{
@@ -78,7 +79,7 @@ void Controller::wrt(const sf::Event &event)
 			{
 				if (console!=client->getNickname()+": ")
 				{
-					console = console.substr(client->getNickname().length()+2, console.length());
+					//console = console.substr(client->getNickname().length()+2, console.length());
 					client->send(console);
 				}
 			}

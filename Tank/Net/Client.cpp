@@ -24,13 +24,16 @@ Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname_) :
 
 void Client::sendChanged()
 {
+	sf::Mutex mutex;
+	mutex.lock();
 	MessageObject m(MessageObject::PLAYER, "player");
 	send(m);
 	std::stringstream ss;
 	player->serializeChanged(ss);
 	sf::Packet packet;
 	packet.append(ss.str().c_str(), ss.str().size());
-	server.send(putToPacket(*player));
+	server.send(packet);
+	mutex.unlock();
 }
 
 void Client::initGameProtocol()
@@ -103,11 +106,12 @@ void Client::manageClient()
 	{
 		sf::sleep(sf::milliseconds(10));
 		MessageObject m = recieve();
-		//if (m.type == MessageObject::START && m.message == "start") //server sends a start message, start the game
-		//{
-
-		//}
-		/*else*/ if (m.type == MessageObject::UPD && m.message == "update") //server sends update message, update player next
+		/*if (m.type == MessageObject::START && m.message == "start") //server sends a start message, start the game
+		{
+			MessageObject startmsg(MessageObject::START, "GAME STARTED");
+			messages.push_back(startmsg);
+		}
+		else*/ if (m.type == MessageObject::UPD && m.message == "update") //server sends update message, update player next
 		{
 			sf::Mutex mutex;
 			mutex.lock();
