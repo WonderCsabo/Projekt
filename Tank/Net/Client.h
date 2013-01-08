@@ -15,8 +15,9 @@ public:
 	Client(unsigned int, sf::IpAddress, std::string);
 	~Client();
 
-	Player* player;
-	Map* map;
+	bool getMapChanged();
+	Map* getMap();
+	Player* getPlayer();
 
 	sf::TcpSocket* getSocket();
 	bool isConnected();
@@ -40,7 +41,9 @@ private:
 	std::deque<MessageObject> messages;
 	std::deque<MessageObject> sysmsg;
 	Player* temp;
-	//sf::Mutex mutex;
+	bool isMapChanged;
+	Player* player;
+	Map* map;
 	
 	void send(MessageObject);
 	void send(unsigned short, std::string);

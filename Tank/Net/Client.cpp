@@ -39,7 +39,7 @@ void Client::initGameProtocol()
 	sf::Packet packet;
 	server.receive(packet);
 	map = getFromPacket<Map>(packet);
-
+	isMapChanged = true;
 	//create and send player
 	player = new Player(nickname);
 	server.send(putToPacket(*player));
@@ -103,6 +103,7 @@ void Client::manageClient()
 			server.receive(packet);
 			temp = getFromPacket<Player>(packet);
 			map->updatePlayer(temp);
+			isMapChanged = true;
 			//map->updatePlayer(getFromPacket<Player>(packet));
 			mutex.unlock();
 		}
@@ -113,6 +114,7 @@ void Client::manageClient()
 			sf::Packet packet; server.receive(packet);
 			Player* player = getFromPacket<Player>(packet);
 			map->add(player);
+			isMapChanged = true;
 			mutex.unlock();
 		}
 		else if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
@@ -151,6 +153,22 @@ std::string Client::getNickname()
 sf::TcpSocket* Client::getSocket()
 {
 	return &server;
+}
+
+bool Client::getMapChanged()
+{
+	isMapChanged = !isMapChanged;
+	return !isMapChanged;
+}
+
+Map* Client::getMap()
+{
+	return map;
+}
+
+Player* Client::getPlayer()
+{
+	return player;
 }
 
 /**
@@ -244,6 +262,6 @@ Client::~Client()
 		delete map;
 	}
 	//delete player;
-	if (temp!=0)
-		delete temp;
+	//if (temp!=0)
+	//	delete temp;
 }
