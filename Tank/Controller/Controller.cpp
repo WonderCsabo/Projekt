@@ -41,10 +41,14 @@ void Controller::recieveFromClient()//runs in separate thread
 		{
 			shutdown();
 		}
-		else
+		else if (m.type == MessageObject::GNRL && m.message != "null")
 		{
-			if (m.type == MessageObject::GNRL && m.message != "null")
 				view->addOutputChat(m.message);
+		}
+		else if (m.type == MessageObject::CONN)
+		{
+			Player* player = map->getPlayers()[map->getPlayers().size() - 1];
+			addCurrentPlayerTanks(view, player, map->getPlayers().size() - 1);
 		}
 	}
 }
@@ -425,6 +429,8 @@ void Controller::addTanks(AbstractView* v)
 		map->add(currentPlayer);
 		addCurrentPlayerTanks(v, currentPlayer, map->getPlayers().size() - 1);
 		myTeamId = map->getPlayers().size() - 1;
+		client->setPlayer(currentPlayer);
+		client->sendNewPlayer(currentPlayer);
 	}
 
 	teams[myTeamId]->setSelected(*(teams[myTeamId]->getBegin()));

@@ -9,7 +9,7 @@ int main()
 {
 	std::srand((unsigned)std::time( 0 ));
 	//DebugWindow::openDebugWindow();
-	Controller controller(700, 700, "Tank Battle",0);
+	Controller controller(700, 700, "Tank Battle");
 	controller.run();
 	return 0;
 }
