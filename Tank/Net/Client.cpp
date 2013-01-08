@@ -41,9 +41,17 @@ void Client::initGameProtocol()
 	map = getFromPacket<Map>(packet);
 	isMapChanged = true;
 	//create and send player
-	player = new Player(nickname);
+	//player = new Player(nickname);
+	//server.send(putToPacket(*player));
+	//map->add(player);
+}
+
+void Client::sendNewPlayer(Player* player)
+{
+	MessageObject m(MessageObject::NEWPL, "newplayer");
+	send(m);
 	server.send(putToPacket(*player));
-	map->add(player);
+	//map->add(player);
 }
 
 /**
@@ -174,6 +182,12 @@ Map* Client::getMap()
 Player* Client::getPlayer()
 {
 	return player;
+}
+
+void Client::setPlayer(Player* p)
+{
+	delete player;
+	player = p;
 }
 
 /**

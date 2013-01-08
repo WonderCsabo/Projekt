@@ -18,6 +18,7 @@ public:
 	//bool getMapChanged();
 	Map* getMap();
 	Player* getPlayer();
+	void setPlayer(Player*);
 
 	sf::TcpSocket* getSocket();
 	bool isConnected();
@@ -25,6 +26,7 @@ public:
 	void shutDown();
 	
 	void sendChanged();
+	void sendNewPlayer(Player* newplayer);
 
 	void send(std::string);
 	MessageObject getLastMessage();
@@ -39,7 +41,6 @@ private:
 	std::string nickname;
 	sf::Thread* manager;
 	std::deque<MessageObject> messages;
-	//std::deque<MessageObject> sysmsg;
 	Player* temp;
 	bool isMapChanged;
 	Player* player;
