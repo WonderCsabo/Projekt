@@ -7,6 +7,7 @@ int Controller::run()
 	if (client==NULL && !StartGui::isOfflineMode())
 		return 1; //return with error
 	if (!StartGui::isOfflineMode()) startChat();
+	isGameStarted = false;
 	while(programRunning())//runs by the main thread
 	{
 		sf::Event ev;
@@ -32,13 +33,17 @@ void Controller::recieveFromClient()//runs in separate thread
 	{
 		sf::sleep(sf::milliseconds(10));
 		MessageObject m = client->getLastMessage();
-		if (m.type == MessageObject::CMD && m.message == "shut")
+		if (m.type == MessageObject::START && m.message == "start")
+		{
+			isGameStarted = true;
+		}
+		else if (m.type == MessageObject::CMD && m.message == "shut")
 		{
 			shutdown();
 		}
 		else
 		{
-			if (m.message != "null")
+			if (m.type == MessageObject::GNRL && m.message != "null")
 				view->addOutputChat(m.message);
 		}
 	}
@@ -195,7 +200,7 @@ bool Controller::getEvent(sf::Event& ev)
 	events.pop_front();
 	rotateCannonToPoint(sf::Vector2f(sf::Mouse::getPosition(*window)));
 
-	if(ev.type == sf::Event::MouseButtonPressed)
+	if(isGameStarted && ev.type == sf::Event::MouseButtonPressed)
 	{
 		handleMouseClick(getTankOnPosition(sf::Vector2f(sf::Mouse::getPosition(*window))));
 		return false;

@@ -34,6 +34,7 @@ private:
 	sf::RenderWindow *window;
 	AbstractView *view;
 	std::list<sf::Event> events;
+	bool isGameStarted;
 
 	Map *map;
 

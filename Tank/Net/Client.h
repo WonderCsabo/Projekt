@@ -15,7 +15,7 @@ public:
 	Client(unsigned int, sf::IpAddress, std::string);
 	~Client();
 
-	bool getMapChanged();
+	//bool getMapChanged();
 	Map* getMap();
 	Player* getPlayer();
 
@@ -39,7 +39,7 @@ private:
 	std::string nickname;
 	sf::Thread* manager;
 	std::deque<MessageObject> messages;
-	std::deque<MessageObject> sysmsg;
+	//std::deque<MessageObject> sysmsg;
 	Player* temp;
 	bool isMapChanged;
 	Player* player;

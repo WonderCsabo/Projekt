@@ -95,7 +95,11 @@ void Client::manageClient()
 	{
 		sf::sleep(sf::milliseconds(10));
 		MessageObject m = recieve();
-		if (m.type == MessageObject::UPD && m.message == "update")
+		//if (m.type == MessageObject::START && m.message == "start") //server sends a start message, start the game
+		//{
+
+		//}
+		/*else*/ if (m.type == MessageObject::UPD && m.message == "update") //server sends update message, update player next
 		{
 			sf::Mutex mutex;
 			mutex.lock();
@@ -107,7 +111,7 @@ void Client::manageClient()
 			//map->updatePlayer(getFromPacket<Player>(packet));
 			mutex.unlock();
 		}
-		else if (m.type == MessageObject::NEWPL && m.message == "newplayer")
+		else if (m.type == MessageObject::NEWPL && m.message == "newplayer") //server sends newplayer, add a new player
 		{
 			sf::Mutex mutex;
 			mutex.lock();
@@ -117,11 +121,11 @@ void Client::manageClient()
 			isMapChanged = true;
 			mutex.unlock();
 		}
-		else if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
+		else// if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
 			messages.push_back(m);
-		else
-			sysmsg.push_back(m);
-		if (m.type == MessageObject::CMD && m.message == "shut")
+		//else
+		//	sysmsg.push_back(m);
+		if (m.type == MessageObject::CMD && m.message == "shut") //shutdown
 		{
 			isRunning = false;
 			shutDown();
@@ -155,14 +159,15 @@ sf::TcpSocket* Client::getSocket()
 	return &server;
 }
 
-bool Client::getMapChanged()
+/*bool Client::getMapChanged() 
 {
 	isMapChanged = !isMapChanged;
 	return !isMapChanged;
-}
+}*/
 
 Map* Client::getMap()
 {
+	isMapChanged = false;
 	return map;
 }
 
@@ -259,7 +264,7 @@ Client::~Client()
 	if (status==sf::Socket::Done)
 	{
 		delete manager;
-		delete map;
+		//delete map;
 	}
 	//delete player;
 	//if (temp!=0)
