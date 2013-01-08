@@ -7,13 +7,6 @@ CommonTeamInfo::CommonTeamInfo(unsigned short tId, Player* player) : teamId(tId)
 void CommonTeamInfo::addTank(CommonTankInfo* t)
 {
 	myTanks.push_back(t);
-	if(myTanks.size() == 1)
-	{
-		selected = t;
-		selected->deSelect();
-	}
-
-	//player->addTank(t->getLogic());
 }
 std::vector<CommonTankInfo *>::iterator CommonTeamInfo::getBegin()
 {
@@ -28,6 +21,7 @@ void CommonTeamInfo::setSelected(CommonTankInfo* tank)
 {
 	selected = tank;
 	player->setSelected(selected->getLogic());
+	tank->reSelect();
 }
 std::vector<CommonTankInfo *>::iterator CommonTeamInfo::getEnd()
 {

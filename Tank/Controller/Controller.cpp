@@ -101,7 +101,7 @@ void Controller::stopChat()
 		delete thread;
 	}
 }
-Controller::Controller(short x, short y, std::string title, unsigned short myId) : myTeamId(myId)
+Controller::Controller(short x, short y, std::string title)
 {
 	client = startGui();
 	thread = NULL;
@@ -410,6 +410,8 @@ void Controller::addTanks(AbstractView* v)
 
 	if(StartGui::isOfflineMode())
 	{
+		myTeamId = 0;
+
 		for(unsigned short j = 0; j < 3; j++)//teams
 		{
 			currentPlayer = new Player("offline player");
@@ -422,7 +424,10 @@ void Controller::addTanks(AbstractView* v)
 		currentPlayer = new Player(client->getNickname());
 		map->add(currentPlayer);
 		addCurrentPlayerTanks(v, currentPlayer, map->getPlayers().size() - 1);
+		myTeamId = map->getPlayers().size() - 1;
 	}
+
+	teams[myTeamId]->setSelected(*(teams[myTeamId]->getBegin()));
 }
 
 void Controller::addCurrentPlayerTanks(AbstractView* v, Player* player, const short& playerID)

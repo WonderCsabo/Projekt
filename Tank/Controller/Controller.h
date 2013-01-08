@@ -24,7 +24,7 @@ class Controller
 private:
 	Client* client;
 	Sounds sounds;
-	const unsigned short myTeamId;
+	unsigned short myTeamId;
 	float tankSpeed;
 	float bulletSpeed;
 	float rotSpeed;
@@ -76,7 +76,7 @@ public:
 	The Window title.
 	The own team id.
 	*/
-	Controller(short,short,std::string,unsigned short);
+	Controller(short,short,std::string);
 	~Controller(void);
 	int run();
 	sf::RenderWindow* getWindow();
