@@ -24,6 +24,7 @@ public:
 
     void add(const Block* const block);
     void add(Player* player);
+	void addNewPlayer(Player* player);
 	void updatePlayer(Player* const player);
 
 	const AbstractEntity* isEntityOnPosition(const AbstractEntity* entity, const short& entityPosX, const short& entityPosY, const short& posX, const short& posY, const short& bounds) const;

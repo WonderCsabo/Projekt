@@ -42,7 +42,7 @@ void Map::add(const Block* const block)
     blocks.push_back(block);
 }
 
-void Map::add(Player* player)
+void Map::addNewPlayer(Player* player)
 {
     players.push_back(player);
 
@@ -58,6 +58,11 @@ void Map::add(Player* player)
 		Tank* tank  = new Tank(posX, posY, 35, 35, i, 0);
 		player->addTank(tank);
 	}
+}
+
+void Map::add(Player* player)
+{
+	players.push_back(player);
 }
 
 void Map::updatePlayer(Player* const player)

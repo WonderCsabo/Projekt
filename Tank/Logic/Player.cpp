@@ -47,12 +47,6 @@ void Player::addTank(Tank* const tank)
 void Player::addInitialTanks()
 {
 
-    selected = 0;
-
-    /// TODO: hozzáadni tankokat
-    tanks.push_back(new Tank(78, 0, 0, 0, 0, 0));
-    tanks.push_back(new Tank(78, 0, 0, 0, 1, 0));
-    tanks.push_back(new Tank(78, 0, 0, 99, 2, 0));
 }
 
 bool Player::TankChangedPredicate::operator()(const Tank& tank)

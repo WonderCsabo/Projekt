@@ -1,7 +1,7 @@
 #include "Tank.h"
 #include "TankTypes.h"
 
-Tank::Tank() : destinationX(0), destinationY(0), motion(true)
+Tank::Tank() : destinationX(0), destinationY(0), motion(false)
 {
     init();
 }

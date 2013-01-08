@@ -46,7 +46,7 @@ void Client::initGameProtocol()
 	//map->add(player);
 }
 
-void Client::sendNewPlayer(Player* player)
+void Client::sendNewPlayer(Player* player)	
 {
 	MessageObject m(MessageObject::NEWPL, "newplayer");
 	send(m);
@@ -127,6 +127,8 @@ void Client::manageClient()
 			Player* player = getFromPacket<Player>(packet);
 			map->add(player);
 			isMapChanged = true;
+			MessageObject notify(MessageObject::NOTIFY, "notify");
+			messages.push_back(notify);
 			mutex.unlock();
 		}
 		else// if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
@@ -186,7 +188,6 @@ Player* Client::getPlayer()
 
 void Client::setPlayer(Player* p)
 {
-	delete player;
 	player = p;
 }
 

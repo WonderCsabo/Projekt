@@ -45,7 +45,7 @@ void Controller::recieveFromClient()//runs in separate thread
 		{
 				view->addOutputChat(m.message);
 		}
-		else if (m.type == MessageObject::CONN)
+		else if (m.type == MessageObject::NOTIFY && m.message == "notify")
 		{
 			Player* player = map->getPlayers()[map->getPlayers().size() - 1];
 			addCurrentPlayerTanks(view, player, map->getPlayers().size() - 1);
@@ -435,7 +435,7 @@ void Controller::addTanks(AbstractView* v)
 		}
 
 		currentPlayer = new Player(client->getNickname());
-		map->add(currentPlayer);
+		map->addNewPlayer(currentPlayer);
 		addCurrentPlayerTanks(v, currentPlayer, map->getPlayers().size() - 1);
 		myTeamId = map->getPlayers().size() - 1;
 		client->setPlayer(currentPlayer);
