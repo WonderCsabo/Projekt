@@ -6,17 +6,20 @@ int Controller::run()
 {
 	if (client==NULL && !StartGui::isOfflineMode())
 		return 1; //return with error
-	if (!StartGui::isOfflineMode()) startChat();
+
+	if (!StartGui::isOfflineMode())
+		startChat();
+
 	isGameStarted = StartGui::isOfflineMode();
+
 	while(programRunning())//runs by the main thread
 	{
 		sf::Event ev;
 		while(getEvent(ev))
 		{
 			if(client!= NULL)
-			{
 				client->sendEventMessage(ev);
-			}
+
 			if(ev.type == sf::Event::Closed)
 			{
 				shutdown();
@@ -25,8 +28,10 @@ int Controller::run()
 		}
 		refresh();
 	}
+
 	return 0;
 }
+
 void Controller::recieveFromClient()//runs in separate thread
 {
 	while (programRunning())
@@ -39,13 +44,11 @@ void Controller::recieveFromClient()//runs in separate thread
 			view->addOutputChat("GAME STARTED");
 		}
 		else if (m.type == MessageObject::CMD && m.message == "shut")
-		{
 			shutdown();
-		}
+
 		else if (m.type == MessageObject::GNRL && m.message != "null")
-		{
 				view->addOutputChat(m.message);
-		}
+
 		else if (m.type == MessageObject::NOTIFY && m.message == "notify")
 		{
 			Player* player = map->getPlayers()[map->getPlayers().size() - 1];
@@ -67,6 +70,7 @@ void Controller::wrt(const sf::Event &event)
 	if (writeToConsole && event.type == sf::Event::KeyPressed)
 	{
 		char c = getChar(event);
+
 		if (c!=0)
 			console+=c;
 		if (console[0] == '0' && console.length()>1)
@@ -89,16 +93,19 @@ void Controller::wrt(const sf::Event &event)
 		view->addInputChat(console);
 	}
 }
+
 Client* Controller::startGui()
 {
 	StartGui gui;
 	return gui.getClient();
 }
+
 void Controller::startChat()
 {
 	thread = new sf::Thread(&Controller::recieveFromClient,this);
 	thread->launch();
 }
+
 void Controller::stopChat()
 {
 	if(thread != NULL)
@@ -107,6 +114,7 @@ void Controller::stopChat()
 		delete thread;
 	}
 }
+
 Controller::Controller(short x, short y, std::string title)
 {
 	client = startGui();
@@ -132,6 +140,7 @@ Controller::Controller(short x, short y, std::string title)
 	}
 	
 }
+
 char Controller::getChar(const sf::Event &ev)
 {
 	if (ev.type == ev.KeyPressed)
@@ -143,8 +152,10 @@ char Controller::getChar(const sf::Event &ev)
 			else
 				return char(65+ev.key.code);
 		}
+
 		else if (ev.key.code==sf::Keyboard::Space)
 			return ' ';
+
 		else if (ev.key.code>=26 && ev.key.code<=35)
 		{
 			return char(48+ev.key.code-26);
@@ -155,8 +166,10 @@ char Controller::getChar(const sf::Event &ev)
 		}
 		else if (ev.key.code == sf::Keyboard::Period)
 			return '.';
+
 		else return 0;
 	}
+
 	else return 0;
 }
 
@@ -166,6 +179,7 @@ CommonTankInfo* Controller::getTankOnPosition(const sf::Vector2f& position, Comm
 
 	if(tank)
 		return getCTanks[tank];
+
 	return 0;
 }
 
@@ -173,12 +187,14 @@ CommonTankInfo* Controller::isTankOnNewPosition(CommonTankInfo* tank, const sf::
 {
 	if(map->isEntityOnPosition(tank->getLogic(), (short) newPosition.x, (short) newPosition.y, (short) position.x, (short) position.y, (short) bounds))
 		return tank;
+
 	return 0;
 }
 
 bool Controller::programRunning()
 {
-	if(window == NULL) return false;
+	if(window == NULL)
+		return false;
 	return window->isOpen();
 }
 
@@ -199,9 +215,13 @@ void Controller::rotateCannonToPoint(const sf::Vector2f& A)
 
 bool Controller::getEvent(sf::Event& ev)
 {
-	if(events.empty()) return false;
+	if(events.empty())
+		return false;
 	ev = *events.begin();
 	events.pop_front();
+
+	if(isGameStarted && !teams[myTeamId]->isAlive())
+		isGameStarted = false;
 
 	if(isGameStarted)
 		rotateCannonToPoint(sf::Vector2f(sf::Mouse::getPosition(*window)));
@@ -211,7 +231,8 @@ bool Controller::getEvent(sf::Event& ev)
 		handleMouseClick(getTankOnPosition(sf::Vector2f(sf::Mouse::getPosition(*window))));
 		return false;
 	}
-	else wrt(ev);
+	else
+		wrt(ev);
 	return true;
 }
 
@@ -224,30 +245,30 @@ void Controller::handleMouseClick(CommonTankInfo* tank)
 		else
 			handleShoot(sf::Vector2f(sf::Mouse::getPosition(*window)), teams[myTeamId]->getSelected());
 
-		if(!StartGui::isOfflineMode())
+		if(isGameStarted && !StartGui::isOfflineMode())
 			client->sendChanged();
 	}
 	else
 	{
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
 			selectionHandler(tank);
-		}
 	}
 }
 
 void Controller::handleShoot(const sf::Vector2f& A, CommonTankInfo* tank)
 {
-	std::cout << A.x << " " << A.y << std::endl;
-
 	if(tank->getTeamId() == myTeamId)
 		teams[myTeamId]->setFirePos(A);
+
 	float a = std::floorf(A.x)-std::floorf(tank->getPosition().x);
 	float b = std::floorf(A.y)-std::floorf(tank->getPosition().y);
 	float c = std::sqrtf(a*a+b*b);
 	float i = a/c*bulletSpeed;	
 	float j = b/c*bulletSpeed;
-	if(tank->getBullet()) return;
+
+	if(tank->getBullet())
+		return;
+
 	tank->setBullet(new CommonBulletInfo(tank->getPosition(),sf::Vector2f(i,j)));
 	tank->startShoot();
 }
@@ -262,6 +283,7 @@ void Controller::tankMovements()
 	std::vector<CommonTeamInfo*>::iterator teamIter;
 	std::vector<CommonTankInfo*>::iterator tankIter;
 	CommonTankInfo* tank;
+
 	for(teamIter = teams.begin(); teamIter!=teams.end(); teamIter++)
 	{	
 		for(tankIter = (*teamIter)->getBegin(); tankIter != (*teamIter)->getEnd(); tankIter++)
@@ -284,38 +306,57 @@ void Controller::applyMove(CommonTankInfo* tank)
 		return;
 	}
 
+
 	float desired = getAngleBetweenPoints(tank->getPosition(), tank->getDestination());
+
 	if(std::floor(desired) != std::floor(tank->getTankAngle()))
 	{
 		float actual = tank->getTankAngle();
-		if(desired<0) desired+=360;
-		if(actual<0) actual += 360;
+
+		if(desired<0)
+			desired+=360;
+		if(actual<0)
+			actual += 360;
 		if(desired>actual)
+
 		{
-			if(desired<180.0f+actual) actual += rotSpeed;
-			else actual -= rotSpeed;
+			if(desired<180.0f+actual)
+				actual += rotSpeed;
+			else
+				actual -= rotSpeed;
 		}
 		else
 		{
-			if(actual<180.0f+desired) actual -= rotSpeed;
-			else actual += rotSpeed;
+			if(actual<180.0f+desired)
+				actual -= rotSpeed;
+			else
+				actual += rotSpeed;
 		}
 
 		float difference = std::abs(actual-desired);
-		if(difference > 180.0f) difference = 360-difference;
-		//std::cout<<"|actual-desire|: "<<actual<<"-"<<desired<<"="<<difference<<"\n";
+
+		if(difference > 180.0f)
+			difference = 360-difference;
+
 		if(difference<rotSpeed)
 		{
+			if(desired<0)
+				desired = 360 +desired;
+			if(desired > 360)
+				desired = desired-360;
+			if(desired>180)
+				desired -= 360;
 
-			if(desired<0) desired = 360 +desired;
-			if(desired > 360) desired = desired-360;
-			if(desired>180) desired -= 360;
 			tank->setTankAngle(desired);
 			return;
 		}
-		if(actual < 0) actual = 360 + actual;
-		if(actual > 360) actual = actual-360;
-		if(actual>180) actual -= 360;
+
+		if(actual < 0)
+			actual = 360 + actual;
+		if(actual > 360)
+			actual = actual-360;
+		if(actual>180)
+			actual -= 360;
 
 		tank->setTankAngle(actual);
 	}
@@ -329,8 +370,10 @@ void Controller::applyMove(CommonTankInfo* tank)
 
 		sf::Vector2f newPosition;
 
-		if(std::abs(a)<std::abs(i) || std::abs(b)<std::abs(j)) newPosition = tank->getDestination();
-		else newPosition = tank->getPosition()+sf::Vector2f(i,j);
+		if(std::abs(a)<std::abs(i) || std::abs(b)<std::abs(j))
+			newPosition = tank->getDestination();
+		else
+			newPosition = tank->getPosition()+sf::Vector2f(i,j);
 
 		if(map->getBlockOnPosition((short) newPosition.x, (short) newPosition.y) || getTankOnPosition(newPosition, tank))
 		{
@@ -359,19 +402,26 @@ void Controller::moveBullet(CommonTankInfo* tank)
 		tank->stopShoot();
 		tank->setBullet(NULL);
 		hit->destroy();
+		teams[hit->getTeamId()]->removeTank();
 		sounds.playBumm();
 	}
 }
+
 bool Controller::isOwnTeam(CommonTankInfo* tank)
 {
 	return tank->getTeamId() == myTeamId;
 }
+
 void Controller::selectionHandler(CommonTankInfo* tank)
 {
 	CommonTankInfo* temp = teams[myTeamId]->getSelected();
 	bool reselect = false;
-	if(tank == NULL) return;
+
+	if(tank == NULL)
+		return;
+
 	std::vector<CommonTankInfo*>::iterator iter = teams[myTeamId]->getBegin();
+
 	for(; iter != teams[myTeamId]->getEnd(); iter++)
 	{
 		(*iter)->deSelect();
@@ -388,6 +438,7 @@ void Controller::selectionHandler(CommonTankInfo* tank)
 		teams[myTeamId]->setSelected(temp);
 	}
 }
+
 void Controller::refresh()
 {
 	clock.restart();
@@ -398,16 +449,19 @@ void Controller::refresh()
 	if(clock.getElapsedTime().asMilliseconds() <= waitMs)
 		sf::sleep(sf::milliseconds(waitMs - clock.getElapsedTime().asMilliseconds()));
 
-	//sf::sleep(sf::milliseconds(waitMs));
 }
+
 void Controller::shutdown()
 {
 	stopChat();
-	if(client != NULL)	client->shutDown();
-	if(window != NULL && window->isOpen())  window->close();
+	if(client != NULL)
+		client->shutDown();
+	if(window != NULL && window->isOpen())
+		window->close();
 	delete client;
 	delete window;
 }
+
 void Controller::recieveEvents()
 {
 	sf::Event ev;
@@ -416,7 +470,6 @@ void Controller::recieveEvents()
 		events.push_back(ev);
 	}
 }
-
 
 AbstractView* Controller::getView()
 {

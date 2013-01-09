@@ -1,12 +1,22 @@
 #include "CommonTeamInfo.h"
 #include "../Util/Utils.h"
 
-CommonTeamInfo::CommonTeamInfo(unsigned short tId, Player* player) : teamId(tId), player(player)
+CommonTeamInfo::CommonTeamInfo(unsigned short tId, Player* player) : teamId(tId), player(player), aliveTanks(Player::PLAYER_TANKS_COUNT)
 {
 }
 void CommonTeamInfo::addTank(CommonTankInfo* t)
 {
 	myTanks.push_back(t);
+}
+
+void CommonTeamInfo::removeTank()
+{
+	--aliveTanks;
+}
+
+bool CommonTeamInfo::isAlive()
+{
+	return aliveTanks > 0;
 }
 std::vector<CommonTankInfo *>::iterator CommonTeamInfo::getBegin()
 {

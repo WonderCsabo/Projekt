@@ -80,6 +80,8 @@ void CommonTankInfo::setCannonAngle(const float& angle)
 }
 void CommonTankInfo::setBullet(CommonBulletInfo* foo)
 {
+	if(bullet)
+		delete bullet;
 	bullet = foo;
 }
 
