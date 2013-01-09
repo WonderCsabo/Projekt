@@ -9,24 +9,24 @@
 class ClientManager
 {
 public:
-	ClientManager(sf::TcpSocket*, std::string);
-	~ClientManager();
+    ClientManager(sf::TcpSocket*, std::string);
+    ~ClientManager();
 
-	sf::TcpSocket* getSocket();
-	std::string getNickname();
-	bool running();
-	void shutDown();
-	void run();
+    sf::TcpSocket* getSocket();
+    std::string getNickname();
+    bool running();
+    void shutDown();
+    void run();
 
-	void appendMessage(const MessageObject&);
-	MessageObject getMessage();
+    void appendMessage(const MessageObject&);
+    MessageObject getMessage();
 
 private:
-	std::string nickname;
-	sf::TcpSocket* client;
-	bool isRunning;
-	std::deque<MessageObject> msgs;
-	sf::Thread* pthread;
+    std::string nickname;
+    sf::TcpSocket* client;
+    bool isRunning;
+    std::deque<MessageObject> msgs;
+    sf::Thread* pthread;
 
-	void process();
+    void process();
 };

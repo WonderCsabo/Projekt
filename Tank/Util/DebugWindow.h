@@ -6,10 +6,10 @@ class DebugWindow
 {
 private:
 
-		DebugWindow();
+    DebugWindow();
 
 public:
-		~DebugWindow();
+    ~DebugWindow();
 
-	static void openDebugWindow();
+    static void openDebugWindow();
 };

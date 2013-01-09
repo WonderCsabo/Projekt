@@ -8,53 +8,53 @@
 * @param IpAddress IP address
 */
 Client::Client(unsigned int port_, sf::IpAddress addr_, std::string nickname_) : address(addr_), port(port_),
-	isRunning(true), nickname(nickname_)
+    isRunning(true), nickname(nickname_)
 {
-	status = server.connect(address, port);
-	if (status == sf::Socket::Done)
-	{
-		MessageObject hi(MessageObject::CONN, nickname);
-		send(hi);
-		
-		initGameProtocol();
-		temp = 0;
-		launch();
-	}
+    status = server.connect(address, port);
+    if (status == sf::Socket::Done)
+    {
+        MessageObject hi(MessageObject::CONN, nickname);
+        send(hi);
+
+        initGameProtocol();
+        temp = 0;
+        launch();
+    }
 }
 
 void Client::sendChanged()
 {
-	sf::Mutex mutex;
-	mutex.lock();
-	MessageObject m(MessageObject::PLAYER, "player");
-	send(m);
-	std::stringstream ss;
-	player->serializeChanged(ss);
-	sf::Packet packet;
-	packet.append(ss.str().c_str(), ss.str().size());
-	server.send(packet);
-	mutex.unlock();
+    sf::Mutex mutex;
+    mutex.lock();
+    MessageObject m(MessageObject::PLAYER, "player");
+    send(m);
+    std::stringstream ss;
+    player->serializeChanged(ss);
+    sf::Packet packet;
+    packet.append(ss.str().c_str(), ss.str().size());
+    server.send(packet);
+    mutex.unlock();
 }
 
 void Client::initGameProtocol()
 {
-	//recieving map
-	sf::Packet packet;
-	server.receive(packet);
-	map = getFromPacket<Map>(packet);
-	isMapChanged = true;
-	//create and send player
-	//player = new Player(nickname);
-	//server.send(putToPacket(*player));
-	//map->add(player);
+    //recieving map
+    sf::Packet packet;
+    server.receive(packet);
+    map = getFromPacket<Map>(packet);
+    isMapChanged = true;
+    //create and send player
+    //player = new Player(nickname);
+    //server.send(putToPacket(*player));
+    //map->add(player);
 }
 
-void Client::sendNewPlayer(Player* player)	
+void Client::sendNewPlayer(Player* player)
 {
-	MessageObject m(MessageObject::NEWPL, "newplayer");
-	send(m);
-	server.send(putToPacket(*player));
-	//map->add(player);
+    MessageObject m(MessageObject::NEWPL, "newplayer");
+    send(m);
+    server.send(putToPacket(*player));
+    //map->add(player);
 }
 
 /**
@@ -62,8 +62,8 @@ void Client::sendNewPlayer(Player* player)
 */
 void Client::launch()
 {
-	manager = new sf::Thread(&Client::manageClient, this);
-	manager->launch();
+    manager = new sf::Thread(&Client::manageClient, this);
+    manager->launch();
 }
 
 /**
@@ -72,30 +72,30 @@ void Client::launch()
 */
 void Client::sendEventMessage(sf::Event& ev)
 {
-	std::stringstream ss;
-	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::End)
-	{
-		sendChanged();
-	}
-	if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Home)
-	{
-		MessageObject m(MessageObject::START, "start");
-		send(m);
-	}
-	/*
-	if (ev.type == ev.MouseButtonReleased)
-	{
-		ss << ev.mouseButton.x << " " << ev.mouseButton.y;
-		if (ev.mouseButton.button == sf::Mouse::Right)
-		{
-			send(MessageObject::ACTION, "user shot/moved to " + ss.str());
-		}
-		else if (ev.mouseButton.button == sf::Mouse::Left)
-		{
-			send(MessageObject::MVMNT, "user clicked at: " + ss.str());
-		}
-	}
-	*/
+    std::stringstream ss;
+    if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::End)
+    {
+        sendChanged();
+    }
+    if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Home)
+    {
+        MessageObject m(MessageObject::START, "start");
+        send(m);
+    }
+    /*
+    if (ev.type == ev.MouseButtonReleased)
+    {
+    	ss << ev.mouseButton.x << " " << ev.mouseButton.y;
+    	if (ev.mouseButton.button == sf::Mouse::Right)
+    	{
+    		send(MessageObject::ACTION, "user shot/moved to " + ss.str());
+    	}
+    	else if (ev.mouseButton.button == sf::Mouse::Left)
+    	{
+    		send(MessageObject::MVMNT, "user clicked at: " + ss.str());
+    	}
+    }
+    */
 
 }
 
@@ -104,49 +104,51 @@ void Client::sendEventMessage(sf::Event& ev)
 */
 void Client::manageClient()
 {
-	while(isRunning)
-	{
-		sf::sleep(sf::milliseconds(10));
-		MessageObject m = recieve();
-		/*if (m.type == MessageObject::START && m.message == "start") //server sends a start message, start the game
-		{
-			MessageObject startmsg(MessageObject::START, "GAME STARTED");
-			messages.push_back(startmsg);
-		}
-		else*/ if (m.type == MessageObject::UPD && m.message == "update") //server sends update message, update player next
-		{
-			sf::Mutex mutex;
-			mutex.lock();
-			sf::Packet packet;
-			server.receive(packet);
-			temp = getFromPacket<Player>(packet);
-			map->updatePlayer(temp);
-			isMapChanged = true;
-			//map->updatePlayer(getFromPacket<Player>(packet));
-			mutex.unlock();
-		}
-		else if (m.type == MessageObject::NEWPL && m.message == "newplayer") //server sends newplayer, add a new player
-		{
-			sf::Mutex mutex;
-			mutex.lock();
-			sf::Packet packet; server.receive(packet);
-			Player* player = getFromPacket<Player>(packet);
-			map->add(player);
-			isMapChanged = true;
-			MessageObject notify(MessageObject::NOTIFY, "notify");
-			messages.push_back(notify);
-			mutex.unlock();
-		}
-		else// if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
-			messages.push_back(m);
-		//else
-		//	sysmsg.push_back(m);
-		if (m.type == MessageObject::CMD && m.message == "shut") //shutdown
-		{
-			isRunning = false;
-			shutDown();
-		}
-	}
+    while(isRunning)
+    {
+        sf::sleep(sf::milliseconds(10));
+        MessageObject m = recieve();
+        /*if (m.type == MessageObject::START && m.message == "start") //server sends a start message, start the game
+        {
+        	MessageObject startmsg(MessageObject::START, "GAME STARTED");
+        	messages.push_back(startmsg);
+        }
+        else*/
+        if (m.type == MessageObject::UPD && m.message == "update") //server sends update message, update player next
+        {
+            sf::Mutex mutex;
+            mutex.lock();
+            sf::Packet packet;
+            server.receive(packet);
+            temp = getFromPacket<Player>(packet);
+            map->updatePlayer(temp);
+            isMapChanged = true;
+            //map->updatePlayer(getFromPacket<Player>(packet));
+            mutex.unlock();
+        }
+        else if (m.type == MessageObject::NEWPL && m.message == "newplayer") //server sends newplayer, add a new player
+        {
+            sf::Mutex mutex;
+            mutex.lock();
+            sf::Packet packet;
+            server.receive(packet);
+            Player* player = getFromPacket<Player>(packet);
+            map->add(player);
+            isMapChanged = true;
+            MessageObject notify(MessageObject::NOTIFY, "notify");
+            messages.push_back(notify);
+            mutex.unlock();
+        }
+        else// if (m.type == MessageObject::GNRL || m.type == MessageObject::CONN)
+            messages.push_back(m);
+        //else
+        //	sysmsg.push_back(m);
+        if (m.type == MessageObject::CMD && m.message == "shut") //shutdown
+        {
+            isRunning = false;
+            shutDown();
+        }
+    }
 }
 
 /**
@@ -155,7 +157,7 @@ void Client::manageClient()
 */
 bool Client::isConnected()
 {
-	return (status==sf::Socket::Done);
+    return (status==sf::Socket::Done);
 }
 
 /**
@@ -163,7 +165,7 @@ bool Client::isConnected()
 */
 std::string Client::getNickname()
 {
-	return nickname;
+    return nickname;
 }
 
 /**
@@ -172,10 +174,10 @@ std::string Client::getNickname()
 */
 sf::TcpSocket* Client::getSocket()
 {
-	return &server;
+    return &server;
 }
 
-/*bool Client::getMapChanged() 
+/*bool Client::getMapChanged()
 {
 	isMapChanged = !isMapChanged;
 	return !isMapChanged;
@@ -183,18 +185,18 @@ sf::TcpSocket* Client::getSocket()
 
 Map* Client::getMap()
 {
-	isMapChanged = false;
-	return map;
+    isMapChanged = false;
+    return map;
 }
 
 Player* Client::getPlayer()
 {
-	return player;
+    return player;
 }
 
 void Client::setPlayer(Player* p)
 {
-	player = p;
+    player = p;
 }
 
 /**
@@ -203,8 +205,8 @@ void Client::setPlayer(Player* p)
 */
 void Client::send(std::string message)
 {
-	MessageObject m(100, message);
-	send(m);
+    MessageObject m(100, message);
+    send(m);
 }
 
 /**
@@ -213,9 +215,9 @@ void Client::send(std::string message)
 */
 void Client::send(MessageObject message)
 {
-	sf::Packet packet;
-	packet << message;
-	server.send(packet);
+    sf::Packet packet;
+    packet << message;
+    server.send(packet);
 }
 
 /**
@@ -225,8 +227,8 @@ void Client::send(MessageObject message)
 */
 void Client::send(unsigned short type, std::string message)
 {
-	MessageObject m(type, message);
-	send(m);
+    MessageObject m(type, message);
+    send(m);
 }
 
 /**
@@ -235,11 +237,11 @@ void Client::send(unsigned short type, std::string message)
 */
 MessageObject Client::recieve()
 {
-	MessageObject m;
-	sf::Packet packet;
-	server.receive(packet);
-	packet >> m;
-	return m;
+    MessageObject m;
+    sf::Packet packet;
+    server.receive(packet);
+    packet >> m;
+    return m;
 }
 
 /**
@@ -248,20 +250,20 @@ MessageObject Client::recieve()
 */
 MessageObject Client::getLastMessage()
 {
-	if (messages.size()!=0)
-	{
-		sf::Mutex mutex;
-		mutex.lock();
-		MessageObject m = messages.front();
-		messages.pop_front();
-		mutex.unlock();
-		return m;
-	}
-	else
-	{
-		MessageObject m;
-		return m;
-	}
+    if (messages.size()!=0)
+    {
+        sf::Mutex mutex;
+        mutex.lock();
+        MessageObject m = messages.front();
+        messages.pop_front();
+        mutex.unlock();
+        return m;
+    }
+    else
+    {
+        MessageObject m;
+        return m;
+    }
 }
 
 /**
@@ -269,10 +271,10 @@ MessageObject Client::getLastMessage()
 */
 void Client::shutDown()
 {
-	//std::cout << "Connection closed\nPress Enter to exit";
-	send(MessageObject::CMD, "DISC");
-	isRunning = false;
-	server.disconnect();
+    //std::cout << "Connection closed\nPress Enter to exit";
+    send(MessageObject::CMD, "DISC");
+    isRunning = false;
+    server.disconnect();
 }
 
 /**
@@ -280,14 +282,15 @@ void Client::shutDown()
 */
 Client::~Client()
 {
-	if (isRunning)
-		shutDown();
-	if (status==sf::Socket::Done)
-	{
-		delete manager;
-		//delete map;
-	}
-	//delete player;
-	//if (temp!=0)
-	//	delete temp;
+    if (isRunning)
+        shutDown();
+    if (status==sf::Socket::Done)
+    {
+        manager->terminate();
+        delete manager;
+        //delete map;
+    }
+    //delete player;
+    //if (temp!=0)
+    //	delete temp;
 }

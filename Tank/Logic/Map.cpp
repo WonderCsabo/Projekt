@@ -7,8 +7,8 @@ Map::Map() { }
 
 Map::Map(const short& sizeX, const short& sizeY, std::vector<const Block*> blocks) : sizeX(sizeX), sizeY(sizeY), blocks(blocks)
 {
-	if(blocks.empty())
-		initBlocks();
+    if(blocks.empty())
+        initBlocks();
 }
 
 Map::~Map()
@@ -46,94 +46,95 @@ void Map::addNewPlayer(Player* player)
 {
     players.push_back(player);
 
-	for(int i = 0; i < Player::PLAYER_TANKS_COUNT; ++i)
-	{
-		short posX = std::rand() % 630 + 30;
-		short posY = std::rand() % 630 + 30;
-		while(getTankOnPosition(posX, posY, 0) || getBlockOnPosition(posX, posY))
-		{
-			posX = std::rand() % 630 + 30;
-			posY = std::rand() % 630 + 30;
-		}
-		Tank* tank  = new Tank(posX, posY, 35, 35, i, 0);
-		player->addTank(tank);
-	}
+    for(int i = 0; i < Player::PLAYER_TANKS_COUNT; ++i)
+    {
+        short posX = std::rand() % 630 + 30;
+        short posY = std::rand() % 630 + 30;
+        while(getTankOnPosition(posX, posY, 0) || getBlockOnPosition(posX, posY))
+        {
+            posX = std::rand() % 630 + 30;
+            posY = std::rand() % 630 + 30;
+        }
+        Tank* tank  = new Tank(posX, posY, 35, 35, i, 0);
+        player->addTank(tank);
+    }
 }
 
 void Map::add(Player* player)
 {
-	players.push_back(player);
+    players.push_back(player);
 }
 
 void Map::updatePlayer(Player* const player)
 {
-	for(unsigned int i = 0; i < players.size(); ++i)
-	{
-		if(player->getName() == players[i]->getName())
-		{
-			Player* thisPlayer = players[i];
-			thisPlayer->setFirePosX(player->getFirePosX());
-			thisPlayer->setFirePosY(player->getFirePosY());
+    for(unsigned int i = 0; i < players.size(); ++i)
+    {
+        if(player->getName() == players[i]->getName())
+        {
+            Player* thisPlayer = players[i];
+            thisPlayer->setFirePosX(player->getFirePosX());
+            thisPlayer->setFirePosY(player->getFirePosY());
 
-			for(unsigned int j = 0; j < player->getTanks().size(); ++j)
-			{
-				Tank* updatedTank = player->getTanks()[j];
-				*(thisPlayer->getTanks()[player->getTanks()[j]->getID()]) = *updatedTank;
-			}
+            for(unsigned int j = 0; j < player->getTanks().size(); ++j)
+            {
+                Tank* updatedTank = player->getTanks()[j];
+                *(thisPlayer->getTanks()[player->getTanks()[j]->getID()]) = *updatedTank;
+            }
 
-			return;
-		}
-	}
+            return;
+        }
+    }
 }
 
 void Map::initBlocks()
 {
-	for(int i = 0; i < BLOCKS_COUNT; ++i)
-	{
-		short posX = std::rand() % 630 + 30;
-		short posY = std::rand() % 630 + 30;
+    for(int i = 0; i < BLOCKS_COUNT; ++i)
+    {
+        short posX = std::rand() % 630 + 30;
+        short posY = std::rand() % 630 + 30;
 
-		while(getBlockOnPosition(posX, posY))
-		{
-			posX = std::rand() % 630 + 30;
-			posY = std::rand() % 630 + 30;
-		}
+        while(getBlockOnPosition(posX, posY))
+        {
+            posX = std::rand() % 630 + 30;
+            posY = std::rand() % 630 + 30;
+        }
 
-		add(new Block(posX, posY, 35, 35));
-	}
+        add(new Block(posX, posY, 35, 35));
+    }
 }
 
 const AbstractEntity* Map::isEntityOnPosition(const AbstractEntity* entity, const short& entityPosX, const short& entityPosY, const short& posX, const short& posY, const short& bounds) const
 {
-	short left = entityPosX - entity->getSizeX() / 2 - bounds;
-	short right = entityPosX + entity->getSizeX() / 2 + bounds;
-	short top = entityPosY - entity->getSizeY() / 2 - bounds;
-	short bottom = entityPosY + entity->getSizeY() / 2 + bounds;
+    short left = entityPosX - entity->getSizeX() / 2 - bounds;
+    short right = entityPosX + entity->getSizeX() / 2 + bounds;
+    short top = entityPosY - entity->getSizeY() / 2 - bounds;
+    short bottom = entityPosY + entity->getSizeY() / 2 + bounds;
 
-	if(left < posX && right > posX && top < posY && bottom > posY)
-		return entity;
-	return 0;
+    if(left < posX && right > posX && top < posY && bottom > posY)
+        return entity;
+    return 0;
 }
 
 Tank* Map::getTankOnPosition(const short& posX, const short& posY, Tank* thisTank) const
 {
-	for(auto playerIter = players.cbegin(); playerIter != players.cend(); ++playerIter)
+    for(auto playerIter = players.cbegin(); playerIter != players.cend(); ++playerIter)
 
-		for(auto tankIter = (*playerIter)->getTanks().cbegin(); tankIter != (*playerIter)->getTanks().cend(); ++tankIter)
+        for(auto tankIter = (*playerIter)->getTanks().cbegin(); tankIter != (*playerIter)->getTanks().cend(); ++tankIter)
 
-			if(thisTank != *tankIter && isEntityOnPosition(*tankIter, (*tankIter)->getPosX(), (*tankIter)->getPosY(), posX, posY, 20))
-				return *tankIter;
+            if(thisTank != *tankIter && (*tankIter)->getHP() != 0
+                    && isEntityOnPosition(*tankIter, (*tankIter)->getPosX(), (*tankIter)->getPosY(), posX, posY, 20))
+                return *tankIter;
 
-	return 0;
+    return 0;
 }
 
 const Block* Map::getBlockOnPosition(const short& posX, const short& posY) const
 {
-	for(auto it = blocks.cbegin(); it != blocks.cend(); ++it)
-		if(isEntityOnPosition(*it, (*it)->getPosX(), (*it)->getPosY(), posX, posY, 20))
-			return *it;
+    for(auto it = blocks.cbegin(); it != blocks.cend(); ++it)
+        if(isEntityOnPosition(*it, (*it)->getPosX(), (*it)->getPosY(), posX, posY, 20))
+            return *it;
 
-	return 0;
+    return 0;
 }
 
 std::ostream& operator<<(std::ostream& o, const Map& map)

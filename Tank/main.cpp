@@ -7,9 +7,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 int main()
 #endif
 {
-	std::srand((unsigned)std::time( 0 ));
-	//DebugWindow::openDebugWindow();
-	Controller controller(700, 700, "Tank Battle");
-	controller.run();
-	return 0;
+    std::srand((unsigned)std::time( 0 ));
+    Controller controller(700, 700, "Tank Battle");
+    controller.run();
+    return 0;
 }

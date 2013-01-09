@@ -2,7 +2,7 @@
 
 GuiElement::GuiElement(std::string id_, sf::RenderWindow* rw, Coord pos, std::string txt) : id(id_), position(pos), text(txt), window(rw)
 {
-	width = height = 0;
+    width = height = 0;
 }
 
 GuiElement::~GuiElement()
@@ -12,36 +12,36 @@ GuiElement::~GuiElement()
 
 std::string GuiElement::getText() const
 {
-	return text;
+    return text;
 }
 
 int GuiElement::getType() const
 {
-	return TYPE;
+    return TYPE;
 }
 
 const std::string& GuiElement::getId() const
 {
-	return id;
+    return id;
 }
 
 void GuiElement::setText(std::string t)
 {
-	text = t;
-	draw();
+    text = t;
+    draw();
 }
 
 Coord GuiElement::getPosition() const
 {
-	return position;
+    return position;
 }
 
 bool GuiElement::isMouseClicked(sf::Event ev)
 {
-	if (ev.mouseButton.x>position.x && ev.mouseButton.y>position.y &&
-	    ev.mouseButton.x<position.x+width && ev.mouseButton.y<position.y+height &&
-	    ev.type==sf::Event::MouseButtonPressed && ev.mouseButton.button==sf::Mouse::Left)
-		return true;
-	else
-		return false;
+    if (ev.mouseButton.x>position.x && ev.mouseButton.y>position.y &&
+            ev.mouseButton.x<position.x+width && ev.mouseButton.y<position.y+height &&
+            ev.type==sf::Event::MouseButtonPressed && ev.mouseButton.button==sf::Mouse::Left)
+        return true;
+    else
+        return false;
 }

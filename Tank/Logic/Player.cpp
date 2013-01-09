@@ -36,11 +36,11 @@ const Tank* const Player::getSelected() const
 
 const short& Player::getFirePosX() const
 {
-	return firePosX;
+    return firePosX;
 }
 const short& Player::getFirePosY() const
 {
-	return firePosY;
+    return firePosY;
 }
 
 void Player::setSelected(Tank* const selected)
@@ -50,12 +50,12 @@ void Player::setSelected(Tank* const selected)
 
 void Player::setFirePosX(const short& posX)
 {
-	this->firePosX = posX;
+    this->firePosX = posX;
 }
 
 void Player::setFirePosY(const short& posY)
 {
-	this->firePosY = posY;
+    this->firePosY = posY;
 }
 
 void Player::addTank(Tank* const tank)
@@ -79,8 +79,8 @@ std::ostream& Player::serializeChanged(std::ostream& o)
 
     o.write((char*) &stringSize, sizeof(str_size_t));
     o.write(name.c_str(), name.size());
-	o.write((char*) &firePosX, sizeof(short));
-	o.write((char*) &firePosY, sizeof(short));
+    o.write((char*) &firePosX, sizeof(short));
+    o.write((char*) &firePosY, sizeof(short));
 
     serializePointerContainer(tanks.cbegin(), tanks.cend(), o, TankChangedPredicate());
 
@@ -93,8 +93,8 @@ std::ostream& operator<<(std::ostream& o, const Player& player)
 
     o.write((char*) &stringSize, sizeof(str_size_t));
     o.write(player.name.c_str(), player.name.size());
-	o.write((char*) &player.firePosX, sizeof(short));
-	o.write((char*) &player.firePosY, sizeof(short));
+    o.write((char*) &player.firePosX, sizeof(short));
+    o.write((char*) &player.firePosY, sizeof(short));
 
     serializePointerContainer(player.tanks.cbegin(), player.tanks.cend(), o);
 
@@ -116,8 +116,8 @@ std::istream& operator>>(std::istream& in, Player& player)
 
     player.name = std::string(text);
 
-	in.read((char*) &player.firePosX, sizeof(short));
-	in.read((char*) &player.firePosY, sizeof(short));
+    in.read((char*) &player.firePosX, sizeof(short));
+    in.read((char*) &player.firePosY, sizeof(short));
 
     deserializePointerContainer<Tank>(player.tanks, in);
 

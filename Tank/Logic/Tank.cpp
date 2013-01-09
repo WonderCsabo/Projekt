@@ -7,10 +7,10 @@ Tank::Tank() : destinationX(0), destinationY(0), motion(false)
 }
 
 Tank::Tank(const short& posX, const short& posY, const short& sizeX, const short& sizeY, const short& ID, const short& typeID)
-	: AbstractEntity(posX, posY, sizeX, sizeY), typeID(typeID), destinationX(0), destinationY(0), tankAngle(0), cannonAngle(0),
-	selected(0), firing(0), changed(0), motion(false)
+    : AbstractEntity(posX, posY, sizeX, sizeY), typeID(typeID), destinationX(0), destinationY(0), tankAngle(0), cannonAngle(0),
+      selected(0), firing(0), changed(0), motion(false)
 {
-	this->ID = ID;
+    this->ID = ID;
     init();
 }
 
@@ -35,12 +35,12 @@ bool Tank::isChanged() const
 
 bool Tank::isFiring() const
 {
-	return firing;
+    return firing;
 }
 
 bool Tank::isMotion() const
 {
-	return motion;
+    return motion;
 }
 
 const short& Tank::getHP() const
@@ -55,22 +55,22 @@ const short& Tank::getTypeID() const
 
 const short& Tank::getDestinationX() const
 {
-	return destinationX;
+    return destinationX;
 }
 
 const short& Tank::getDestinationY() const
 {
-	return destinationY;
+    return destinationY;
 }
 
 const float& Tank::getTankAngle() const
 {
-	return tankAngle;
+    return tankAngle;
 }
 
 const float& Tank::getCannonAngle() const
 {
-	return cannonAngle;
+    return cannonAngle;
 }
 
 const unsigned short& Tank::getFireDamage() const
@@ -97,19 +97,19 @@ void Tank::setHP(const short& HP)
 
 void Tank::setFiring(const bool& firing)
 {
-	this->firing = firing;
-	changed = true;
+    this->firing = firing;
+    changed = true;
 }
 
 void Tank::setMotion(const bool& motion)
 {
-	this->motion = motion;
-	changed = true;
+    this->motion = motion;
+    changed = true;
 }
 
 void Tank::setDestinationX(const short& destinationX)
 {
-	this->destinationX = destinationX;
+    this->destinationX = destinationX;
     changed = true;
 }
 
@@ -121,13 +121,13 @@ void  Tank::setDestinationY(const short& destinationY)
 
 void Tank::setTankAngle(const float& angle)
 {
-	tankAngle = angle;
-	changed = true;
+    tankAngle = angle;
+    changed = true;
 }
 void Tank::setCannonAngle(const float& angle)
 {
-	cannonAngle = angle;
-	changed = true;
+    cannonAngle = angle;
+    changed = true;
 }
 
 void Tank::move(const short& destinationX, const short& destinationY)
@@ -154,10 +154,10 @@ std::ostream& operator<<(std::ostream& o, Tank& tank)
     o.write((char*) &tank.destinationX, sizeof(short));
     o.write((char*) &tank.destinationY, sizeof(short));
     o.write((char*) &tank.typeID, sizeof(short));
-	o.write((char*) &tank.tankAngle, sizeof(float));
-	o.write((char*) &tank.cannonAngle, sizeof(float));
-	o.write((char*) &tank.firing, sizeof(bool));
-	o.write((char*) &tank.motion, sizeof(bool));
+    o.write((char*) &tank.tankAngle, sizeof(float));
+    o.write((char*) &tank.cannonAngle, sizeof(float));
+    o.write((char*) &tank.firing, sizeof(bool));
+    o.write((char*) &tank.motion, sizeof(bool));
 
     return o;
 }
@@ -169,10 +169,10 @@ std::istream& operator>>(std::istream& i, Tank& tank)
     i.read((char*) &tank.destinationX, sizeof(short));
     i.read((char*) &tank.destinationY, sizeof(short));
     i.read((char*) &tank.typeID, sizeof(short));
-	i.read((char*) &tank.tankAngle, sizeof(float));
-	i.read((char*) &tank.cannonAngle, sizeof(float));
-	i.read((char*) &tank.firing, sizeof(bool));
-	i.read((char*) &tank.motion, sizeof(bool));
+    i.read((char*) &tank.tankAngle, sizeof(float));
+    i.read((char*) &tank.cannonAngle, sizeof(float));
+    i.read((char*) &tank.firing, sizeof(bool));
+    i.read((char*) &tank.motion, sizeof(bool));
 
     return i;
 }

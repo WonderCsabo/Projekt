@@ -2,121 +2,122 @@
 
 CommonTankInfo::CommonTankInfo(unsigned short team, Tank* tank): teamId(team), tankLogic(tank), bullet(0), destroyed(false)
 {
-	stopShoot();
+    stopShoot();
 }
 
 CommonTankInfo::~CommonTankInfo(void) {}
 
 unsigned short CommonTankInfo::getTeamId()
 {
-	return teamId;
+    return teamId;
 }
 unsigned short CommonTankInfo::getTankId()
 {
-	return tankLogic->getID();
+    return tankLogic->getID();
 }
 sf::Vector2f CommonTankInfo::getPosition()
 {
-	return sf::Vector2f(tankLogic->getPosX(), tankLogic->getPosY());
+    return sf::Vector2f(tankLogic->getPosX(), tankLogic->getPosY());
 }
 sf::Vector2f CommonTankInfo::getDestination()
 {
-	return sf::Vector2f(tankLogic->getDestinationX(), tankLogic->getDestinationY());
+    return sf::Vector2f(tankLogic->getDestinationX(), tankLogic->getDestinationY());
 }
 sf::Vector2f CommonTankInfo::getSize()
 {
-	return sf::Vector2f(tankLogic->getSizeX(), tankLogic->getSizeY());
+    return sf::Vector2f(tankLogic->getSizeX(), tankLogic->getSizeY());
 }
 CommonBulletInfo* CommonTankInfo::getBullet()
 {
-	return bullet;
+    return bullet;
 }
 const float& CommonTankInfo::getTankAngle()
 {
-	return tankLogic->getTankAngle();
+    return tankLogic->getTankAngle();
 }
 const float& CommonTankInfo::getCannonAngle()
 {
-	return tankLogic->getCannonAngle();
+    return tankLogic->getCannonAngle();
 }
 
 Tank* CommonTankInfo::getLogic()
 {
-	return tankLogic;
+    return tankLogic;
 }
 bool CommonTankInfo::isInMotion()
 {
-	return tankLogic->isMotion();
+    return tankLogic->isMotion();
 }
 bool CommonTankInfo::isSelected()
 {
-	return tankLogic->isSelected();
+    return tankLogic->isSelected();
 }
 bool CommonTankInfo::isShoot()
 {
-	return tankLogic->isFiring();
+    return tankLogic->isFiring();
 }
 bool CommonTankInfo::isDestroyed()
 {
-	return destroyed;
+    return destroyed;
 }
 void CommonTankInfo::setPosition(const sf::Vector2f& pos)
 {
-	tankLogic->setPosX((short) pos.x);
-	tankLogic->setPosY((short) pos.y);
+    tankLogic->setPosX((short) pos.x);
+    tankLogic->setPosY((short) pos.y);
 }
 void CommonTankInfo::setDestination(const sf::Vector2f& dest)
 {
-	tankLogic->setDestinationX((short) dest.x);
-	tankLogic->setDestinationY((short) dest.y);
+    tankLogic->setDestinationX((short) dest.x);
+    tankLogic->setDestinationY((short) dest.y);
 }
 void CommonTankInfo::setTankAngle(const float& angle)
 {
-	tankLogic->setTankAngle(angle);
+    tankLogic->setTankAngle(angle);
 }
 void CommonTankInfo::setCannonAngle(const float& angle)
 {
-	tankLogic->setCannonAngle(angle);
+    tankLogic->setCannonAngle(angle);
 }
 void CommonTankInfo::setBullet(CommonBulletInfo* foo)
 {
-	if(bullet)
-		delete bullet;
-	bullet = foo;
+    if(bullet)
+        delete bullet;
+    bullet = foo;
 }
 
 void CommonTankInfo::updateLogic(Tank* updated)
 {
-	tankLogic = updated;
-	startMotion();
+    tankLogic = updated;
+    startMotion();
 }
 
 void CommonTankInfo::startMotion()
 {
-	tankLogic->setMotion(true);
+    tankLogic->setMotion(true);
 }
 void CommonTankInfo::stopMotion()
 {
-	tankLogic->setMotion(false);
-	setDestination(getPosition());
+    tankLogic->setMotion(false);
+    setDestination(getPosition());
 }
 void CommonTankInfo::startShoot()
 {
-	tankLogic->setFiring(true);
+    tankLogic->setFiring(true);
 }
 void CommonTankInfo::stopShoot()
 {
-	tankLogic->setFiring(false);
+    tankLogic->setFiring(false);
 }
 void CommonTankInfo::reSelect()
 {
-	tankLogic->setSelected(true);
+    tankLogic->setSelected(true);
 }
 void CommonTankInfo::deSelect()
 {
-	tankLogic->setSelected(false);
+    tankLogic->setSelected(false);
 }
 void CommonTankInfo::destroy()
 {
-	destroyed = true;
+    destroyed = true;
+    tankLogic->setHP(0);
 }

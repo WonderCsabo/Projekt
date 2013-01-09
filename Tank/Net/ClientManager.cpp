@@ -7,9 +7,9 @@
 */
 ClientManager::ClientManager(sf::TcpSocket* c, std::string nick)
 {
-	nickname = nick;
-	client = c;
-	isRunning = true;
+    nickname = nick;
+    client = c;
+    isRunning = true;
 }
 
 /**
@@ -17,7 +17,7 @@ ClientManager::ClientManager(sf::TcpSocket* c, std::string nick)
 */
 ClientManager::~ClientManager()
 {
-	delete pthread;
+    delete pthread;
 }
 
 /**
@@ -25,7 +25,7 @@ ClientManager::~ClientManager()
 */
 sf::TcpSocket* ClientManager::getSocket()
 {
-	return client;
+    return client;
 }
 
 /**
@@ -33,7 +33,7 @@ sf::TcpSocket* ClientManager::getSocket()
 */
 std::string ClientManager::getNickname()
 {
-	return nickname;
+    return nickname;
 }
 
 /**
@@ -41,8 +41,8 @@ std::string ClientManager::getNickname()
 */
 void ClientManager::shutDown()
 {
-	isRunning = false;
-	std::cout << "cms " << nickname << "> shut\n";
+    isRunning = false;
+    std::cout << "cms " << nickname << "> shut\n";
 }
 
 /**
@@ -50,8 +50,8 @@ void ClientManager::shutDown()
 */
 void ClientManager::run()
 {
-	pthread = new sf::Thread(&ClientManager::process, this);
-	pthread->launch();
+    pthread = new sf::Thread(&ClientManager::process, this);
+    pthread->launch();
 }
 
 /**
@@ -59,8 +59,8 @@ void ClientManager::run()
 */
 bool ClientManager::running()
 {
-	return isRunning;
-}	
+    return isRunning;
+}
 
 /**
 * appends message to the CM's message queue
@@ -68,9 +68,9 @@ bool ClientManager::running()
 */
 void ClientManager::appendMessage(const MessageObject& m)
 {
-	sf::Mutex mutex;
-	sf::Lock lock(mutex);
-	msgs.push_back(m);
+    sf::Mutex mutex;
+    sf::Lock lock(mutex);
+    msgs.push_back(m);
 }
 
 /**
@@ -78,21 +78,22 @@ void ClientManager::appendMessage(const MessageObject& m)
 */
 MessageObject ClientManager::getMessage()
 {
-	if (!msgs.empty()) {
-		sf::Mutex mutex;
-		sf::Lock lock(mutex);
-		MessageObject ret = msgs.front();
-		msgs.pop_front();
-		std::cout << "mgr " << nickname << "> " << ret << std::endl;
-		if (ret.type == MessageObject::CMD && ret.message == "DISC")
-			shutDown();
-		return ret;
-	}
-	else
-	{
-		MessageObject m;
-		return m;
-	}
+    if (!msgs.empty())
+    {
+        sf::Mutex mutex;
+        sf::Lock lock(mutex);
+        MessageObject ret = msgs.front();
+        msgs.pop_front();
+        std::cout << "mgr " << nickname << "> " << ret << std::endl;
+        if (ret.type == MessageObject::CMD && ret.message == "DISC")
+            shutDown();
+        return ret;
+    }
+    else
+    {
+        MessageObject m;
+        return m;
+    }
 }
 
 /**
@@ -100,9 +101,9 @@ MessageObject ClientManager::getMessage()
 */
 void ClientManager::process()
 {
-	while(isRunning)
-	{
-		sf::sleep(sf::milliseconds(10));
-		getMessage();
-	}
+    while(isRunning)
+    {
+        sf::sleep(sf::milliseconds(10));
+        getMessage();
+    }
 }

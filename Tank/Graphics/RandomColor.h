@@ -3,8 +3,8 @@
 class RandomColor
 {
 public:
-	RandomColor(void);
-	~RandomColor(void);
-	static sf::Color getRandomColor();
+    RandomColor(void);
+    ~RandomColor(void);
+    static sf::Color getRandomColor();
 };
 

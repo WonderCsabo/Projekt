@@ -24,12 +24,12 @@ public:
 
     void add(const Block* const block);
     void add(Player* player);
-	void addNewPlayer(Player* player);
-	void updatePlayer(Player* const player);
+    void addNewPlayer(Player* player);
+    void updatePlayer(Player* const player);
 
-	const AbstractEntity* isEntityOnPosition(const AbstractEntity* entity, const short& entityPosX, const short& entityPosY, const short& posX, const short& posY, const short& bounds) const;
-	Tank* getTankOnPosition(const short& posX, const short& posY, Tank* thisTank) const;
-	const Block* getBlockOnPosition(const short& posX, const short& posY) const;
+    const AbstractEntity* isEntityOnPosition(const AbstractEntity* entity, const short& entityPosX, const short& entityPosY, const short& posX, const short& posY, const short& bounds) const;
+    Tank* getTankOnPosition(const short& posX, const short& posY, Tank* thisTank) const;
+    const Block* getBlockOnPosition(const short& posX, const short& posY) const;
 
 private:
 
@@ -38,7 +38,7 @@ private:
     std::vector<const Block*> blocks;
     std::vector<Player*> players;
 
-	static short BLOCKS_COUNT;
+    static short BLOCKS_COUNT;
 
     void initBlocks();
 };

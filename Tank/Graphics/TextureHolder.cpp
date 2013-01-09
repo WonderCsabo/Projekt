@@ -7,19 +7,19 @@
 TextureHolder::TextureHolder(void) {}
 TextureHolder::~TextureHolder(void)
 {
-	clearPointerContainer(textures);
+    clearPointerContainer(textures);
 }
 
 void TextureHolder::addTexture(sf::Texture* t)
 {
-	textures.push_back(t);
+    textures.push_back(t);
 }
 sf::Texture* TextureHolder::returnRandom()
 {
-	return textures[std::rand()%textures.size()];
+    return textures[std::rand()%textures.size()];
 }
 sf::Texture* TextureHolder::returnIndex(int i)
 {
-	return textures[i];
+    return textures[i];
 }
 

@@ -65,7 +65,7 @@ const short& AbstractEntity::getEntityCount()
 
 const short& AbstractEntity::getID() const
 {
-	return ID;
+    return ID;
 }
 
 void AbstractEntity::init()
