@@ -2,6 +2,7 @@
 #include "../Util/DebugWindow.h"
 
 bool StartGui::offlineMode = false;
+bool StartGui::windowclosed = false;
 
 StartGui::StartGui()
 {
@@ -20,6 +21,11 @@ StartGui::~StartGui()
 bool StartGui::isOfflineMode()
 {
 	return StartGui::offlineMode;
+}
+
+bool StartGui::isWindowClosed()
+{
+	return StartGui::windowclosed;
 }
 
 Client* StartGui::getClient()
@@ -53,6 +59,7 @@ void StartGui::loop()
 			if (event.type == sf::Event::Closed)
 			{
 				window->close();
+				windowclosed = true;
 				client = NULL;
 				isOK = true;
 			}

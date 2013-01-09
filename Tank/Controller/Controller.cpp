@@ -125,8 +125,11 @@ Controller::Controller(short x, short y, std::string title)
 	else
 		map = new Map(700, 700);
 
-	addTanks(view);
-	addRandomBarrels(view);
+	if (!StartGui::isWindowClosed())
+	{
+		addTanks(view);
+		addRandomBarrels(view);
+	}
 	
 }
 char Controller::getChar(const sf::Event &ev)

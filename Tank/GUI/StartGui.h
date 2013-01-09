@@ -13,6 +13,7 @@ public:
 	Client* getClient();
 
 	static bool isOfflineMode();
+	static bool isWindowClosed();
 
 private:
 	GuiContainer* panel;
@@ -29,6 +30,7 @@ private:
 	Client* client;
 
 	static bool offlineMode;
+	static bool windowclosed;
 
 	void loop();
 	void makeGui();
